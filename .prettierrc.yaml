@@ -1,0 +1,24 @@
+# 通用
+printWidth: 80        # 每行字符数限制
+tabWidth: 2           # 缩进大小
+useTabs: false        # 用空格缩进而不是 tab
+semi: false           # 语句末尾不用分号
+singleQuote: true     # 使用单引号
+quoteProps: as-needed # 对象属性是否加引号：as-needed | consistent | preserve
+trailingComma: es5    # 尾随逗号：es5 | none | all
+bracketSpacing: true  # 对象大括号内留空格 { foo: bar }
+arrowParens: always   # 箭头函数参数是否总是加括号：always | avoid
+
+# JSX/TSX 专用
+jsxSingleQuote: false          # JSX 里是否使用单引号 <div className="foo">
+jsxBracketSameLine: false      # JSX 的 > 是否放在最后一行（已废弃，推荐用下面）
+bracketSameLine: false         # HTML/JSX 标签的 > 是否跟随在最后一行
+htmlWhitespaceSensitivity: css # HTML 的空格敏感度：css | strict | ignore
+
+# Vue 专用
+vueIndentScriptAndStyle: false # 是否缩进 <script> 和 <style> 标签
+singleAttributePerLine: false  # 每个属性是否强制换行
+
+# Markdown / JSON 等（可选）
+proseWrap: preserve # markdown 换行：always | never | preserve
+endOfLine: lf       # 换行符：lf | crlf | cr | auto

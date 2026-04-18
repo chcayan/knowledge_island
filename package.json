@@ -1,0 +1,52 @@
+{
+  "name": "knowledge_island",
+  "version": "1.0.0",
+  "description": "SSR project",
+  "scripts": {
+    "lint:prettier": "prettier --write \"**/*.{js,ts,mjs,cjs,json,jsx,tsx,css,less,scss,vue,html,md}\"",
+    "lint:eslint": "eslint",
+    "commit": "git-cz",
+    "precommit": "lint-staged",
+    "prepare": "husky",
+    "build:package": "pnpm -F utils build && pnpm -F schemas build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.30.3",
+  "engines": {
+    "node": ">=22.14.0",
+    "npm": ">=10.9.2",
+    "pnpm": ">=10.15.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
+  },
+  "dependencies": {
+    "@knowledge_island/schemas": "workspace:*",
+    "@knowledge_island/utils": "workspace:*",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
+    "@eslint/js": "^9.39.4",
+    "@types/node": "^25.6.0",
+    "commitizen": "^4.3.1",
+    "cz-git": "^1.12.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.4",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-vue": "^10.8.0",
+    "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.3",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.58.2"
+  }
+}
