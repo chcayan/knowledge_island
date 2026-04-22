@@ -24,3 +24,6 @@ out/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# other
+desktop.ini
