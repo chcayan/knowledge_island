@@ -9,6 +9,9 @@
       "4": "AI 问答"
     }
   },
+  "RootLayout": {
+    "description": "一个开放的问答与知识分享社区"
+  },
   "HomePage": {
     "title": "你好世界!"
   }

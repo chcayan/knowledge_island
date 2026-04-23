@@ -7,6 +7,8 @@ import { Metadata } from 'next'
 import { ThemeProvider } from '@wrksz/themes/next'
 import { ThemeToggle } from '@/components/layout/theme-toggle'
 import '@/scss/index.scss'
+import styles from './layout.module.scss'
+import Image from 'next/image'
 
 type locales = ['zh', 'en']
 type locale = locales[number]
@@ -46,17 +48,30 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
+  const t = await getTranslations({ locale, namespace: 'RootLayout' })
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <body>
         <ThemeProvider>
           <NextIntlClientProvider>
-            <Link href={locale === 'en' ? '/zh' : '/en'}>
-              切换为 {locale === 'en' ? '中文' : '英文'}
-            </Link>
-            <ThemeToggle />
-            {children}
+            <header>
+              <div className={styles.title}>
+                <h1>Knowledge Island</h1>
+                <p>{t('description')}</p>
+              </div>
+              <div className={styles.logo}>
+                <Image src="/logo.png" width={40} height={40} alt="logo" />
+              </div>
+              <nav className={styles.nav}></nav>
+            </header>
+            <main>{children}</main>
+            <aside>
+              <ThemeToggle />
+              <Link href={locale === 'en' ? '/zh' : '/en'}>
+                切换为 {locale === 'en' ? '中文' : '英文'}
+              </Link>
+            </aside>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

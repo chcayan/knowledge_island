@@ -9,6 +9,9 @@
       "4": "AI Q&A"
     }
   },
+  "RootLayout": {
+    "description": "An open Q&A and knowledge-sharing community"
+  },
   "HomePage": {
     "title": "Hello world!"
   }
