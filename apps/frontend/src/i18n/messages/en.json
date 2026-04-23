@@ -1,6 +1,13 @@
 {
   "Metadata": {
-    "title": "Knowledge Island"
+    "title": "Knowledge Island",
+    "description": "Knowledge Island, an open Q&A and knowledge-sharing community.",
+    "keywords": {
+      "1": "Knowledge Island",
+      "2": "Q&A community",
+      "3": "Knowledge sharing",
+      "4": "AI Q&A"
+    }
   },
   "HomePage": {
     "title": "Hello world!"

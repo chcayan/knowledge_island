@@ -1,0 +1,25 @@
+@use './theme.scss';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+// ::selection {
+// background-color: var(--theme-select-color);
+// }
+
+img {
+  object-fit: cover;
+}
+
+button,
+input {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-family: inherit;
+}
