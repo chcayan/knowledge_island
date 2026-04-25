@@ -9,6 +9,7 @@ import { ThemeToggle } from '@/components/layout/theme-toggle'
 import '@/scss/index.scss'
 import styles from './layout.module.scss'
 import Image from 'next/image'
+import Nav from '@/components/layout/nav'
 
 type locales = ['zh', 'en']
 type locale = locales[number]
@@ -48,7 +49,7 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
-  const t = await getTranslations({ locale, namespace: 'RootLayout' })
+  // const t = await getTranslations({ locale, namespace: 'RootLayout' })
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -58,12 +59,17 @@ export default async function RootLayout({
             <header>
               <div className={styles.title}>
                 <h1>Knowledge Island</h1>
-                <p>{t('description')}</p>
               </div>
               <div className={styles.logo}>
-                <Image src="/logo.png" width={40} height={40} alt="logo" />
+                <Image
+                  loading="eager"
+                  src="/logo.png"
+                  width={40}
+                  height={40}
+                  alt="logo"
+                />
               </div>
-              <nav className={styles.nav}></nav>
+              <Nav />
             </header>
             <main>{children}</main>
             <aside>

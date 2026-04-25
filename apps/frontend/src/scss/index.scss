@@ -12,6 +12,20 @@
 // background-color: var(--theme-select-color);
 // }
 
+a {
+  color: black;
+  text-decoration: none;
+
+  :visited {
+    color: black;
+  }
+}
+
+svg {
+  fill: var(--theme-svg-color);
+  flex-shrink: 0;
+}
+
 img {
   object-fit: cover;
 }
@@ -22,4 +36,12 @@ input {
   border: none;
   background-color: transparent;
   font-family: inherit;
+}
+
+.nav-active {
+  color: var(--theme-primary-color) !important;
+
+  svg {
+    fill: var(--theme-primary-color) !important;
+  }
 }

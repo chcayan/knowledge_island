@@ -1,0 +1,19 @@
+$gap: 10px;
+.search {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: $gap;
+  padding: 0 $gap;
+  border-radius: $gap;
+  background-color: var(--theme-pale-gray-color);
+  // box-shadow: var(--theme-shadow-color);
+
+  cursor: pointer;
+
+  input {
+    width: 100%;
+    height: 40px;
+  }
+}

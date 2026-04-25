@@ -1,0 +1,38 @@
+$gap: 10px;
+$mobile-size: 375px;
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  .top,
+  .bottom {
+    margin-top: 30px;
+    margin-left: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: $gap * 2;
+  }
+
+  .link {
+    width: 100px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    color: var(--theme-font-color);
+    @media (max-width: ($mobile-size * 3)) {
+      width: 32px;
+    }
+
+    p {
+      padding-left: $gap * 2;
+      white-space: nowrap;
+      color: inherit;
+      @media (max-width: ($mobile-size * 3)) {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,9 +1,19 @@
 html.dark {
-  --theme-color: rgb(3, 82, 141);
+  --theme-primary-color: rgb(22, 134, 233);
+  --theme-pale-gray-color: rgb(32, 33, 34);
   --theme-font-gray-color: rgb(144, 150, 156);
+  --theme-svg-color: rgb(255, 255, 255);
+  --theme-font-color: rgb(255, 255, 255);
+  --theme-nav-color: rgb(241, 245, 249);
+  --theme-shadow-color: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
 html.light {
-  --theme-color: rgb(3, 82, 141);
+  --theme-primary-color: rgb(22, 134, 233);
+  --theme-pale-gray-color: rgb(240, 244, 247);
   --theme-font-gray-color: rgb(144, 150, 156);
+  --theme-svg-color: rgb(0, 0, 0);
+  --theme-font-color: rgb(0, 0, 0);
+  --theme-nav-color: rgb(241, 245, 249);
+  --theme-shadow-color: 0 0 10px rgba(156, 164, 172, 0.3);
 }

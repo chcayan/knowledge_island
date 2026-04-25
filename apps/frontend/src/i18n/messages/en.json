@@ -10,9 +10,16 @@
     }
   },
   "RootLayout": {
-    "description": "An open Q&A and knowledge-sharing community"
+    "description": "An open Q&A and knowledge-sharing community",
+    "nav": {
+      "home": "Home",
+      "ai": "AI",
+      "chat": "Chat",
+      "publish": "publish",
+      "setting": "Setting"
+    }
   },
-  "HomePage": {
-    "title": "Hello world!"
+  "Home": {
+    "searchPlaceholder": "Please enter content"
   }
 }
