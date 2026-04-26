@@ -3,9 +3,11 @@ import {
   CreateDateColumn,
   Entity,
   Index,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
+import { Post } from '../../post/entities/post.entity'
 
 export enum UserSex {
   UNKNOWN = 0,
@@ -53,4 +55,7 @@ export class User {
 
   @Column({ type: 'varchar', nullable: true })
   signature!: string | null
+
+  @OneToMany(() => Post, (post) => post.author)
+  posts!: Post[]
 }

@@ -22,10 +22,7 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
-    "types": ["jest", "node"],
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "types": ["jest", "node"]
   },
   "include": ["src", "env.d.ts", "test/**/*.ts"]
 }

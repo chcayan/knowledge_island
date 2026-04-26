@@ -6,6 +6,9 @@ html.dark {
   --theme-font-color: rgb(255, 255, 255);
   --theme-nav-color: rgb(241, 245, 249);
   --theme-shadow-color: 0 0 10px rgba(255, 255, 255, 0.3);
+  --theme-divider-color: rgb(110, 110, 110);
+  --theme-toolbar-item-hover-color: rgb(74, 74, 74);
+  --theme-selection-color: rgba(255, 255, 255, 0.25);
 }
 
 html.light {
@@ -16,4 +19,7 @@ html.light {
   --theme-font-color: rgb(0, 0, 0);
   --theme-nav-color: rgb(241, 245, 249);
   --theme-shadow-color: 0 0 10px rgba(156, 164, 172, 0.3);
+  --theme-divider-color: rgb(209, 209, 209);
+  --theme-toolbar-item-hover-color: rgb(222, 222, 222);
+  --theme-selection-color: rgba(0, 0, 0, 0.25);
 }

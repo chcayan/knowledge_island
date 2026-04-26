@@ -1,187 +1,170 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 
-import { useState, JSX } from 'react'
+import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
-// import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
-// import { ContentEditable } from '@lexical/react/LexicalContentEditable'
+import { ContentEditable } from '@lexical/react/LexicalContentEditable'
+import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary'
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
-import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
-import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin'
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
-
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import {
-  FORMAT_TEXT_COMMAND,
-  $getSelection,
-  $isRangeSelection,
-  DecoratorNode,
+  $isTextNode,
+  DOMConversionMap,
+  DOMExportOutput,
+  DOMExportOutputMap,
+  EditorState,
+  isHTMLElement,
+  Klass,
+  LexicalEditor,
+  LexicalNode,
+  ParagraphNode,
+  TextNode,
 } from 'lexical'
 
-import { TOGGLE_LINK_COMMAND } from '@lexical/link'
-import Image from 'next/image'
-import { LinkNode } from '@lexical/link'
+import { theme } from './theme'
+import ToolbarPlugin from './plugins/toolbar-plugin'
+import { parseAllowedColor, parseAllowedFontSize } from './style-config'
+import styles from './editor.module.scss'
+import './index.scss'
+import { useEffect, useState } from 'react'
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
+import OnChangePlugin from './plugins/on-change-plugin'
+import RestorePlugin from './plugins/restore-plugin'
 
-export class ImageNode extends DecoratorNode<JSX.Element> {
-  __src: string
+const placeholder = 'Enter some rich text...'
 
-  constructor(src: string = '', key?: string) {
-    super(key)
-    this.__src = src
-  }
-
-  static getType() {
-    return 'image'
-  }
-
-  static clone(node: ImageNode) {
-    return new ImageNode(node.__src, node.__key)
-  }
-
-  static importJSON(serializedNode: any) {
-    const { src } = serializedNode
-    return new ImageNode(src)
-  }
-
-  exportJSON() {
-    return {
-      type: 'image',
-      version: 1,
-      src: this.__src,
+const removeStylesExportDOM = (
+  editor: LexicalEditor,
+  target: LexicalNode
+): DOMExportOutput => {
+  const output = target.exportDOM(editor)
+  if (output && isHTMLElement(output.element)) {
+    for (const el of [
+      output.element,
+      ...output.element.querySelectorAll('[style],[class]'),
+    ]) {
+      el.removeAttribute('class')
+      el.removeAttribute('style')
     }
   }
+  return output
+}
 
-  createDOM() {
-    return document.createElement('div')
+const exportMap: DOMExportOutputMap = new Map<
+  Klass<LexicalNode>,
+  (editor: LexicalEditor, target: LexicalNode) => DOMExportOutput
+>([
+  [ParagraphNode, removeStylesExportDOM],
+  [TextNode, removeStylesExportDOM],
+])
+
+const getExtraStyles = (element: HTMLElement): string => {
+  let extraStyles = ''
+  const fontSize = parseAllowedFontSize(element.style.fontSize)
+  const backgroundColor = parseAllowedColor(element.style.backgroundColor)
+  const color = parseAllowedColor(element.style.color)
+  if (fontSize !== '' && fontSize !== '15px') {
+    extraStyles += `font-size: ${fontSize};`
   }
-
-  updateDOM() {
-    return false
+  if (backgroundColor !== '' && backgroundColor !== 'rgb(255, 255, 255)') {
+    extraStyles += `background-color: ${backgroundColor};`
   }
-
-  decorate() {
-    return (
-      <Image
-        src={this.__src}
-        style={{ maxWidth: '100%', borderRadius: 8 }}
-        alt={''}
-      />
-    )
+  if (color !== '' && color !== 'rgb(0, 0, 0)') {
+    extraStyles += `color: ${color};`
   }
+  return extraStyles
 }
 
-function setTextColor(editor: any, color: string) {
-  editor.update(() => {
-    const selection = $getSelection()
-    if ($isRangeSelection(selection)) {
-      selection.getNodes().forEach((node: any) => {
-        if (node.setStyle) {
-          node.setStyle(`color: ${color}`)
-        }
-      })
-    }
-  })
-}
+const constructImportMap = (): DOMConversionMap => {
+  const importMap: DOMConversionMap = {}
 
-function setFontSize(editor: any, size: number) {
-  editor.update(() => {
-    const selection = $getSelection()
-    if ($isRangeSelection(selection)) {
-      selection.getNodes().forEach((node: any) => {
-        if (node.setStyle) {
-          node.setStyle(`font-size: ${size}px`)
-        }
-      })
-    }
-  })
-}
-
-function insertImage(editor: any, url: string) {
-  editor.update(() => {
-    const selection = $getSelection()
-    const node = new ImageNode(url)
-    selection?.insertNodes([node])
-  })
-}
-
-function Toolbar() {
-  const [editor] = useLexicalComposerContext()
-
-  return (
-    <div style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
-      <button
-        onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')}
-      >
-        B
-      </button>
-
-      <button
-        onClick={() => editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')}
-      >
-        I
-      </button>
-
-      <button onClick={() => setTextColor(editor, 'red')}>红</button>
-
-      <button onClick={() => setFontSize(editor, 20)}>大</button>
-
-      <button
-        onClick={() => {
-          const url = prompt('输入链接')
-          if (url) {
-            editor.dispatchCommand(TOGGLE_LINK_COMMAND, url)
+  for (const [tag, fn] of Object.entries(TextNode.importDOM() || {})) {
+    importMap[tag] = (importNode) => {
+      const importer = fn(importNode)
+      if (!importer) {
+        return null
+      }
+      return {
+        ...importer,
+        conversion: (element) => {
+          const output = importer.conversion(element)
+          if (
+            output === null ||
+            output.forChild === undefined ||
+            output.after !== undefined ||
+            output.node !== null
+          ) {
+            return output
           }
-        }}
-      >
-        🔗
-      </button>
-
-      <button
-        onClick={() => {
-          const url = prompt('输入图片URL')
-          if (url) {
-            insertImage(editor, url)
+          const extraStyles = getExtraStyles(element)
+          if (extraStyles) {
+            const { forChild } = output
+            return {
+              ...output,
+              forChild: (child, parent) => {
+                const textNode = forChild(child, parent)
+                if ($isTextNode(textNode)) {
+                  textNode.setStyle(textNode.getStyle() + extraStyles)
+                }
+                return textNode
+              },
+            }
           }
-        }}
-      >
-        🖼️
-      </button>
-    </div>
-  )
+          return output
+        },
+      }
+    }
+  }
+
+  return importMap
+}
+
+const editorConfig = {
+  html: {
+    export: exportMap,
+    import: constructImportMap(),
+  },
+  namespace: 'editor',
+  nodes: [ParagraphNode, TextNode],
+  onError(error: Error) {
+    console.error(error)
+  },
+  theme,
 }
 
 export function Editor() {
-  const [value, setValue] = useState<any>(null)
+  const [editorState, setEditorState] = useState<string>()
 
-  const initialConfig = {
-    namespace: 'Editor',
-    theme: {},
-    onError(error: any) {
-      console.error(error)
-    },
-    nodes: [ImageNode, LinkNode],
+  function onChange(_editorState: EditorState) {
+    const editorStateJSON = _editorState.toJSON()
+    setEditorState(JSON.stringify(editorStateJSON))
+    console.log(_editorState)
+    localStorage.setItem('editor-state', editorState || '')
   }
 
   return (
-    <LexicalComposer initialConfig={initialConfig}>
-      <div style={{ border: '1px solid #ddd', padding: 12 }}>
-        <Toolbar />
-
-        {/* <RichTextPlugin
-          contentEditable={<ContentEditable
-            style={{
-              minHeight: 150,
-              outline: 'none',
-            }} />}
-          placeholder={<div style={{ opacity: 0.3 }}>开始输入...</div>} ErrorBoundary={undefined}        /> */}
-
-        <HistoryPlugin />
-        <LinkPlugin />
-
-        <OnChangePlugin
-          onChange={(editorState) => {
-            setValue(editorState.toJSON())
-          }}
-        />
+    <LexicalComposer initialConfig={editorConfig}>
+      <div className={styles['editor-container']}>
+        <ToolbarPlugin />
+        <div className={styles['editor-inner']}>
+          <RichTextPlugin
+            contentEditable={
+              <ContentEditable
+                className={styles['editor-input']}
+                aria-placeholder={placeholder}
+                placeholder={
+                  <div className={styles['editor-placeholder']}>
+                    {placeholder}
+                  </div>
+                }
+              />
+            }
+            ErrorBoundary={LexicalErrorBoundary}
+          />
+          <HistoryPlugin />
+          <AutoFocusPlugin />
+          <OnChangePlugin onChange={onChange} />
+          <RestorePlugin />
+        </div>
       </div>
     </LexicalComposer>
   )

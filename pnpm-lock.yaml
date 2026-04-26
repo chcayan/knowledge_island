@@ -172,6 +172,9 @@ importers:
       '@lexical/react':
         specifier: ^0.43.0
         version: 0.43.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(yjs@13.6.30)
+      '@lexical/utils':
+        specifier: ^0.43.0
+        version: 0.43.0
       '@wrksz/themes':
         specifier: ^0.8.3
         version: 0.8.3(next@16.2.4(@babel/core@7.29.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.99.0))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@6.0.3)

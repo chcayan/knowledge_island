@@ -3,7 +3,6 @@ import dotenv from 'dotenv'
 import { resolve } from 'path'
 import { DataSource } from 'typeorm'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
-import { User } from './modules/user/entities/user.entity'
 
 const envFileMap: Record<string, string> = {
   development: '.env.development',
@@ -26,7 +25,7 @@ export default new DataSource({
   password: process.env.DB_PASSWORD!,
   database: process.env.DB_NAME!,
 
-  entities: [User],
+  entities: [__dirname + '/**/*.entity{.js,.ts}'],
   migrations: ['src/migrations/*-init.ts'],
 
   namingStrategy: new SnakeNamingStrategy(),

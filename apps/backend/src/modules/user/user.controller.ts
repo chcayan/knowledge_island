@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common'
 import { UserService } from './user.service'
-import { ZodValidationPipe } from '@/common/pipe/zod.pipe'
 import type { RegisterDto } from '@knowledge_island/schemas'
 import { RegisterSchema } from '@knowledge_island/schemas'
+import { ZodValidationPipe } from '../../common/pipe/zod.pipe'
 
 @Controller('user')
 export class UserController {

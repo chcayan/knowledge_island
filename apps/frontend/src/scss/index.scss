@@ -8,9 +8,9 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-// ::selection {
-// background-color: var(--theme-select-color);
-// }
+::selection {
+  background-color: var(--theme-selection-color);
+}
 
 a {
   color: black;
