@@ -1,10 +1,10 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { SearchIcon } from '../icon/search-icon'
+import SearchIcon from '../icon/search-icon'
 import styles from './search.module.scss'
 
-export function Search() {
+export default function Search() {
   const t = useTranslations()
 
   return (

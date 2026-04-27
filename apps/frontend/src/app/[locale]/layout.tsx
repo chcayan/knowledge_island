@@ -2,17 +2,13 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
-import Link from 'next/link'
 import { Metadata } from 'next'
 import { ThemeProvider } from '@wrksz/themes/next'
-import { ThemeToggle } from '@/components/layout/theme-toggle'
 import '@/scss/index.scss'
 import styles from './layout.module.scss'
 import Image from 'next/image'
 import Nav from '@/components/layout/nav'
-
-type locales = ['zh', 'en']
-type locale = locales[number]
+import { locale } from '@/types/locale'
 
 export async function generateMetadata({
   params,
@@ -71,13 +67,7 @@ export default async function RootLayout({
               </div>
               <Nav />
             </header>
-            <main>{children}</main>
-            <aside>
-              <ThemeToggle />
-              <Link href={locale === 'en' ? '/zh' : '/en'}>
-                切换为 {locale === 'en' ? '中文' : '英文'}
-              </Link>
-            </aside>
+            <div className={styles.children}>{children}</div>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

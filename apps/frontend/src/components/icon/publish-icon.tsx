@@ -1,4 +1,4 @@
-export function PublishIcon() {
+export default function PublishIcon() {
   return (
     <svg
       viewBox="0 0 1024 1024"

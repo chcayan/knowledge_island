@@ -2,7 +2,7 @@
 
 import { useTheme } from '@wrksz/themes/client'
 
-export function ThemeToggle() {
+export default function ThemeToggle() {
   const { theme, setTheme, systemTheme } = useTheme()
 
   const currentTheme = theme === 'system' ? systemTheme : theme

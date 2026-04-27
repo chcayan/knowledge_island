@@ -4,6 +4,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { mergeRegister } from '@lexical/utils'
 import {
   $getSelection,
+  $insertNodes,
   $isRangeSelection,
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
@@ -25,10 +26,14 @@ import { TextLeft } from '../icons/text-left'
 import { TextCenter } from '../icons/text-center'
 import { TextRight } from '../icons/text-right'
 import { TextJustify } from '../icons/text-justify'
+import { INSERT_IMAGE_COMMAND } from '../commands/command'
+import { ImageNode } from '../nodes/image-node'
 
 function Divider() {
   return <div className="divider" />
 }
+
+const imageFileMap = new Map<string, File>()
 
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext()
@@ -49,6 +54,8 @@ export default function ToolbarPlugin() {
       setIsStrikethrough(selection.hasFormat('strikethrough'))
     }
   }, [])
+
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     return mergeRegister(
@@ -83,6 +90,20 @@ export default function ToolbarPlugin() {
           return false
         },
         COMMAND_PRIORITY_LOW
+      ),
+      editor.registerCommand(
+        INSERT_IMAGE_COMMAND,
+        ({ file, src }) => {
+          imageFileMap.set(src, file)
+
+          editor.update(() => {
+            const node = new ImageNode(src)
+            $insertNodes([node])
+          })
+
+          return false
+        },
+        COMMAND_PRIORITY_LOW
       )
     )
   }, [editor, $updateToolbar])
@@ -104,7 +125,7 @@ export default function ToolbarPlugin() {
         onClick={() => {
           editor.dispatchCommand(REDO_COMMAND, undefined)
         }}
-        className="toolbar-item"
+        className="toolbar-item spaced"
         aria-label="Redo"
       >
         <ArrowClockwise />
@@ -178,7 +199,32 @@ export default function ToolbarPlugin() {
         onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify')
         }}
-        className="toolbar-item"
+        className="toolbar-item spaced"
+        aria-label="Justify Align"
+      >
+        <TextJustify />
+      </button>
+      <Divider />
+      <input
+        type="file"
+        accept="image/*"
+        style={{ display: 'none' }}
+        ref={inputRef}
+        onChange={(e) => {
+          const file = e.target.files?.[0]
+          if (!file) return
+
+          const url = URL.createObjectURL(file)
+
+          editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+            file,
+            src: url,
+          })
+        }}
+      />
+      <button
+        onClick={() => inputRef.current?.click()}
+        className="toolbar-item spaced"
         aria-label="Justify Align"
       >
         <TextJustify />

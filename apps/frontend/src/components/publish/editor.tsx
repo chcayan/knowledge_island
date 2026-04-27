@@ -29,6 +29,9 @@ import { useEffect, useState } from 'react'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import OnChangePlugin from './plugins/on-change-plugin'
 import RestorePlugin from './plugins/restore-plugin'
+import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin'
+import { ImageNode } from './nodes/image-node'
+import ImagePlugin from './plugins/image-plugin'
 
 const placeholder = 'Enter some rich text...'
 
@@ -124,21 +127,27 @@ const editorConfig = {
     import: constructImportMap(),
   },
   namespace: 'editor',
-  nodes: [ParagraphNode, TextNode],
+  nodes: [ParagraphNode, TextNode, ImageNode],
   onError(error: Error) {
     console.error(error)
   },
   theme,
 }
 
-export function Editor() {
-  const [editorState, setEditorState] = useState<string>()
+let timer: number
+export default function Editor() {
+  const [, setEditorState] = useState<string>()
 
   function onChange(_editorState: EditorState) {
-    const editorStateJSON = _editorState.toJSON()
-    setEditorState(JSON.stringify(editorStateJSON))
-    console.log(_editorState)
-    localStorage.setItem('editor-state', editorState || '')
+    if (timer) clearTimeout(timer)
+    timer = window.setTimeout(() => {
+      const editorStateJSON = _editorState.toJSON()
+      const jsonString = JSON.stringify(editorStateJSON)
+
+      setEditorState(jsonString)
+      localStorage.setItem('editor-state', jsonString)
+      console.log(_editorState)
+    }, 300)
   }
 
   return (
@@ -162,6 +171,7 @@ export function Editor() {
           />
           <HistoryPlugin />
           <AutoFocusPlugin />
+          {/* <ImagePlugin /> */}
           <OnChangePlugin onChange={onChange} />
           <RestorePlugin />
         </div>

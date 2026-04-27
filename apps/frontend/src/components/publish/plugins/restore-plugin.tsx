@@ -12,7 +12,9 @@ export default function RestorePlugin() {
 
     try {
       const parsed = editor.parseEditorState(JSON.parse(editorStateJSON))
-      editor.setEditorState(parsed)
+      queueMicrotask(() => {
+        editor.setEditorState(parsed)
+      })
       console.log('restore success')
     } catch (e) {
       console.error('恢复失败', e)

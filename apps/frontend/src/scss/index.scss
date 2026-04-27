@@ -12,6 +12,16 @@
   background-color: var(--theme-selection-color);
 }
 
+html::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: var(--theme-toolbar-scrollbar-thumb-color);
+  border-radius: 4px;
+}
+
 a {
   color: black;
   text-decoration: none;

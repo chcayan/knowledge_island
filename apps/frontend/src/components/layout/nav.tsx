@@ -1,15 +1,15 @@
 'use client'
 
-import { HomeIcon } from '../icon/home-icon'
-import { AiIcon } from '../icon/ai-icon'
-import { ChatIcon } from '../icon/chat-icon'
+import HomeIcon from '../icon/home-icon'
+import AiIcon from '../icon/ai-icon'
+import ChatIcon from '../icon/chat-icon'
+import SettingIcon from '../icon/setting-icon'
+import PublishIcon from '../icon/publish-icon'
 import styles from './nav.module.scss'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import clsx from 'clsx'
-import { SettingIcon } from '../icon/setting-icon'
-import { PublishIcon } from '../icon/publish-icon'
 
 const path = {
   home: '/',

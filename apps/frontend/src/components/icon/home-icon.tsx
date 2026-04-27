@@ -1,4 +1,4 @@
-export function HomeIcon() {
+export default function HomeIcon() {
   return (
     <svg
       viewBox="0 0 1024 1024"

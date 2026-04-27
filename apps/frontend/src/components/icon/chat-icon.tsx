@@ -1,4 +1,4 @@
-export function ChatIcon() {
+export default function ChatIcon() {
   return (
     <svg
       viewBox="0 0 1024 1024"
