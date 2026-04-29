@@ -1,7 +1,7 @@
-export function TextJustify() {
+export default function TextJustify() {
   return (
     <svg
-      className="format justify-align"
+      className="format"
       xmlns="http://www.w3.org/2000/svg"
       width="16"
       height="16"

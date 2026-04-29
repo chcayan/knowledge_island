@@ -4,7 +4,6 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { mergeRegister } from '@lexical/utils'
 import {
   $getSelection,
-  $insertNodes,
   $isRangeSelection,
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
@@ -15,28 +14,27 @@ import {
   SELECTION_CHANGE_COMMAND,
   UNDO_COMMAND,
 } from 'lexical'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { ArrowCounterclockwise } from '../icons/arrow-counterclockwise'
-import { ArrowClockwise } from '../icons/arrow-clockwise'
-import { TypeBold } from '../icons/type-bold'
-import { TypeItalic } from '../icons/type-italic'
-import { TypeUnderline } from '../icons/type-underline'
-import { TypeStrikethrough } from '../icons/type-strikethrough'
-import { TextLeft } from '../icons/text-left'
-import { TextCenter } from '../icons/text-center'
-import { TextRight } from '../icons/text-right'
-import { TextJustify } from '../icons/text-justify'
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
+import ArrowCounterclockwise from '../icons/arrow-counterclockwise'
+import ArrowClockwise from '../icons/arrow-clockwise'
+import TypeBold from '../icons/type-bold'
+import TypeItalic from '../icons/type-italic'
+import TypeUnderline from '../icons/type-underline'
+import TypeStrikethrough from '../icons/type-strikethrough'
+import TextLeft from '../icons/text-left'
+import TextCenter from '../icons/text-center'
+import TextRight from '../icons/text-right'
+import TextJustify from '../icons/text-justify'
 import { INSERT_IMAGE_COMMAND } from '../commands/command'
-import { ImageNode } from '../nodes/image-node'
+import InsertImage from '../icons/insert-image'
 
 function Divider() {
   return <div className="divider" />
 }
 
-const imageFileMap = new Map<string, File>()
-
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext()
+
   const toolbarRef = useRef(null)
   const [canUndo, setCanUndo] = useState(false)
   const [canRedo, setCanRedo] = useState(false)
@@ -44,6 +42,29 @@ export default function ToolbarPlugin() {
   const [isItalic, setIsItalic] = useState(false)
   const [isUnderline, setIsUnderline] = useState(false)
   const [isStrikethrough, setIsStrikethrough] = useState(false)
+
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+
+    if (file) {
+      // 在这里我们将图片转换为 Base64 预览。
+      // 如果你需要上传到服务器，应该在这里调用接口，
+      // 等接口返回图片 URL 后，再 dispatchCommand 传入 URL。
+      const reader = new FileReader()
+      reader.onload = () => {
+        editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+          src: reader.result as string,
+          altText: file.name,
+        })
+      }
+      reader.readAsDataURL(file)
+    }
+
+    // 清空 input 值，允许连续上传同一张图片
+    event.target.value = ''
+  }
 
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection()
@@ -54,8 +75,6 @@ export default function ToolbarPlugin() {
       setIsStrikethrough(selection.hasFormat('strikethrough'))
     }
   }, [])
-
-  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     return mergeRegister(
@@ -87,20 +106,6 @@ export default function ToolbarPlugin() {
         CAN_REDO_COMMAND,
         (payload) => {
           setCanRedo(payload)
-          return false
-        },
-        COMMAND_PRIORITY_LOW
-      ),
-      editor.registerCommand(
-        INSERT_IMAGE_COMMAND,
-        ({ file, src }) => {
-          imageFileMap.set(src, file)
-
-          editor.update(() => {
-            const node = new ImageNode(src)
-            $insertNodes([node])
-          })
-
           return false
         },
         COMMAND_PRIORITY_LOW
@@ -209,25 +214,15 @@ export default function ToolbarPlugin() {
         type="file"
         accept="image/*"
         style={{ display: 'none' }}
-        ref={inputRef}
-        onChange={(e) => {
-          const file = e.target.files?.[0]
-          if (!file) return
-
-          const url = URL.createObjectURL(file)
-
-          editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
-            file,
-            src: url,
-          })
-        }}
+        ref={fileInputRef}
+        onChange={handleImageUpload}
       />
       <button
-        onClick={() => inputRef.current?.click()}
+        onClick={() => fileInputRef.current?.click()}
         className="toolbar-item spaced"
         aria-label="Justify Align"
       >
-        <TextJustify />
+        <InsertImage />
       </button>{' '}
     </div>
   )

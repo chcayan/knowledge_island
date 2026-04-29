@@ -1,7 +1,7 @@
-export function TypeUnderline() {
+export default function TypeUnderline() {
   return (
     <svg
-      className="format underline"
+      className="format"
       xmlns="http://www.w3.org/2000/svg"
       width="16"
       height="16"

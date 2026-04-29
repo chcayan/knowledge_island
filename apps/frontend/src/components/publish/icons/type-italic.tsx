@@ -1,7 +1,7 @@
-export function TypeItalic() {
+export default function TypeItalic() {
   return (
     <svg
-      className="format italic"
+      className="format"
       xmlns="http://www.w3.org/2000/svg"
       width="16"
       height="16"

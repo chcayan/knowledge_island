@@ -4,13 +4,14 @@ import { JSX } from 'react'
 
 export class ImageNode extends DecoratorNode<JSX.Element> {
   __src: string
+  __altText: string
 
   static getType() {
     return 'image'
   }
 
   static clone(node: ImageNode) {
-    return new ImageNode(node.__src, node.__key)
+    return new ImageNode(node.__src, node.__altText, node.__key)
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -18,9 +19,10 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
     return new ImageNode(serializedNode.src)
   }
 
-  constructor(src: string = '', key?: string) {
+  constructor(src: string = '', altText: string = 'image', key?: string) {
     super(key)
     this.__src = src
+    this.__altText = altText
   }
 
   exportJSON() {
@@ -28,11 +30,13 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
       type: 'image',
       version: 1,
       src: this.__src,
+      altText: this.__altText,
     }
   }
 
   createDOM() {
-    return document.createElement('span')
+    const dom = document.createElement('span')
+    return dom
   }
 
   updateDOM() {
@@ -41,20 +45,24 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
 
   decorate() {
     return (
-      <div
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={this.__src}
+        alt={this.__altText}
         style={{
-          position: 'relative',
-          width: '90%',
-          height: '300px',
+          maxWidth: '50%',
+          borderRadius: '4px',
+          marginTop: '8px',
         }}
-      >
-        <Image
-          src={this.__src}
-          alt="image"
-          fill
-          style={{ objectFit: 'contain' }}
-        />
-      </div>
+      />
     )
   }
+}
+
+export function $createImageNode(src: string, altText: string) {
+  return new ImageNode(src, altText)
+}
+
+export function $isImageNode(node: ImageNode) {
+  return node instanceof ImageNode
 }

@@ -25,13 +25,11 @@ import ToolbarPlugin from './plugins/toolbar-plugin'
 import { parseAllowedColor, parseAllowedFontSize } from './style-config'
 import styles from './editor.module.scss'
 import './index.scss'
-import { useEffect, useState } from 'react'
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
+import { useState } from 'react'
 import OnChangePlugin from './plugins/on-change-plugin'
 import RestorePlugin from './plugins/restore-plugin'
-import { MarkdownShortcutPlugin } from '@lexical/react/LexicalMarkdownShortcutPlugin'
 import { ImageNode } from './nodes/image-node'
-import ImagePlugin from './plugins/image-plugin'
+import { ImagePlugin } from './plugins/image-plugin'
 
 const placeholder = 'Enter some rich text...'
 
@@ -171,7 +169,7 @@ export default function Editor() {
           />
           <HistoryPlugin />
           <AutoFocusPlugin />
-          {/* <ImagePlugin /> */}
+          <ImagePlugin />
           <OnChangePlugin onChange={onChange} />
           <RestorePlugin />
         </div>
