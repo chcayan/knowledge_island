@@ -33,7 +33,8 @@
     }
 
     .editor-input {
-      min-height: 150px;
+      // min-height: 150px;
+      height: 100%;
       resize: none;
       font-size: 15px;
       position: relative;

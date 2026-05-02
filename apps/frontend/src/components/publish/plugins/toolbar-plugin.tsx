@@ -3,7 +3,9 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { mergeRegister } from '@lexical/utils'
 import {
+  $findMatchingParent,
   $getSelection,
+  $insertNodes,
   $isRangeSelection,
   CAN_REDO_COMMAND,
   CAN_UNDO_COMMAND,
@@ -27,6 +29,10 @@ import TextRight from '../icons/text-right'
 import TextJustify from '../icons/text-justify'
 import { INSERT_IMAGE_COMMAND } from '../commands/command'
 import InsertImage from '../icons/insert-image'
+import { $isLinkNode, $toggleLink } from '@lexical/link'
+import ToggleLink from '../icons/toggle-link'
+import { FormulaInputNode } from '../nodes/formula-input-node'
+import InsertLatex from '../icons/insert-latex'
 
 function Divider() {
   return <div className="divider" />
@@ -42,6 +48,7 @@ export default function ToolbarPlugin() {
   const [isItalic, setIsItalic] = useState(false)
   const [isUnderline, setIsUnderline] = useState(false)
   const [isStrikethrough, setIsStrikethrough] = useState(false)
+  const [isLink, setIsLink] = useState(false)
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -66,6 +73,44 @@ export default function ToolbarPlugin() {
     event.target.value = ''
   }
 
+  function insertLink() {
+    editor.update(() => {
+      const selection = $getSelection()
+      if (!$isRangeSelection(selection)) return
+
+      const node = selection.anchor.getNode()
+      const linkNode = $findMatchingParent(node, $isLinkNode)
+
+      console.log(linkNode)
+      if (linkNode) {
+        $toggleLink(null)
+        return
+      }
+
+      const url = selection.getTextContent().trim()
+
+      $toggleLink(url)
+    })
+  }
+
+  function insertFormula() {
+    editor.update(() => {
+      const node = new FormulaInputNode()
+      $insertNodes([node])
+    })
+  }
+
+  function isLinkActive() {
+    const selection = $getSelection()
+    if (!$isRangeSelection(selection)) return false
+
+    const node = selection.anchor.getNode()
+
+    const linkNode = $findMatchingParent(node, $isLinkNode)
+
+    return !!linkNode
+  }
+
   const $updateToolbar = useCallback(() => {
     const selection = $getSelection()
     if ($isRangeSelection(selection)) {
@@ -73,6 +118,7 @@ export default function ToolbarPlugin() {
       setIsItalic(selection.hasFormat('italic'))
       setIsUnderline(selection.hasFormat('underline'))
       setIsStrikethrough(selection.hasFormat('strikethrough'))
+      setIsLink(isLinkActive())
     }
   }, [])
 
@@ -88,7 +134,7 @@ export default function ToolbarPlugin() {
       }),
       editor.registerCommand(
         SELECTION_CHANGE_COMMAND,
-        (_payload, _newEditor) => {
+        () => {
           $updateToolbar()
           return false
         },
@@ -220,9 +266,23 @@ export default function ToolbarPlugin() {
       <button
         onClick={() => fileInputRef.current?.click()}
         className="toolbar-item spaced"
-        aria-label="Justify Align"
+        aria-label="Insert image"
       >
         <InsertImage />
+      </button>
+      <button
+        onClick={insertLink}
+        className={'toolbar-item spaced ' + (isLink ? 'active' : '')}
+        aria-label="toggle link"
+      >
+        <ToggleLink />
+      </button>
+      <button
+        onClick={insertFormula}
+        className="toolbar-item spaced"
+        aria-label="toggle link"
+      >
+        <InsertLatex />
       </button>{' '}
     </div>
   )

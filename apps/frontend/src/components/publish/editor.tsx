@@ -19,6 +19,7 @@ import {
   ParagraphNode,
   TextNode,
 } from 'lexical'
+import { LinkNode } from '@lexical/link'
 
 import { theme } from './theme'
 import ToolbarPlugin from './plugins/toolbar-plugin'
@@ -30,6 +31,12 @@ import OnChangePlugin from './plugins/on-change-plugin'
 import RestorePlugin from './plugins/restore-plugin'
 import { ImageNode } from './nodes/image-node'
 import { ImagePlugin } from './plugins/image-plugin'
+import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin'
+import AutoUpdateLinkPlugin from './plugins/auto-update-link-plugin'
+import 'katex/dist/katex.min.css'
+import { FormulaNode } from './nodes/formula-node'
+import FormulaPlugin from './plugins/formula-plugin'
+import { FormulaInputNode } from './nodes/formula-input-node'
 
 const placeholder = 'Enter some rich text...'
 
@@ -125,7 +132,14 @@ const editorConfig = {
     import: constructImportMap(),
   },
   namespace: 'editor',
-  nodes: [ParagraphNode, TextNode, ImageNode],
+  nodes: [
+    ParagraphNode,
+    TextNode,
+    ImageNode,
+    LinkNode,
+    FormulaNode,
+    FormulaInputNode,
+  ],
   onError(error: Error) {
     console.error(error)
   },
@@ -169,7 +183,10 @@ export default function Editor() {
           />
           <HistoryPlugin />
           <AutoFocusPlugin />
+          <AutoUpdateLinkPlugin />
           <ImagePlugin />
+          <LinkPlugin />
+          <FormulaPlugin />
           <OnChangePlugin onChange={onChange} />
           <RestorePlugin />
         </div>

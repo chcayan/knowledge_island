@@ -1,5 +1,4 @@
 import { DecoratorNode } from 'lexical'
-import Image from 'next/image'
 import { JSX } from 'react'
 
 export class ImageNode extends DecoratorNode<JSX.Element> {

@@ -27,7 +27,7 @@
 
 .editor-link {
   color: rgb(33, 111, 219);
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .editor-code {
@@ -105,7 +105,7 @@
 .editor-paragraph {
   margin: 0;
   margin-bottom: 8px;
-  white-space: nowrap;
+  white-space: pre-wrap;
   position: relative;
 }
 
