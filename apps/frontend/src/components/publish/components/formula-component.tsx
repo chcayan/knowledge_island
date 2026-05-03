@@ -60,7 +60,7 @@ export default function FormulaComponent({
         placeholder="输入 LaTeX..."
         style={{
           width: '100%',
-          height: '30px',
+          height: '25px',
           padding: '5px',
           fontSize: '15px',
           borderRadius: '5px',

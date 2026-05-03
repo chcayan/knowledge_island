@@ -1,14 +1,11 @@
-import Editor from '@/components/publish/editor'
-import styles from './publish.module.scss'
+'use client'
+
+import dynamic from 'next/dynamic'
+
+const PublishPage = dynamic(() => import('./publish-page'), {
+  ssr: false,
+})
 
 export default function Publish() {
-  return (
-    <>
-      <div className={styles.publish}>
-        <h1>发布帖子</h1>
-        <p>Structure your thoughts and share knowledge.</p>
-        <Editor />
-      </div>
-    </>
-  )
+  return <PublishPage />
 }

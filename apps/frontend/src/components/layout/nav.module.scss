@@ -13,21 +13,26 @@ $mobile-size: 375px;
     margin-left: 4px;
     display: flex;
     flex-direction: column;
-    gap: $gap * 2;
+    gap: $gap;
   }
 
   .link {
-    width: 100px;
-    height: 32px;
+    width: 200px;
+    height: 50px;
     display: flex;
     align-items: center;
+    padding-left: $gap;
+    border-radius: $gap;
     color: var(--theme-font-color);
+
     @media (max-width: ($mobile-size * 3)) {
-      width: 32px;
+      width: 50px;
+      // padding-left: 0;
+      transform: translateX(-9px);
     }
 
     p {
-      padding-left: $gap * 2;
+      padding-left: $gap * 1.5;
       white-space: nowrap;
       color: inherit;
       @media (max-width: ($mobile-size * 3)) {

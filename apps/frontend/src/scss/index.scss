@@ -49,9 +49,6 @@ input {
 }
 
 .nav-active {
-  color: var(--theme-primary-color) !important;
-
-  svg {
-    fill: var(--theme-primary-color) !important;
-  }
+  background-color: var(--theme-nav-active-color);
+  font-weight: bold;
 }

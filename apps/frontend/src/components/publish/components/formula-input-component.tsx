@@ -53,7 +53,7 @@ export default function FormulaInputComponent({
       onBlur={confirm}
       style={{
         width: '200px',
-        height: '30px',
+        height: '25px',
         padding: '5px',
         fontSize: '15px',
         borderRadius: '5px',

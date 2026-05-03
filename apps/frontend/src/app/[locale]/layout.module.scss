@@ -17,7 +17,8 @@ body {
     }
 
     .title {
-      height: 42px;
+      height: 40px;
+      line-height: 40px;
       @media (max-width: ($mobile-size * 3)) {
         display: none;
       }
@@ -25,7 +26,7 @@ body {
       h1 {
         font-size: 25px;
         letter-spacing: -0.05em;
-        color: var(--theme-primary-color);
+        color: var(--theme-font-color);
       }
 
       p {
@@ -35,6 +36,9 @@ body {
     }
 
     .logo {
+      height: 40px;
+      user-select: none;
+
       @media (min-width: ($mobile-size * 3)) {
         display: none;
       }
