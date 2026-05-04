@@ -1,12 +1,18 @@
-export default function PublishIcon() {
+export default function PublishIcon({
+  width = 32,
+  height = 32,
+}: {
+  width?: number
+  height?: number
+}) {
   return (
     <svg
       viewBox="0 0 1024 1024"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"
       p-id="43051"
-      width="32"
-      height="32"
+      width={width}
+      height={height}
       transform="translate(-2)"
     >
       <path

@@ -7,15 +7,14 @@ $mobile-size: 375px;
 
   .main {
     width: 100%;
-    // width: 700px;
-    // background-color: black;
+    max-width: 700px;
   }
 
   .aside {
     margin-left: $gap * 2;
     width: 230px;
     flex-shrink: 0;
-    background-color: var(--theme-pale-gray-color);
+    background-color: var(--theme-secondary-color);
 
     @media (max-width: ($mobile-size * 2)) {
       display: none;

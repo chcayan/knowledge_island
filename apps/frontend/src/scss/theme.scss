@@ -1,31 +1,33 @@
 html.dark {
-  --theme-primary-color: rgb(22, 134, 233);
-  --theme-pale-gray-color: rgb(32, 33, 34);
-  --theme-font-gray-color: rgb(144, 150, 156);
+  --theme-primary-color: rgb(0, 0, 0);
+  --theme-secondary-color: rgb(32, 33, 34);
+  --theme-third-color: rgb(50, 50, 50);
+
   --theme-svg-color: rgb(255, 255, 255);
   --theme-font-color: rgb(255, 255, 255);
+  --theme-divider-color: rgb(110, 110, 110);
+  --theme-selection-color: rgba(255, 255, 255, 0.25);
+
   --theme-nav-color: rgb(241, 245, 249);
   --theme-nav-active-color: rgb(32, 33, 34);
-  --theme-shadow-color: 0 0 10px rgba(255, 255, 255, 0.3);
-  --theme-divider-color: rgb(110, 110, 110);
+
   --theme-toolbar-item-hover-color: rgb(74, 74, 74);
-  --theme-selection-color: rgba(255, 255, 255, 0.25);
   --theme-toolbar-scrollbar-thumb-color: rgb(211, 211, 211);
-  --theme-latex-input-color: rgb(50, 50, 50);
 }
 
 html.light {
-  --theme-primary-color: rgb(22, 134, 233);
-  --theme-pale-gray-color: rgb(240, 244, 247);
-  --theme-font-gray-color: rgb(144, 150, 156);
+  --theme-primary-color: rgb(255, 255, 255);
+  --theme-secondary-color: rgb(240, 244, 247);
+  --theme-third-color: rgb(229, 231, 235);
+
   --theme-svg-color: rgb(0, 0, 0);
   --theme-font-color: rgb(0, 0, 0);
+  --theme-divider-color: rgb(209, 209, 209);
+  --theme-selection-color: rgba(0, 0, 0, 0.25);
+
   --theme-nav-color: rgb(241, 245, 249);
   --theme-nav-active-color: rgb(240, 244, 247);
-  --theme-shadow-color: 0 0 10px rgba(156, 164, 172, 0.3);
-  --theme-divider-color: rgb(209, 209, 209);
+
   --theme-toolbar-item-hover-color: rgb(222, 222, 222);
-  --theme-selection-color: rgba(0, 0, 0, 0.25);
   --theme-toolbar-scrollbar-thumb-color: rgb(211, 211, 211);
-  --theme-latex-input-color: rgb(255, 255, 255);
 }

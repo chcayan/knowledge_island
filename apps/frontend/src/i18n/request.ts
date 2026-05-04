@@ -9,10 +9,10 @@ export default getRequestConfig(async ({ requestLocale }) => {
 
   const browserLocale = acceptLanguage.split(',')[0].split('-')[0]
 
-  const locale = hasLocale(routing.locales, browserLocale)
-    ? browserLocale
-    : hasLocale(routing.locales, requested)
-      ? requested
+  const locale = hasLocale(routing.locales, requested)
+    ? requested
+    : hasLocale(routing.locales, browserLocale)
+      ? browserLocale
       : routing.defaultLocale
 
   return {

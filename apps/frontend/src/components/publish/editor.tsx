@@ -37,8 +37,7 @@ import 'katex/dist/katex.min.css'
 import { FormulaNode } from './nodes/formula-node'
 import FormulaPlugin from './plugins/formula-plugin'
 import { FormulaInputNode } from './nodes/formula-input-node'
-
-const placeholder = 'Enter some rich text...'
+import { useTranslations } from 'next-intl'
 
 const removeStylesExportDOM = (
   editor: LexicalEditor,
@@ -148,6 +147,8 @@ const editorConfig = {
 
 let timer: number
 export default function Editor() {
+  const t = useTranslations('Publish')
+
   const [, setEditorState] = useState<string>()
 
   function onChange(_editorState: EditorState) {
@@ -171,10 +172,10 @@ export default function Editor() {
             contentEditable={
               <ContentEditable
                 className={styles['editor-input']}
-                aria-placeholder={placeholder}
+                aria-placeholder={t('input.content')}
                 placeholder={
                   <div className={styles['editor-placeholder']}>
-                    {placeholder}
+                    {t('input.content')}
                   </div>
                 }
               />

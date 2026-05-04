@@ -16,7 +16,7 @@
   flex-direction: column;
 
   .editor-inner {
-    background: var(--theme-pale-gray-color);
+    background: var(--theme-secondary-color);
     position: relative;
     border-radius: 0 0 10px 10px;
     height: calc(100% - 44px);
@@ -45,13 +45,13 @@
     }
 
     .editor-placeholder {
-      color: #999;
+      color: rgb(117, 117, 117);
       overflow: hidden;
       position: absolute;
       text-overflow: ellipsis;
       top: 15px;
       left: 10px;
-      font-size: 15px;
+      font-size: 14px;
       user-select: none;
       display: inline-block;
       pointer-events: none;

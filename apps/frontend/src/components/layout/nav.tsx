@@ -27,7 +27,7 @@ const bottomLinks: { name: NavKey; href: string; icon: ComponentType }[] = [
 
 export default function Nav() {
   const pathname = usePathname().slice(3) || '/'
-  const t = useTranslations()
+  const t = useTranslations('RootLayout')
 
   return (
     <nav className={styles.nav}>
@@ -43,7 +43,7 @@ export default function Nav() {
               })}
             >
               <LinkIcon />
-              <p>{t(`RootLayout.nav.${link.name}`)}</p>
+              <p>{t(`nav.${link.name}`)}</p>
             </Link>
           )
         })}
@@ -60,7 +60,7 @@ export default function Nav() {
               })}
             >
               <LinkIcon />
-              <p>{t(`RootLayout.nav.${link.name}`)}</p>
+              <p>{t(`nav.${link.name}`)}</p>
             </Link>
           )
         })}

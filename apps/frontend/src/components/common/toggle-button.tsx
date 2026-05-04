@@ -35,35 +35,41 @@ export default function ToggleButton<T extends string>({
   }
 
   return (
-    <div className={styles.wrapper}>
-      {/* 滑块 */}
-      <div
-        className={styles.slider}
-        style={{
-          width: `calc(${100 / options.length}% - 0px)`,
-          transform: `translateX(calc(${activeIndex * 100}% + ${activeIndex * 0}px))`,
-        }}
-      />
+    <>
+      <div className={styles['toggle-button']}>
+        <div className={styles['shape-left']}></div>
+        <div className={styles.wrapper}>
+          {/* 滑块 */}
+          <div
+            className={styles.slider}
+            style={{
+              width: `${100 / options.length}%`,
+              transform: `translateX(${activeIndex * 100}%)`,
+            }}
+          />
 
-      <div
-        className={styles.items}
-        style={{
-          gridTemplateColumns: `repeat(${options.length}, 1fr)`,
-        }}
-      >
-        {options.map((option) => (
-          <button
-            key={option.value}
-            onClick={() => handleChange(option.value)}
-            className={clsx(
-              styles.item,
-              current === option.value && styles.active
-            )}
+          <div
+            className={styles.items}
+            style={{
+              gridTemplateColumns: `repeat(${options.length}, 1fr)`,
+            }}
           >
-            {option.label}
-          </button>
-        ))}
+            {options.map((option) => (
+              <button
+                key={option.value}
+                onClick={() => handleChange(option.value)}
+                className={clsx(
+                  styles.item,
+                  current === option.value && styles.active
+                )}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className={styles['shape-right']}></div>
       </div>
-    </div>
+    </>
   )
 }

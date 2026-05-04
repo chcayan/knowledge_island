@@ -8,7 +8,7 @@ body {
 
   header {
     width: 250px;
-    height: calc(100vh - 90px);
+    height: calc(100vh - 80px);
     flex-shrink: 0;
 
     @media (max-width: ($mobile-size * 3)) {
@@ -27,11 +27,6 @@ body {
         font-size: 25px;
         letter-spacing: -0.05em;
         color: var(--theme-font-color);
-      }
-
-      p {
-        font-size: 15px;
-        color: var(--theme-font-gray-color);
       }
     }
 

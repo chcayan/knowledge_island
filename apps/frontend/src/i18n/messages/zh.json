@@ -21,5 +21,23 @@
   },
   "Home": {
     "searchPlaceholder": "请输入内容"
+  },
+  "Publish": {
+    "title": {
+      "publish": "发布帖子",
+      "modify": "修改帖子"
+    },
+    "description": "分享见解，自由提问",
+    "aside": {
+      "type": "类型",
+      "tag": "标签",
+      "publish": "发布帖子",
+      "draft": "保存草稿"
+    },
+    "input": {
+      "title": "请输入标题",
+      "content": "请输入内容",
+      "tag": "请输入标签"
+    }
   }
 }

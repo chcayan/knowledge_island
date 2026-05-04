@@ -21,5 +21,23 @@
   },
   "Home": {
     "searchPlaceholder": "Please enter content"
+  },
+  "Publish": {
+    "title": {
+      "publish": "Publish Post",
+      "modify": "Modify Post"
+    },
+    "description": "Share insights, ask freely.",
+    "aside": {
+      "type": "type",
+      "tag": "tags",
+      "publish": "Publish post",
+      "draft": "Save draft"
+    },
+    "input": {
+      "title": "Please enter a title",
+      "content": "Please enter content",
+      "tag": "Please enter a tag"
+    }
   }
 }

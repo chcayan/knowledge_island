@@ -57,7 +57,7 @@ export default function FormulaInputComponent({
         padding: '5px',
         fontSize: '15px',
         borderRadius: '5px',
-        backgroundColor: 'var(--theme-latex-input-color)',
+        backgroundColor: 'var(--theme-third-color)',
       }}
     />
   )
