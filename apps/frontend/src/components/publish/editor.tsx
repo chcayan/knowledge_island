@@ -17,6 +17,8 @@ import {
   LexicalEditor,
   LexicalNode,
   ParagraphNode,
+  SerializedEditorState,
+  SerializedLexicalNode,
   TextNode,
 } from 'lexical'
 import { LinkNode } from '@lexical/link'
@@ -26,7 +28,7 @@ import ToolbarPlugin from './plugins/toolbar-plugin'
 import { parseAllowedColor, parseAllowedFontSize } from './style-config'
 import styles from './editor.module.scss'
 import './index.scss'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import OnChangePlugin from './plugins/on-change-plugin'
 import RestorePlugin from './plugins/restore-plugin'
 import { ImageNode } from './nodes/image-node'
@@ -146,17 +148,24 @@ const editorConfig = {
 }
 
 let timer: number
-export default function Editor() {
+export default function Editor({
+  onChange,
+}: {
+  onChange: Dispatch<
+    SetStateAction<SerializedEditorState<SerializedLexicalNode> | undefined>
+  >
+}) {
   const t = useTranslations('Publish')
 
   const [, setEditorState] = useState<string>()
 
-  function onChange(_editorState: EditorState) {
+  function _onChange(_editorState: EditorState) {
     if (timer) clearTimeout(timer)
     timer = window.setTimeout(() => {
       const editorStateJSON = _editorState.toJSON()
       const jsonString = JSON.stringify(editorStateJSON)
 
+      onChange(editorStateJSON)
       setEditorState(jsonString)
       localStorage.setItem('editor-state', jsonString)
       console.log(_editorState)
@@ -188,7 +197,7 @@ export default function Editor() {
           <ImagePlugin />
           <LinkPlugin />
           <FormulaPlugin />
-          <OnChangePlugin onChange={onChange} />
+          <OnChangePlugin onChange={_onChange} />
           <RestorePlugin />
         </div>
       </div>

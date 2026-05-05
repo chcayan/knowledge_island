@@ -29,15 +29,16 @@
     },
     "description": "Share insights, ask freely.",
     "aside": {
-      "type": "type",
-      "tag": "tags",
+      "type": "Type",
+      "tag": "Tags",
       "publish": "Publish post",
       "draft": "Save draft"
     },
     "input": {
       "title": "Please enter a title",
       "content": "Please enter content",
-      "tag": "Please enter a tag"
+      "tag": "Please enter a tag",
+      "latex": "Enter a LaTeX"
     }
   }
 }

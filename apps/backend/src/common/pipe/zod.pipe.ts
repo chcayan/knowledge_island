@@ -8,7 +8,7 @@ export class ZodValidationPipe implements PipeTransform {
     const result = this.schema.safeParse(value)
     if (!result.success) {
       throw new BadRequestException({
-        message: 'fail',
+        message: '参数校验失败',
         ...z.treeifyError(result.error),
       })
     }

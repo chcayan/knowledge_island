@@ -4,6 +4,7 @@ import { $getNodeByKey } from 'lexical'
 import katex from 'katex'
 import 'katex/dist/katex.min.css'
 import { FormulaNode } from '../nodes/formula-node'
+import { useTranslations } from 'next-intl'
 
 export default function FormulaComponent({
   latex,
@@ -12,6 +13,8 @@ export default function FormulaComponent({
   latex: string
   nodeKey: string
 }) {
+  const t = useTranslations('Publish')
+
   const [editor] = useLexicalComposerContext()
   const [editing, setEditing] = useState(false)
   const [value, setValue] = useState(latex)
@@ -57,7 +60,7 @@ export default function FormulaComponent({
         onKeyDown={(e) => {
           if (e.key === 'Enter') save()
         }}
-        placeholder="输入 LaTeX..."
+        placeholder={t('input.latex')}
         style={{
           width: '100%',
           height: '25px',

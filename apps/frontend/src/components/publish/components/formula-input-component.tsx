@@ -2,12 +2,15 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { useState } from 'react'
 import { $getNodeByKey } from 'lexical'
 import { FormulaNode } from '../nodes/formula-node'
+import { useTranslations } from 'next-intl'
 
 export default function FormulaInputComponent({
   nodeKey,
 }: {
   nodeKey: string
 }) {
+  const t = useTranslations('Publish')
+
   const [editor] = useLexicalComposerContext()
   const [value, setValue] = useState('')
 
@@ -29,7 +32,7 @@ export default function FormulaInputComponent({
   return (
     <input
       autoFocus
-      placeholder="输入 LaTeX..."
+      placeholder={t('input.latex')}
       value={value}
       onClick={(e) => e.stopPropagation()}
       onChange={(e) => setValue(e.target.value)}

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export enum UserSex {
+enum UserSex {
   UNKNOWN = 0,
   MALE = 1,
   FEMALE = 2,
@@ -25,7 +25,7 @@ export const UserSchema = z.object({
   followCount: z.number(),
   fanCount: z.number(),
   sex: z.enum(UserSex),
-  signature: z.string().min(1, '简介至少 1 个字').max(255),
+  signature: z.string().min(1, '简介至少 1 个字').max(255, '简介最多 255 个字'),
 })
 
 export const RegisterSchema = z
@@ -57,7 +57,8 @@ export const UpdateUserSchema = z.object({
 })
 
 export type User = z.infer<typeof UserSchema>
+export type UserPublic = z.infer<typeof UserPublicSchema>
+
 export type RegisterDto = z.infer<typeof RegisterSchema>
 export type LoginDto = z.infer<typeof LoginSchema>
-export type UserPublic = z.infer<typeof UserPublicSchema>
 export type UpdateUserDto = z.infer<typeof UpdateUserSchema>

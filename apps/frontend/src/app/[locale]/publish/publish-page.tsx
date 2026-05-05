@@ -9,11 +9,13 @@ import DraftIcon from '@/components/icon/draft-icon'
 import LoadingButton from '@/components/common/loading-button'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/utils'
+import { createPostAPI } from '@/api'
+import { SerializedEditorState, SerializedLexicalNode } from 'lexical'
 
 export default function PublishPage() {
   const t = useTranslations('Publish')
 
-  const [tab, setTab] = useState<'write' | 'ask'>('write')
+  const [type, setType] = useState<'write' | 'ask'>('write')
   const [tags, setTags] = useState<string[]>([])
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -47,12 +49,30 @@ export default function PublishPage() {
     setTags((prev) => prev.filter((tag) => tag !== value))
   }
 
+  const [title, setTitle] = useState('')
+  const [content, setContent] =
+    useState<SerializedEditorState<SerializedLexicalNode>>()
+
   const [publishLoading, setPublishLoading] = useState(false)
+
+  const createPost = async (status: 0 | 1) => {
+    console.log(title)
+    console.log(content)
+    const res = await createPostAPI({
+      title,
+      content,
+      type: type === 'write' ? 0 : 1,
+      status,
+      tags,
+    })
+    console.log(res.data)
+  }
 
   const handlePublish = () => {
     if (publishLoading) return
     console.log('publish')
     setPublishLoading(true)
+    createPost(1)
 
     setTimeout(() => {
       setPublishLoading(false)
@@ -91,15 +111,19 @@ export default function PublishPage() {
             type="text"
             className={styles['input-title']}
             placeholder={t('input.title')}
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value)
+            }}
           />
-          <Editor />
+          <Editor onChange={setContent} />
         </main>
         <aside className={styles.aside}>
           <div className={styles.type}>
             <p>{t('aside.type')}：</p>
             <ToggleButton
-              value={tab}
-              onChange={setTab}
+              value={type}
+              onChange={setType}
               options={[
                 { value: 'write', label: 'Write' },
                 { value: 'ask', label: 'ask' },
@@ -108,7 +132,7 @@ export default function PublishPage() {
           </div>
           <div className={styles.tag}>
             <div className={styles.total}>
-              <p>{t('aside.type')}：</p>
+              <p>{t('aside.tag')}：</p>
               <span>{tags.length} / 10</span>
             </div>
             <div className={styles['input-container']}>

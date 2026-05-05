@@ -8,14 +8,9 @@
     "start": "next start"
   },
   "dependencies": {
-    "@lexical/link": "^0.43.0",
-    "@lexical/react": "^0.43.0",
-    "@lexical/selection": "^0.44.0",
-    "@lexical/utils": "^0.43.0",
     "@wrksz/themes": "^0.8.3",
+    "axios": "^1.16.0",
     "clsx": "^2.1.1",
-    "katex": "^0.16.45",
-    "lexical": "^0.43.0",
     "next": "16.2.4",
     "next-intl": "^4.9.1",
     "react": "19.2.4",

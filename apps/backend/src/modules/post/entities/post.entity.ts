@@ -3,11 +3,25 @@ import {
   CreateDateColumn,
   Entity,
   Index,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
 import { User } from '../../user/entities/user.entity'
+import { Tag } from './tag.entity'
+
+export enum PostType {
+  WRITE = 0,
+  ASK = 1,
+}
+
+export enum PostStatus {
+  DRAFT = 0,
+  PUBLISHED = 1,
+  VIOLATION = 2,
+}
 
 @Entity()
 export class Post {
@@ -21,6 +35,9 @@ export class Post {
   @Column({ type: 'json' })
   content!: string
 
+  @Column({ type: 'text' })
+  contentHtml!: string
+
   @Column({ default: 0 })
   viewCount!: number
 
@@ -29,6 +46,20 @@ export class Post {
 
   @Column({ default: 0 })
   commentCount!: number
+
+  @Column({
+    type: 'enum',
+    enum: PostType,
+    default: PostType.WRITE,
+  })
+  type!: PostType
+
+  @Column({
+    type: 'enum',
+    enum: PostStatus,
+    default: PostStatus.DRAFT,
+  })
+  status!: PostStatus
 
   @CreateDateColumn()
   createdAt!: Date
@@ -40,4 +71,10 @@ export class Post {
     onDelete: 'CASCADE',
   })
   author!: User
+
+  @ManyToMany(() => Tag, (tag) => tag.posts, {
+    cascade: true,
+  })
+  @JoinTable()
+  tags!: Tag[]
 }
