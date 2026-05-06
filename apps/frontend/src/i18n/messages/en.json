@@ -39,6 +39,10 @@
       "content": "Please enter content",
       "tag": "Please enter a tag",
       "latex": "Enter a LaTeX"
+    },
+    "error": {
+      "IMG_SIZE_LIMIT": "The gif size should not exceed 5M.",
+      "UPLOAD_IMAGE_FAILED": "Failed to upload the image."
     }
   }
 }

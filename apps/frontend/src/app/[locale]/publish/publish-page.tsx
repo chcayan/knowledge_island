@@ -104,9 +104,9 @@ export default function PublishPage() {
       <div className={styles.publish}>
         <main className={styles.main}>
           <div className={styles.header}>
-            <h1>{t('title.publish')}</h1>
+            <h1 className={styles.title}>{t('title.publish')}</h1>
           </div>
-          <p>{t('description')}</p>
+          <p className={styles.description}>{t('description')}</p>
           <input
             type="text"
             className={styles['input-title']}

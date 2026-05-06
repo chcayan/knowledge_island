@@ -32,16 +32,16 @@ $gap: 10px;
       background-color: var(--theme-secondary-color);
     }
 
-    h1,
-    p {
+    .title,
+    .description {
       flex-shrink: 0;
     }
 
-    h1 {
+    .title {
       line-height: 40px;
     }
 
-    p {
+    .description {
       line-height: 20px;
       opacity: 0.7;
     }

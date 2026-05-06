@@ -23,15 +23,18 @@ export function json2html(json: JSON) {
       baseHtml = $generateHtmlFromNodes(editor)
     })
 
-    // 处理 LaTeX
-    const html = baseHtml.replace(
-      /<span data-formula="(.*?)"><\/span>/g,
-      (_, latex: string) => {
+    const html = baseHtml
+      .replace(/<span data-formula="(.*?)"><\/span>/g, (_, latex: string) => {
         return katex.renderToString(latex, {
           throwOnError: false,
         })
-      }
-    )
+      })
+      .replace(
+        /<span data-image="(.*?)"(?: data-alt="(.*?)")?><\/span>/g,
+        (_, src: string, alt: string) => {
+          return `<img src="${src}" alt="${alt || 'image'}" style="max-width:50%;border-radius:4px;" />`
+        }
+      )
 
     return html
   })

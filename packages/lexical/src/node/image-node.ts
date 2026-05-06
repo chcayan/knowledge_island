@@ -34,6 +34,8 @@ export class ImageNode extends DecoratorNode<unknown> {
 
   createDOM() {
     const dom = document.createElement('span')
+    dom.setAttribute('data-image', this.__src)
+    dom.setAttribute('data-alt', this.__altText)
     return dom
   }
 

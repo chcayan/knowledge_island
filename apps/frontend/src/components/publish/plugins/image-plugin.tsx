@@ -10,6 +10,8 @@ import {
   COMMAND_PRIORITY_LOW,
   PASTE_COMMAND,
 } from 'lexical'
+import { uploadImageAPI } from '@/api'
+import { baseURL } from '@/utils'
 
 export function ImagePlugin() {
   const [editor] = useLexicalComposerContext()
@@ -38,24 +40,19 @@ export function ImagePlugin() {
 
         const items = clipboardData.items
 
-        // 遍历剪贴板内容，寻找是否有图片
         for (let i = 0; i < items.length; i++) {
           if (items[i].type.indexOf('image') !== -1) {
-            // 找到了图片，阻止默认的粘贴行为
             event.preventDefault()
 
             const file = items[i].getAsFile()
             if (file) {
-              // 这里的逻辑和之前工具栏上传的逻辑一致
-              // 如果需要上传到服务器，在此处调用后端 API
-              const reader = new FileReader()
-              reader.onload = () => {
+              ;(async () => {
+                const res = await uploadImageAPI(file)
                 editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
-                  src: reader.result as string,
+                  src: baseURL + res.data.data.url,
                   altText: 'Pasted Image',
                 })
-              }
-              reader.readAsDataURL(file)
+              })()
             }
             return true
           }

@@ -39,6 +39,10 @@
       "content": "请输入内容",
       "tag": "请输入标签",
       "latex": "输入 LaTeX"
+    },
+    "error": {
+      "IMG_SIZE_LIMIT": "gif 大小不超过 5M",
+      "UPLOAD_IMAGE_FAILED": "上传图片失败"
     }
   }
 }

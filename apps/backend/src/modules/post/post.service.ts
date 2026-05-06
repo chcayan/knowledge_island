@@ -58,25 +58,29 @@ export class PostService {
 
     if (existing) {
       await fs.promises.unlink(file.path)
-      return existing
+      return { url: existing.url }
     }
 
-    const uploadDir = path.resolve('./public/uploads')
+    const uploadDir = path.resolve(process.cwd(), 'public/uploads/images')
     await fs.promises.mkdir(uploadDir, { recursive: true })
 
-    const finalPath = `./public/uploads/${md5}.${ext}`
+    const finalPath = path.resolve(
+      process.cwd(),
+      `public/uploads/images/${md5}.${ext}`
+    )
 
     await fs.promises.rename(file.path, finalPath)
 
     try {
       const image = this.imageRepo.create({
         md5,
-        url: `/uploads/${md5}.${ext}`,
+        url: `/uploads/images/${md5}.${ext}`,
         size: file.size,
         mime: file.mimetype,
       })
 
-      return await this.imageRepo.save(image)
+      await this.imageRepo.save(image)
+      return { url: image.url }
     } catch (e) {
       const existing = await this.imageRepo.findOne({
         where: { md5 },

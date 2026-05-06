@@ -27,3 +27,9 @@ next-env.d.ts
 
 # other
 desktop.ini
+
+# files
+apps/backend/public/uploads/images/*
+!apps/backend/public/uploads/images/default/
+!apps/backend/public/uploads/images/default/**
+apps/backend/temp

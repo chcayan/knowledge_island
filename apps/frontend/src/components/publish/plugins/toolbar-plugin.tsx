@@ -33,12 +33,16 @@ import { $isLinkNode, $toggleLink } from '@lexical/link'
 import ToggleLink from '../icons/toggle-link'
 import { FormulaInputNode } from '../nodes/formula-input-node'
 import InsertLatex from '../icons/insert-latex'
+import { uploadImageAPI } from '@/api'
+import { baseURL, CustomError, Toast } from '@/utils'
+import { useTranslations } from 'next-intl'
 
 function Divider() {
   return <div className="divider" />
 }
 
 export default function ToolbarPlugin() {
+  const t = useTranslations('Publish.error')
   const [editor] = useLexicalComposerContext()
 
   const toolbarRef = useRef(null)
@@ -52,25 +56,34 @@ export default function ToolbarPlugin() {
 
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
 
     if (file) {
-      // 在这里我们将图片转换为 Base64 预览。
-      // 如果你需要上传到服务器，应该在这里调用接口，
-      // 等接口返回图片 URL 后，再 dispatchCommand 传入 URL。
-      const reader = new FileReader()
-      reader.onload = () => {
+      try {
+        const res = await uploadImageAPI(file)
         editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
-          src: reader.result as string,
+          src: baseURL + res.data.data.url,
           altText: file.name,
         })
+      } catch (err) {
+        if (err instanceof CustomError) {
+          if (err.type === 'IMG_SIZE_LIMIT') {
+            Toast.show({
+              msg: t(err.type),
+              type: 'error',
+            })
+            return
+          }
+        }
+        Toast.show({
+          msg: t('UPLOAD_IMAGE_FAILED'),
+          type: 'error',
+        })
+      } finally {
+        event.target.value = ''
       }
-      reader.readAsDataURL(file)
     }
-
-    // 清空 input 值，允许连续上传同一张图片
-    event.target.value = ''
   }
 
   function insertLink() {

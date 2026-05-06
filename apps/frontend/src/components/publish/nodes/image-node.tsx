@@ -51,7 +51,6 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
         style={{
           maxWidth: '50%',
           borderRadius: '4px',
-          marginTop: '8px',
         }}
       />
     )

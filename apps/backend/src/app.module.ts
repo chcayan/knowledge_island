@@ -33,7 +33,7 @@ import { PostModule } from './modules/post/post.module'
       namingStrategy: new SnakeNamingStrategy(),
     }),
     ServeStaticModule.forRoot({
-      rootPath: join(process.cwd(), 'uploads'),
+      rootPath: join(process.cwd(), 'public/uploads'),
       serveRoot: '/uploads',
     }),
     UserModule,
