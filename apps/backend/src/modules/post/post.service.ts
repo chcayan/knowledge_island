@@ -91,4 +91,20 @@ export class PostService {
       throw e
     }
   }
+
+  async getPost(page: number, pageSize: number) {
+    const [list, total] = await this.postRepo
+      .createQueryBuilder('post')
+      .leftJoin('post.author', 'author')
+      .addSelect(['author.id', 'author.name', 'author.avatar'])
+      .orderBy('post.createdAt', 'DESC')
+      .skip((page - 1) * pageSize)
+      .take(pageSize)
+      .getManyAndCount()
+
+    return {
+      list,
+      total,
+    }
+  }
 }

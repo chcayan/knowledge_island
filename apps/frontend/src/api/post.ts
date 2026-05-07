@@ -1,9 +1,10 @@
 import { request } from '@/utils'
 import { compressImage } from '@/utils/compress'
-import type { CreatePostDto } from '@knowledge_island/schemas'
+import { CreatePostSchema, type CreatePostDto } from '@knowledge_island/schemas'
 
 export function createPostAPI(dto: CreatePostDto) {
-  return request.post('/post/create', dto)
+  const data = CreatePostSchema.parse(dto)
+  return request.post('/post/create', data)
 }
 
 export async function uploadImageAPI(file: File) {

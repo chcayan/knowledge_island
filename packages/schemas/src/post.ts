@@ -7,7 +7,7 @@ enum PostType {
 
 enum PostStatus {
   DRAFT = 0,
-  PUBLISHED = 1,
+  REVIEWING = 1,
 }
 
 export const PostSchema = z.object({
@@ -19,6 +19,7 @@ export const PostSchema = z.object({
   content: z.any().refine((val) => val !== null && val !== undefined, {
     message: '内容不能为空',
   }),
+  contentHtml: z.string(),
   viewCount: z.number(),
   likeCount: z.number(),
   commentCount: z.number(),
@@ -42,5 +43,16 @@ export const CreatePostSchema = z.object({
   tags: PostSchema.shape.tags,
 })
 
+export const PostInfoSchema = PostSchema.pick({
+  content: true,
+}).extend({
+  author: z.object({
+    id: z.uuid(),
+    name: z.string(),
+    avatar: z.string(),
+  }),
+})
+
 export type Post = z.infer<typeof PostSchema>
 export type CreatePostDto = z.infer<typeof CreatePostSchema>
+export type PostInfo = z.infer<typeof PostInfoSchema>

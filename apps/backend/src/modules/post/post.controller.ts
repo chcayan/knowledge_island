@@ -1,7 +1,10 @@
 import {
   Body,
   Controller,
+  Get,
+  ParseIntPipe,
   Post,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common'
@@ -27,5 +30,13 @@ export class PostController {
   @UseInterceptors(FileInterceptor('image', uploadOptions))
   async uploadImage(@UploadedFile() file: Express.Multer.File) {
     return this.postService.uploadImage(file)
+  }
+
+  @Get()
+  async getPost(
+    @Query('page', ParseIntPipe) page: number,
+    @Query('pageSize', ParseIntPipe) pageSize: number
+  ) {
+    return this.postService.getPost(page, pageSize)
   }
 }

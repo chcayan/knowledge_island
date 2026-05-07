@@ -168,7 +168,7 @@ export default function Editor({
       onChange(editorStateJSON)
       setEditorState(jsonString)
       localStorage.setItem('editor-state', jsonString)
-      console.log(_editorState)
+      // console.log(_editorState)
     }, 300)
   }
 

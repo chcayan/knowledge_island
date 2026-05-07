@@ -19,8 +19,9 @@ export enum PostType {
 
 export enum PostStatus {
   DRAFT = 0,
-  PUBLISHED = 1,
-  VIOLATION = 2,
+  REVIEWING = 1,
+  PUBLISHED = 2,
+  VIOLATION = 3,
 }
 
 @Entity()
@@ -32,7 +33,7 @@ export class Post {
   @Column({ length: 100 })
   title!: string
 
-  @Column({ type: 'json' })
+  @Column({ type: 'json', select: false })
   content!: string
 
   @Column({ type: 'text' })

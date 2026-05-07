@@ -11,6 +11,44 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/utils'
 import { createPostAPI } from '@/api'
 import { SerializedEditorState, SerializedLexicalNode } from 'lexical'
+import { ZodError } from 'zod'
+
+function checkContentIsNotEmpty(
+  content: SerializedEditorState<SerializedLexicalNode>
+) {
+  for (let i = 0; i < content.root.children.length; i++) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const node = content.root.children[i] as any
+    if (node.children.length !== 0) {
+      if (node.children?.[0]?.type === 'image') {
+        return true
+      }
+      if (node.children?.[0]?.text?.trim()) {
+        return true
+      }
+    }
+
+    if (node.children.length === 0 && i + 1 === content.root.children.length) {
+      Toast.show({
+        msg: '内容不能为空',
+        type: 'error',
+      })
+      return false
+    }
+
+    if (node.children.length !== 0 && i + 1 === content.root.children.length) {
+      if (node.children?.[0]?.type === 'linebreak') {
+        Toast.show({
+          msg: '内容不能为空',
+          type: 'error',
+        })
+        return false
+      }
+    }
+  }
+
+  return true
+}
 
 export default function PublishPage() {
   const t = useTranslations('Publish')
@@ -56,31 +94,41 @@ export default function PublishPage() {
   const [publishLoading, setPublishLoading] = useState(false)
 
   const createPost = async (status: 0 | 1) => {
-    console.log(title)
-    console.log(content)
-    const res = await createPostAPI({
-      title,
-      content,
-      type: type === 'write' ? 0 : 1,
-      status,
-      tags,
-    })
-    console.log(res.data)
-  }
+    if (!checkContentIsNotEmpty(content!)) return
 
-  const handlePublish = () => {
-    if (publishLoading) return
-    console.log('publish')
-    setPublishLoading(true)
-    createPost(1)
-
-    setTimeout(() => {
-      setPublishLoading(false)
+    try {
+      const res = await createPostAPI({
+        title,
+        content,
+        type: type === 'write' ? 0 : 1,
+        status,
+        tags,
+      })
+      console.log(res.data)
+    } catch (err) {
+      if (err instanceof ZodError) {
+        Toast.show({
+          msg: err.issues[0].message,
+          type: 'error',
+        })
+        return
+      }
       Toast.show({
-        msg: '发布失败',
+        msg: '未知错误',
         type: 'error',
       })
-    }, 2000)
+    }
+  }
+
+  const handlePublish = async () => {
+    if (publishLoading) return
+    console.log('publish')
+
+    setPublishLoading(true)
+
+    await createPost(1)
+
+    setPublishLoading(false)
   }
 
   const [draftLoading, setDraftLoading] = useState(false)
