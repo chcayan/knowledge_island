@@ -41,8 +41,17 @@
       "latex": "Enter a LaTeX"
     },
     "error": {
-      "IMG_SIZE_LIMIT": "The gif size should not exceed 5M.",
-      "UPLOAD_IMAGE_FAILED": "Failed to upload the image."
+      "GIF_SIZE_LIMIT": "The gif size should not exceed {size}M.",
+      "UPLOAD_IMAGE_FAILED": "Failed to upload the image.",
+      "TITLE_IS_NOT_NULL": "The title cannot be empty.",
+      "CONTENT_IS_NOT_NULL": "The content cannot be empty.",
+      "PUBLISH_POST_FAILED": "Publishing failed, please try again.",
+      "TAG_REPEAT": "Duplicate tag names.",
+      "TAG_EMPTY": "The tag name is not empty.",
+      "TAG_COUNT_LIMIT": "The number of tags should not exceed {size}."
+    },
+    "event": {
+      "success": "Published successfully"
     }
   }
 }

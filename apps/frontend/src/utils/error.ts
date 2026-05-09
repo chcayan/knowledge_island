@@ -1,5 +1,5 @@
 type Options = {
-  type: 'DEFAULT' | 'IMG_SIZE_LIMIT'
+  type: 'DEFAULT' | 'GIF_SIZE_LIMIT'
 }
 
 export class CustomError extends Error {

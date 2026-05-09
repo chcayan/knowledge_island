@@ -41,8 +41,17 @@
       "latex": "输入 LaTeX"
     },
     "error": {
-      "IMG_SIZE_LIMIT": "gif 大小不超过 5M",
-      "UPLOAD_IMAGE_FAILED": "上传图片失败"
+      "GIF_SIZE_LIMIT": "gif 大小不超过 {size}M",
+      "UPLOAD_IMAGE_FAILED": "上传图片失败",
+      "TITLE_IS_NOT_NULL": "标题不能为空",
+      "CONTENT_IS_NOT_NULL": "内容不能为空",
+      "PUBLISH_POST_FAILED": "发布失败，请重试",
+      "TAG_REPEAT": "标签名重复",
+      "TAG_EMPTY": "标签名不为空 ",
+      "TAG_COUNT_LIMIT": "标签数量不超过 {size} 个"
+    },
+    "event": {
+      "success": "发布成功"
     }
   }
 }

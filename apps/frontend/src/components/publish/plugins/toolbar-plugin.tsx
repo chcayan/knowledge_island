@@ -36,6 +36,7 @@ import InsertLatex from '../icons/insert-latex'
 import { uploadImageAPI } from '@/api'
 import { baseURL, CustomError, Toast } from '@/utils'
 import { useTranslations } from 'next-intl'
+import { GIF_SIZE_LIMIT } from '@/config/post-field'
 
 function Divider() {
   return <div className="divider" />
@@ -68,9 +69,9 @@ export default function ToolbarPlugin() {
         })
       } catch (err) {
         if (err instanceof CustomError) {
-          if (err.type === 'IMG_SIZE_LIMIT') {
+          if (err.type === 'GIF_SIZE_LIMIT') {
             Toast.show({
-              msg: t(err.type),
+              msg: t(err.type, { size: GIF_SIZE_LIMIT }),
               type: 'error',
             })
             return

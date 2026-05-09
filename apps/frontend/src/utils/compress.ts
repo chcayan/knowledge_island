@@ -1,5 +1,6 @@
 import { ImageCompressOptions } from '@/types/compress'
 import { CustomError } from './error'
+import { GIF_SIZE_LIMIT } from '@/config/post-field'
 
 export const getExt = (type: string) => {
   if (type.includes('webp')) return '.webp'
@@ -103,11 +104,11 @@ export const compressImage = async (
   }
 
   if (file.type === 'image/gif') {
-    if (file.size / 1024 / 1024 < 5) {
+    if (file.size / 1024 / 1024 < GIF_SIZE_LIMIT) {
       return file
     } else {
-      throw new CustomError('gif 大小不超过 5M', {
-        type: 'IMG_SIZE_LIMIT',
+      throw new CustomError(`gif 大小不超过 ${GIF_SIZE_LIMIT}M`, {
+        type: 'GIF_SIZE_LIMIT',
       })
     }
   }

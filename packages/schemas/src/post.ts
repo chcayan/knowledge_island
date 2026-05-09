@@ -12,10 +12,7 @@ enum PostStatus {
 
 export const PostSchema = z.object({
   id: z.uuid(),
-  title: z
-    .string({ error: '标题不能为空' })
-    .min(1, '标题至少 1 个字')
-    .max(100, '标题最多 100 个字'),
+  title: z.string().min(1, '标题至少 1 个字').max(100, '标题最多 100 个字'),
   content: z.any().refine((val) => val !== null && val !== undefined, {
     message: '内容不能为空',
   }),

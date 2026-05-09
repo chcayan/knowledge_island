@@ -11,10 +11,15 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/utils'
 import { createPostAPI } from '@/api'
 import { SerializedEditorState, SerializedLexicalNode } from 'lexical'
-import { ZodError } from 'zod'
+import {
+  TAG_COUNT_LIMIT,
+  TAG_LENGTH_LIMIT,
+  TITLE_LENGTH_LIMIT,
+} from '@/config/post-field'
 
 function checkContentIsNotEmpty(
-  content: SerializedEditorState<SerializedLexicalNode>
+  content: SerializedEditorState<SerializedLexicalNode>,
+  errorMsg: string
 ) {
   for (let i = 0; i < content.root.children.length; i++) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -30,7 +35,7 @@ function checkContentIsNotEmpty(
 
     if (node.children.length === 0 && i + 1 === content.root.children.length) {
       Toast.show({
-        msg: '内容不能为空',
+        msg: errorMsg,
         type: 'error',
       })
       return false
@@ -39,7 +44,7 @@ function checkContentIsNotEmpty(
     if (node.children.length !== 0 && i + 1 === content.root.children.length) {
       if (node.children?.[0]?.type === 'linebreak') {
         Toast.show({
-          msg: '内容不能为空',
+          msg: errorMsg,
           type: 'error',
         })
         return false
@@ -53,14 +58,21 @@ function checkContentIsNotEmpty(
 export default function PublishPage() {
   const t = useTranslations('Publish')
 
-  const [type, setType] = useState<'write' | 'ask'>('write')
-  const [tags, setTags] = useState<string[]>([])
+  const [type, setType] = useState<'write' | 'ask'>(
+    (localStorage.getItem('postType') as 'write') || 'write'
+  )
+  const [tags, setTags] = useState<string[]>(
+    JSON.parse(localStorage.getItem('postTags') || '[]') || []
+  )
 
   const inputRef = useRef<HTMLInputElement>(null)
 
   const addTag = () => {
-    if (tags.length >= 10) {
-      console.log('max tags')
+    if (tags.length >= TAG_COUNT_LIMIT) {
+      Toast.show({
+        msg: t('error.TAG_COUNT_LIMIT', { size: TAG_COUNT_LIMIT }),
+        type: 'error',
+      })
       return
     }
 
@@ -70,51 +82,71 @@ export default function PublishPage() {
     const tag = inputEl.value.trim()
 
     if (!tag) {
-      console.log('empty')
+      Toast.show({
+        msg: t('error.TAG_EMPTY'),
+        type: 'error',
+      })
       return
     }
 
     if (tags.includes(tag)) {
-      console.log('repeated')
+      Toast.show({
+        msg: t('error.TAG_REPEAT'),
+        type: 'error',
+      })
       return
     }
 
     setTags([...tags, tag])
+    localStorage.setItem('postTags', JSON.stringify([...tags, tag]))
     inputEl.value = ''
   }
 
   const delTag = (value: string) => {
     setTags((prev) => prev.filter((tag) => tag !== value))
+    localStorage.setItem(
+      'postTags',
+      JSON.stringify([...tags.filter((tag) => tag !== value)])
+    )
   }
 
-  const [title, setTitle] = useState('')
+  const [title, setTitle] = useState(localStorage.getItem('postTitle') || '')
   const [content, setContent] =
     useState<SerializedEditorState<SerializedLexicalNode>>()
 
   const [publishLoading, setPublishLoading] = useState(false)
 
   const createPost = async (status: 0 | 1) => {
-    if (!checkContentIsNotEmpty(content!)) return
+    if (!title.trim()) {
+      Toast.show({
+        msg: t('error.TITLE_IS_NOT_NULL'),
+        type: 'error',
+      })
+      return
+    }
+
+    if (!checkContentIsNotEmpty(content!, t('error.CONTENT_IS_NOT_NULL'))) {
+      return
+    }
 
     try {
       const res = await createPostAPI({
-        title,
+        title: title.trim(),
         content,
         type: type === 'write' ? 0 : 1,
         status,
         tags,
       })
+      Toast.show({
+        msg: t('event.success'),
+        type: 'success',
+      })
       console.log(res.data)
     } catch (err) {
-      if (err instanceof ZodError) {
-        Toast.show({
-          msg: err.issues[0].message,
-          type: 'error',
-        })
-        return
-      }
+      // TODO: track error
+      console.log(err)
       Toast.show({
-        msg: '未知错误',
+        msg: t('error.PUBLISH_POST_FAILED'),
         type: 'error',
       })
     }
@@ -162,7 +194,9 @@ export default function PublishPage() {
             value={title}
             onChange={(e) => {
               setTitle(e.target.value)
+              localStorage.setItem('postTitle', e.target.value)
             }}
+            maxLength={TITLE_LENGTH_LIMIT}
           />
           <Editor onChange={setContent} />
         </main>
@@ -171,7 +205,10 @@ export default function PublishPage() {
             <p>{t('aside.type')}：</p>
             <ToggleButton
               value={type}
-              onChange={setType}
+              onChange={(type) => {
+                setType(type)
+                localStorage.setItem('postType', type)
+              }}
               options={[
                 { value: 'write', label: 'Write' },
                 { value: 'ask', label: 'ask' },
@@ -191,6 +228,7 @@ export default function PublishPage() {
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') addTag()
                 }}
+                maxLength={TAG_LENGTH_LIMIT}
               />
               <button onClick={addTag}>
                 <span>+</span>

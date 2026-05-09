@@ -9,13 +9,13 @@ enum UserSex {
 export const UserSchema = z.object({
   id: z.uuid(),
   name: z
-    .string({ error: '用户名不能为空' })
+    .string()
     .min(1, '用户名至少 1 个字')
     .max(20, '用户名最多 20 个字')
     .regex(/^[\u4e00-\u9fa5a-zA-Z0-9_]+$/, '只能包含汉字/字母/数字/下划线'),
   email: z.email({ error: '邮箱不能为空' }),
   password: z
-    .string({ error: '密码不能为空' })
+    .string()
     .min(6, '密码至少 6 位')
     .max(20, '密码最长 20 位')
     .regex(/^[^\s]{6,20}$/, '只允许数字、字母、符号'),
