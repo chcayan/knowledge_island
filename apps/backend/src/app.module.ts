@@ -11,6 +11,8 @@ import { ServeStaticModule } from '@nestjs/serve-static'
 import { join } from 'path'
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { PostModule } from './modules/post/post.module'
+import { SeedModule } from './modules/seed/seed.module'
+import { RedisModule } from './modules/redis/redis.module'
 
 @Module({
   imports: [
@@ -38,6 +40,8 @@ import { PostModule } from './modules/post/post.module'
     }),
     UserModule,
     PostModule,
+    SeedModule,
+    RedisModule,
   ],
   controllers: [AppController],
   providers: [AppService],

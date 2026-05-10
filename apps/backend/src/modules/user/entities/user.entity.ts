@@ -56,6 +56,30 @@ export class User {
   @Column({ type: 'varchar', nullable: true })
   signature!: string | null
 
+  @Column({
+    type: 'timestamp',
+    nullable: true,
+  })
+  postBanUntil!: Date | null
+
+  @Column({
+    type: 'timestamp',
+    nullable: true,
+  })
+  commentBanUntil!: Date | null
+
+  @Column({
+    type: 'timestamp',
+    nullable: true,
+  })
+  loginBanUntil!: Date | null
+
+  @Column({ default: false })
+  canReviewPost!: boolean
+
+  @Column({ default: false })
+  canManageUserPermission!: boolean
+
   @OneToMany(() => Post, (post) => post.author)
   posts!: Post[]
 }

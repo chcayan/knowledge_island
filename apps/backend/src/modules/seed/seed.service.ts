@@ -1,18 +1,22 @@
 import { Injectable, OnApplicationBootstrap } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { User } from './entities/user.entity'
 import { Repository } from 'typeorm'
 import bcrypt from 'bcryptjs'
+import { User } from '../user/entities/user.entity'
 
 const EMAIL = 'admin@ki.com'
 
 @Injectable()
-export class UserSeedService implements OnApplicationBootstrap {
+export class SeedService implements OnApplicationBootstrap {
   constructor(
     @InjectRepository(User) private readonly userRepo: Repository<User>
   ) {}
 
   async onApplicationBootstrap() {
+    await this.initUserSeed()
+  }
+
+  async initUserSeed() {
     const exist = await this.userRepo.findOne({
       where: {
         email: EMAIL,
@@ -27,6 +31,8 @@ export class UserSeedService implements OnApplicationBootstrap {
       password,
       name: 'admin',
       email: EMAIL,
+      canReviewPost: true,
+      canManageUserPermission: true,
     })
 
     await this.userRepo.save(user)
