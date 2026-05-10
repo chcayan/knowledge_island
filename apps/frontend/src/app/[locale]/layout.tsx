@@ -6,9 +6,9 @@ import { Metadata } from 'next'
 import { ThemeProvider } from '@wrksz/themes/next'
 import '@/scss/index.scss'
 import styles from './layout.module.scss'
-import Image from 'next/image'
 import Nav from '@/components/layout/nav'
 import { locale } from '@/types/locale'
+import LogoIcon from '@/components/icon/logo-icon'
 
 export async function generateMetadata({
   params,
@@ -57,13 +57,7 @@ export default async function RootLayout({
                 <h1>Knowledge Island</h1>
               </div>
               <div className={styles.logo}>
-                <Image
-                  loading="eager"
-                  src="/logo.png"
-                  width={40}
-                  height={40}
-                  alt="logo"
-                />
+                <LogoIcon width={40} height={40} />
               </div>
               <Nav />
             </header>

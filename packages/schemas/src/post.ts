@@ -40,7 +40,7 @@ export const CreatePostSchema = z.object({
   tags: PostSchema.shape.tags,
 })
 
-export const PostInfoSchema = PostSchema.pick({
+export const PostInfoSchema = PostSchema.omit({
   content: true,
 }).extend({
   author: z.object({

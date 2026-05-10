@@ -1,7 +1,35 @@
 import createMiddleware from 'next-intl/middleware'
 import { routing } from './i18n/routing'
+import { NextRequest, NextResponse } from 'next/server'
 
-export default createMiddleware(routing)
+const handleI18nRouting = createMiddleware(routing)
+
+const publicRoutes = ['/', '/login', '/setting']
+
+export default async function proxy(request: NextRequest) {
+  const response = handleI18nRouting(request)
+  if (response.ok) {
+    // const token = request.cookies.get('token')
+    const token = true
+
+    const pathname = request.nextUrl.pathname.replace(/^\/(en|zh)/, '') || '/'
+
+    console.log(pathname)
+    const isPublicRoute = publicRoutes.includes(pathname)
+
+    if (!token && !isPublicRoute) {
+      console.log('未登录')
+      return NextResponse.redirect(new URL('/login', request.url))
+    }
+
+    if (token && pathname === '/login') {
+      console.log('已登录')
+      return NextResponse.redirect(new URL('/', request.url))
+    }
+  }
+
+  return response
+}
 
 export const config = {
   matcher: ['/((?!api|_next|.*\\..*).*)'],

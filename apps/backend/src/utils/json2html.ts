@@ -5,6 +5,7 @@ import { FormulaNode, ImageNode } from '@knowledge_island/lexical'
 import { LinkNode } from '@lexical/link'
 import { $generateHtmlFromNodes } from '@lexical/html'
 import katex from 'katex'
+import DOMPurify from 'isomorphic-dompurify'
 
 const editor = createHeadlessEditor({
   namespace: 'server',
@@ -36,6 +37,6 @@ export function json2html(json: JSON) {
         }
       )
 
-    return html
+    return DOMPurify.sanitize(html)
   })
 }

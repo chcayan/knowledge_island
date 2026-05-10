@@ -1,4 +1,4 @@
-import { request } from '@/utils'
+import { request } from '@/utils/request'
 import { compressImage } from '@/utils/compress'
 import { CreatePostSchema, type CreatePostDto } from '@knowledge_island/schemas'
 
@@ -13,4 +13,13 @@ export async function uploadImageAPI(file: File) {
   formData.append('image', compressedFile || file)
 
   return request.post('/post/upload-image', formData)
+}
+
+export function getPostAPI(page: number, pageSize: number) {
+  return request.get('/post', {
+    params: {
+      page,
+      pageSize,
+    },
+  })
 }
