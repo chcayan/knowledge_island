@@ -4,7 +4,7 @@ export const baseURL = 'http://localhost:8080'
 
 const instance = axios.create({
   baseURL,
-  timeout: 30000,
+  timeout: 10000,
   withCredentials: true,
 })
 

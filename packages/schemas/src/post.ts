@@ -8,6 +8,13 @@ enum PostType {
 enum PostStatus {
   DRAFT = 0,
   REVIEWING = 1,
+  PUBLISHED = 2,
+  VIOLATION = 3,
+}
+
+enum PostEditableStatus {
+  DRAFT = 0,
+  REVIEWING = 1,
 }
 
 export const PostSchema = z.object({
@@ -18,13 +25,13 @@ export const PostSchema = z.object({
   }),
   contentHtml: z.string(),
   viewCount: z.number(),
-  likeCount: z.number(),
+  CollectionCount: z.number(),
   commentCount: z.number(),
   createdAt: z.date(),
   updatedAt: z.date(),
   authorId: z.uuid(),
   type: z.enum(PostType, '请选择类型'),
-  status: z.enum(PostStatus, '请选择帖子状态（草稿/发布）'),
+  status: z.enum(PostEditableStatus, '请选择帖子状态（草稿/发布）'),
   tags: z
     .array(
       z.string().min(1, '标签名字至少 1 个字').max(50, '标签名字最多 50 个字')
@@ -42,7 +49,9 @@ export const CreatePostSchema = z.object({
 
 export const PostInfoSchema = PostSchema.omit({
   content: true,
+  type: true,
 }).extend({
+  type: z.enum(PostStatus),
   author: z.object({
     id: z.uuid(),
     name: z.string(),

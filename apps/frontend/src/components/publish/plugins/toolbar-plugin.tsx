@@ -34,9 +34,10 @@ import ToggleLink from '../icons/toggle-link'
 import { FormulaInputNode } from '../nodes/formula-input-node'
 import InsertLatex from '../icons/insert-latex'
 import { uploadImageAPI } from '@/api'
-import { baseURL, CustomError, Toast } from '@/utils'
+import { baseURL, CustomError } from '@/utils'
 import { useTranslations } from 'next-intl'
 import { GIF_SIZE_LIMIT } from '@/config/post-field'
+import { Toast } from '@/utils/toast'
 
 function Divider() {
   return <div className="divider" />

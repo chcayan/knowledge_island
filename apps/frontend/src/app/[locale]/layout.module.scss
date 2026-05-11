@@ -1,12 +1,12 @@
 $gap: 10px;
 $mobile-size: 375px;
 
-body {
+.layout {
   display: flex;
   justify-content: center;
   padding: 20px;
 
-  header {
+  .header {
     width: 250px;
     height: calc(100vh - 80px);
     flex-shrink: 0;

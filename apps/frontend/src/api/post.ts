@@ -1,6 +1,10 @@
 import { request } from '@/utils/request'
 import { compressImage } from '@/utils/compress'
-import { CreatePostSchema, type CreatePostDto } from '@knowledge_island/schemas'
+import {
+  CreatePostSchema,
+  PostInfo,
+  type CreatePostDto,
+} from '@knowledge_island/schemas'
 
 export function createPostAPI(dto: CreatePostDto) {
   const data = CreatePostSchema.parse(dto)
@@ -15,11 +19,20 @@ export async function uploadImageAPI(file: File) {
   return request.post('/post/upload-image', formData)
 }
 
-export function getPostAPI(page: number, pageSize: number) {
-  return request.get('/post', {
+export async function getPostAPI(page: number, pageSize: number) {
+  // try {
+  const res = await request.get('/post', {
     params: {
       page,
       pageSize,
     },
   })
+
+  const { list, total }: { list: PostInfo[]; total: number } = res.data.data
+
+  return { list, total }
+  // } catch (err) {
+  //   console.error('API Error: ', err)
+  //   throw new Error('Failed to fetch data.')
+  // }
 }

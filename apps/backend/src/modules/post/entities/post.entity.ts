@@ -43,7 +43,7 @@ export class Post {
   viewCount!: number
 
   @Column({ default: 0 })
-  likeCount!: number
+  CollectionCount!: number
 
   @Column({ default: 0 })
   commentCount!: number

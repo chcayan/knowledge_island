@@ -8,7 +8,7 @@ import PublishIcon from '@/components/icon/publish-icon'
 import DraftIcon from '@/components/icon/draft-icon'
 import LoadingButton from '@/components/common/loading-button'
 import { useTranslations } from 'next-intl'
-import { Toast } from '@/utils'
+import { Toast } from '@/utils/toast'
 import { createPostAPI } from '@/api'
 import { SerializedEditorState, SerializedLexicalNode } from 'lexical'
 import {

@@ -18,7 +18,7 @@ export async function generateMetadata({
   }>
 }>): Promise<Metadata> {
   const { locale } = await params
-  const t = await getTranslations({ locale, namespace: 'Metadata' })
+  const t = await getTranslations({ locale, namespace: 'Metadata.home' })
 
   return {
     title: t('title'),
@@ -49,10 +49,10 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body>
+      <body className={styles.layout}>
         <ThemeProvider>
           <NextIntlClientProvider>
-            <header>
+            <header className={styles.header}>
               <div className={styles.title}>
                 <h1>Knowledge Island</h1>
               </div>

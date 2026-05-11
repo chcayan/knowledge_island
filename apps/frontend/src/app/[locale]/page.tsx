@@ -3,12 +3,14 @@ import ThemeToggle from '@/components/layout/theme-toggle'
 import styles from './page.module.scss'
 import { getPostAPI } from '@/api'
 import { PostInfo } from '@knowledge_island/schemas'
+import PostCard from '@/components/home/post-card'
 
 export default async function Home() {
   // const t = useTranslations('HomePage')
-  const res = await getPostAPI(1, 10)
-  const total: number = res.data.data.total
-  const list: PostInfo[] = res.data.data.list
+  const { list, total } = await getPostAPI(1, 10)
+
+  // const total: number = res.data.data.total
+  // const list: PostInfo[] = res.data.data.list
   // console.log(list)
 
   return (
@@ -18,24 +20,7 @@ export default async function Home() {
           <Search />
           <div className={styles['post-list']}>
             {list.map((post) => (
-              <div
-                style={{
-                  margin: '20px 0',
-                  backgroundColor: '#eee',
-                  padding: '10px',
-                }}
-                key={post.id}
-              >
-                <p>{post.title}</p>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: post.contentHtml,
-                  }}
-                  style={{
-                    fontSize: '15px',
-                  }}
-                />
-              </div>
+              <PostCard key={post.id} post={post} />
             ))}
           </div>
         </main>

@@ -8,11 +8,11 @@ $mobile-size: 375px;
   .main {
     width: 100%;
     height: calc(100vh - 40px);
-    // max-width: 690px;
-    max-width: 710px;
+    // max-width: 710px;
+    max-width: 638px;
 
     .post-list {
-      margin-top: $gap;
+      margin-top: $gap * 3;
       padding-right: $gap;
       height: calc(100% - 50px);
       overflow-y: scroll;
@@ -32,7 +32,7 @@ $mobile-size: 375px;
   .aside {
     margin-left: $gap * 2;
     // width: 220px;
-    width: 220px;
+    width: 292px;
     flex-shrink: 0;
     background-color: var(--theme-secondary-color);
 

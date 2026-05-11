@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 
 import { Tag } from './entities/tag.entity'
-import { Post } from './entities/post.entity'
+import { Post, PostStatus } from './entities/post.entity'
 import { Image } from './entities/image.entity'
 
 import { Repository } from 'typeorm'
@@ -42,6 +42,7 @@ export class PostService {
       ...dto,
       tags: allTags,
       contentHtml: html,
+      status: dto.status as unknown as PostStatus,
     })
 
     await this.postRepo.save(post)
@@ -93,6 +94,9 @@ export class PostService {
   }
 
   async getPost(page: number, pageSize: number) {
+    // await new Promise((resolve) => setTimeout(resolve, 1000))
+
+    // throw new Error('api failed')
     const [list, total] = await this.postRepo
       .createQueryBuilder('post')
       .leftJoin('post.author', 'author')
