@@ -31,9 +31,9 @@ export function json2html(json: JSON) {
         })
       })
       .replace(
-        /<span data-image="(.*?)"(?: data-alt="(.*?)")?><\/span>/g,
-        (_, src: string, alt: string) => {
-          return `<img src="${src}" alt="${alt || 'image'}" style="max-width:50%;border-radius:4px;" />`
+        /<span data-image="(.*?)"(?: data-alt="(.*?)")?(?: data-width="(.*?)")?><\/span>/g,
+        (_, src: string, alt: string, width: string) => {
+          return `<img src="${src}" alt="${alt || 'image'}" style="max-width:${width || 50}%;border-radius:4px;" />`
         }
       )
 

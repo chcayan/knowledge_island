@@ -2,7 +2,6 @@ import Search from '@/components/common/search'
 import ThemeToggle from '@/components/layout/theme-toggle'
 import styles from './page.module.scss'
 import { getPostAPI } from '@/api'
-import { PostInfo } from '@knowledge_island/schemas'
 import PostCard from '@/components/home/post-card'
 
 export default async function Home() {

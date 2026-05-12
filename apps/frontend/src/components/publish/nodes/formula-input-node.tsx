@@ -1,6 +1,7 @@
 import { DecoratorNode } from 'lexical'
 import { JSX } from 'react'
 import FormulaInputComponent from '../components/formula-input-component'
+import { SerializedFormulaNode } from '../types/serialized-node'
 
 export class FormulaInputNode extends DecoratorNode<JSX.Element> {
   static getType() {
@@ -11,8 +12,7 @@ export class FormulaInputNode extends DecoratorNode<JSX.Element> {
     return new FormulaInputNode(node.__key)
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static importJSON(serializedNode: any) {
+  static importJSON(serializedNode: SerializedFormulaNode) {
     return new FormulaInputNode(serializedNode.latex)
   }
 

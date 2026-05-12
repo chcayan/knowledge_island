@@ -1,4 +1,5 @@
 import { DecoratorNode } from 'lexical'
+import { SerializedFormulaNode } from '../types/serialized-node'
 
 export class FormulaNode extends DecoratorNode<unknown> {
   __latex: string
@@ -11,8 +12,7 @@ export class FormulaNode extends DecoratorNode<unknown> {
     return new FormulaNode(node.__latex, node.__key)
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static importJSON(serializedNode: any) {
+  static importJSON(serializedNode: SerializedFormulaNode) {
     return new FormulaNode(serializedNode.latex)
   }
 

@@ -1,27 +1,39 @@
-import { DecoratorNode } from 'lexical'
+import { DecoratorNode, LexicalEditor } from 'lexical'
 import { JSX } from 'react'
+import ImageComponent from '../components/image-component'
+import { SerializedImageNode } from '../types/serialized-node'
 
 export class ImageNode extends DecoratorNode<JSX.Element> {
   __src: string
   __altText: string
+  __width: number
 
   static getType() {
     return 'image'
   }
 
   static clone(node: ImageNode) {
-    return new ImageNode(node.__src, node.__altText, node.__key)
+    return new ImageNode(node.__src, node.__altText, node.__width, node.__key)
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static importJSON(serializedNode: any) {
-    return new ImageNode(serializedNode.src)
+  static importJSON(serializedNode: SerializedImageNode) {
+    return new ImageNode(
+      serializedNode.src,
+      serializedNode.altText,
+      serializedNode.width
+    )
   }
 
-  constructor(src: string = '', altText: string = 'image', key?: string) {
+  constructor(
+    src: string = '',
+    altText: string = 'image',
+    width: number = 50,
+    key?: string
+  ) {
     super(key)
     this.__src = src
     this.__altText = altText
+    this.__width = width
   }
 
   exportJSON() {
@@ -30,6 +42,7 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
       version: 1,
       src: this.__src,
       altText: this.__altText,
+      width: this.__width,
     }
   }
 
@@ -42,23 +55,34 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
     return false
   }
 
-  decorate() {
+  setWidth(width: number) {
+    const writable = this.getWritable()
+    writable.__width = width
+  }
+
+  getWidth() {
+    return this.__width
+  }
+
+  decorate(editor: LexicalEditor) {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
+      <ImageComponent
         src={this.__src}
         alt={this.__altText}
-        style={{
-          maxWidth: '50%',
-          borderRadius: '4px',
-        }}
+        width={this.__width}
+        nodeKey={this.getKey()}
+        editor={editor}
       />
     )
   }
 }
 
-export function $createImageNode(src: string, altText: string) {
-  return new ImageNode(src, altText)
+export function $createImageNode(
+  src: string,
+  altText: string,
+  width: number = 50
+) {
+  return new ImageNode(src, altText, width)
 }
 
 export function $isImageNode(node: ImageNode) {
