@@ -22,11 +22,6 @@
     height: calc(100% - 44px);
     overflow-y: scroll;
 
-    @media (max-width: 500px) {
-      min-height: 300px;
-      height: 60%;
-    }
-
     &::-webkit-scrollbar {
       width: 8px;
       height: 8px;

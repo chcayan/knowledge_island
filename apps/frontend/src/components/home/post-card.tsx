@@ -7,10 +7,21 @@ import { formatCount, formatDateByYear, getImgUrl } from '@/utils'
 import ViewCountIcon from '../icon/view-count-icon'
 import CommentCountIcon from '../icon/comment-count-icon'
 import CollectionCountIcon from '../icon/collection-count-icon'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function PostCard({ post }: { post: PostInfo }) {
   const [isCollected, setIsCollected] = useState(false)
+
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [overflow, setOverflow] = useState(false)
+
+  useEffect(() => {
+    const el = contentRef.current
+
+    if (el) {
+      setOverflow(el.scrollHeight > el.clientHeight)
+    }
+  }, [])
 
   return (
     <div className={styles.post}>
@@ -24,11 +35,17 @@ export default function PostCard({ post }: { post: PostInfo }) {
       <div className={styles.main}>
         <p className={styles.title}>{post.title}</p>
         <div
+          ref={contentRef}
           className={styles['content-html']}
           dangerouslySetInnerHTML={{
             __html: post.contentHtml,
           }}
         />
+        {overflow && (
+          <>
+            <div className={styles.fade} />
+          </>
+        )}
       </div>
       <div className={styles.divider}></div>
       <footer>

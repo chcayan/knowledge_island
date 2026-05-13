@@ -14,7 +14,6 @@ export default async function proxy(request: NextRequest) {
 
     const pathname = request.nextUrl.pathname.replace(/^\/(en|zh)/, '') || '/'
 
-    console.log(pathname)
     const isPublicRoute = publicRoutes.includes(pathname)
 
     if (!token && !isPublicRoute) {

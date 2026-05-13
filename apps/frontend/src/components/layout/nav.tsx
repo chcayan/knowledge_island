@@ -6,11 +6,10 @@ import ChatIcon from '../icon/chat-icon'
 import SettingIcon from '../icon/setting-icon'
 import PublishIcon from '../icon/publish-icon'
 import styles from './nav.module.scss'
-import { usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { ComponentType } from 'react'
-import Link from 'next/link'
 import clsx from 'clsx'
+import { Link, usePathname } from '@/i18n/navigation'
 
 type NavKey = 'home' | 'ai' | 'chat' | 'publish' | 'setting'
 
@@ -26,7 +25,7 @@ const bottomLinks: { name: NavKey; href: string; icon: ComponentType }[] = [
 ]
 
 export default function Nav() {
-  const pathname = usePathname().slice(3) || '/'
+  const pathname = usePathname()
   const t = useTranslations('RootLayout')
 
   return (
@@ -38,6 +37,7 @@ export default function Nav() {
             <Link
               key={link.name}
               href={link.href}
+              scroll={false}
               className={clsx(styles.link, {
                 'nav-active': pathname === link.href,
               })}
@@ -55,6 +55,7 @@ export default function Nav() {
             <Link
               key={link.name}
               href={link.href}
+              scroll={false}
               className={clsx(styles.link, {
                 'nav-active': pathname === link.href,
               })}

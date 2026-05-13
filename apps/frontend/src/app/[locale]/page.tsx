@@ -1,12 +1,12 @@
 import Search from '@/components/common/search'
 import ThemeToggle from '@/components/layout/theme-toggle'
 import styles from './page.module.scss'
-import { getPostAPI } from '@/api'
-import PostCard from '@/components/home/post-card'
+import PostList from '@/components/home/post-list'
+import { Suspense } from 'react'
+import CardListSkeleton from '@/components/home/card-list-skeleton'
 
 export default async function Home() {
   // const t = useTranslations('HomePage')
-  const { list, total } = await getPostAPI(1, 10)
 
   // const total: number = res.data.data.total
   // const list: PostInfo[] = res.data.data.list
@@ -17,11 +17,9 @@ export default async function Home() {
       <div className={styles.home}>
         <main className={styles.main}>
           <Search />
-          <div className={styles['post-list']}>
-            {list.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
-          </div>
+          <Suspense fallback={<CardListSkeleton />}>
+            <PostList />
+          </Suspense>
         </main>
         <aside className={styles.aside}>
           <ThemeToggle />

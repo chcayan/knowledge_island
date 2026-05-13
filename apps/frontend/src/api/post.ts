@@ -1,4 +1,4 @@
-import { request } from '@/utils/request'
+import { baseURL, request } from '@/utils/request'
 import { compressImage } from '@/utils/compress'
 import {
   CreatePostSchema,
@@ -20,19 +20,30 @@ export async function uploadImageAPI(file: File) {
 }
 
 export async function getPostAPI(page: number, pageSize: number) {
-  // try {
-  const res = await request.get('/post', {
-    params: {
-      page,
-      pageSize,
+  const params = new URLSearchParams({
+    page: String(page),
+    pageSize: String(pageSize),
+  })
+
+  const res = await fetch(`${baseURL}/post?${params}`, {
+    next: {
+      revalidate: 60,
     },
   })
 
-  const { list, total }: { list: PostInfo[]; total: number } = res.data.data
+  if (!res.ok) {
+    throw new Error('Failed to fetch posts')
+  }
+
+  const data = await res.json()
+
+  const {
+    list,
+    total,
+  }: {
+    list: PostInfo[]
+    total: number
+  } = data.data
 
   return { list, total }
-  // } catch (err) {
-  //   console.error('API Error: ', err)
-  //   throw new Error('Failed to fetch data.')
-  // }
 }

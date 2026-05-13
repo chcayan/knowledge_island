@@ -94,7 +94,7 @@ export class PostService {
   }
 
   async getPost(page: number, pageSize: number) {
-    // await new Promise((resolve) => setTimeout(resolve, 1000))
+    await new Promise((resolve) => setTimeout(resolve, 3000))
 
     // throw new Error('api failed')
     const [list, total] = await this.postRepo

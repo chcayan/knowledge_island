@@ -45,7 +45,6 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
-  // const t = await getTranslations({ locale, namespace: 'RootLayout' })
 
   return (
     <html lang={locale} suppressHydrationWarning>
