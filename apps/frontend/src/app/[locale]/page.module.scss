@@ -10,16 +10,45 @@ $mobile-size: 375px;
     width: 100%;
     // height: calc(100vh - 40px);
     // max-width: 710px;
-    max-width: 638px;
+    max-width: 620px;
+  }
+
+  .search {
+    position: sticky;
+    top: $gap * 2;
+    z-index: 1;
+    margin-bottom: $gap * 3;
+    box-shadow:
+      0 -20px 0 var(--theme-primary-color),
+      0 20px 0 var(--theme-primary-color);
+
+    &::before,
+    &::after {
+      content: '';
+      width: 100%;
+      position: absolute;
+      z-index: -1;
+      left: 0px;
+      height: 20px;
+      background-color: var(--theme-primary-color);
+    }
+
+    &::before {
+      top: 0;
+    }
+
+    &::after {
+      bottom: 0;
+    }
   }
 
   .aside {
     position: sticky;
     top: $gap * 2;
-    height: 500px;
+    height: 100%;
     margin-left: $gap * 2;
     // width: 220px;
-    width: 292px;
+    width: 310px;
     flex-shrink: 0;
     background-color: var(--theme-secondary-color);
 

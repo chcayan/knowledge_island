@@ -13,10 +13,16 @@ export default function CardSkeleton() {
       <div className={styles.main}>
         <div className={styles.title} />
         <div className={styles.content}>
-          {Array.from({ length: 5 }).map((_, index) => (
+          {Array.from({ length: 4 }).map((_, index) => (
             <div className={styles.line} key={index} />
           ))}
           <div className={`${styles.line} ${styles.short}`} />
+        </div>
+        <div className={styles.content}>
+          {Array.from({ length: 4 }).map((_, index) => (
+            <div className={styles.line} key={index} />
+          ))}
+          <div className={`${styles.line} ${styles.short1}`} />
         </div>
       </div>
       <div className={styles.divider}></div>

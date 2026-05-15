@@ -4,6 +4,7 @@ import styles from './page.module.scss'
 import PostList from '@/components/home/post-list'
 import { Suspense } from 'react'
 import CardListSkeleton from '@/components/home/card-list-skeleton'
+import ScrollRestoration from '@/components/layout/scroll-restoration'
 
 export default async function Home() {
   // const t = useTranslations('HomePage')
@@ -16,7 +17,10 @@ export default async function Home() {
     <>
       <div className={styles.home}>
         <main className={styles.main}>
-          <Search />
+          <ScrollRestoration />
+          <div className={styles.search}>
+            <Search />
+          </div>
           <Suspense fallback={<CardListSkeleton />}>
             <PostList />
           </Suspense>

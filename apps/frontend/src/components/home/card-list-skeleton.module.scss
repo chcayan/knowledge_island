@@ -2,9 +2,6 @@ $gap: 10px;
 
 .card-list-skeleton {
   margin-top: $gap * 3;
-  height: calc(100vh - 110px);
-  overflow-y: auto;
-  padding-right: $gap;
 
   &::-webkit-scrollbar {
     width: 8px;

@@ -14,6 +14,8 @@ html.dark {
 
   --theme-toolbar-item-hover-color: rgb(74, 74, 74);
   --theme-toolbar-scrollbar-thumb-color: rgb(211, 211, 211);
+  --theme-skeleton-color: rgba(255, 255, 255, 0.06);
+  --theme-skeleton-animate-color: rgba(0, 0, 0, 0.5);
 }
 
 html.light {
@@ -32,4 +34,6 @@ html.light {
 
   --theme-toolbar-item-hover-color: rgb(222, 222, 222);
   --theme-toolbar-scrollbar-thumb-color: rgb(211, 211, 211);
+  --theme-skeleton-color: rgba(0, 0, 0, 0.06);
+  --theme-skeleton-animate-color: rgba(255, 255, 255, 0.5);
 }
