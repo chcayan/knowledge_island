@@ -13,6 +13,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
 import { PostModule } from './modules/post/post.module'
 import { SeedModule } from './modules/seed/seed.module'
 import { RedisModule } from './modules/redis/redis.module'
+import { AuthModule } from './modules/auth/auth.module'
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { RedisModule } from './modules/redis/redis.module'
     PostModule,
     SeedModule,
     RedisModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

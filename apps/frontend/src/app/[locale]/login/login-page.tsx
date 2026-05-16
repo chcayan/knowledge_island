@@ -2,6 +2,7 @@
 import LogoIcon from '@/components/icon/logo-icon'
 import styles from './login.module.scss'
 import { SubmitEvent, useState } from 'react'
+import { loginAPI } from '@/api'
 
 const themeColor = 'var(--theme-font-color)'
 
@@ -14,8 +15,20 @@ export default function LoginPage() {
     null
   )
 
+  async function login() {
+    const msg = await loginAPI({
+      email,
+      password,
+    })
+    console.log(msg)
+  }
+
   const handleLogin = (e: SubmitEvent) => {
     e.preventDefault()
+    console.log(email)
+    console.log(password)
+
+    login()
     console.log('submit')
   }
 
@@ -66,7 +79,7 @@ export default function LoginPage() {
                     onBlur={() => setFocusedField(null)}
                     required
                     minLength={6}
-                    maxLength={7}
+                    maxLength={20}
                   />
                   <p
                     className={styles['eye-icon']}

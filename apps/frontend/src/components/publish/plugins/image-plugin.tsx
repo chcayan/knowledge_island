@@ -11,7 +11,7 @@ import {
   PASTE_COMMAND,
 } from 'lexical'
 import { uploadImageAPI } from '@/api'
-import { baseURL } from '@/utils'
+import { BASE_URL } from '@/config/request'
 
 export function ImagePlugin() {
   const [editor] = useLexicalComposerContext()
@@ -49,7 +49,7 @@ export function ImagePlugin() {
               ;(async () => {
                 const res = await uploadImageAPI(file)
                 editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
-                  src: baseURL + res.data.data.url,
+                  src: BASE_URL + res.data.data.url,
                   altText: 'Pasted Image',
                 })
               })()

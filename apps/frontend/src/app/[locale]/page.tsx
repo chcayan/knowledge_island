@@ -7,12 +7,6 @@ import CardListSkeleton from '@/components/home/card-list-skeleton'
 import ScrollRestoration from '@/components/layout/scroll-restoration'
 
 export default async function Home() {
-  // const t = useTranslations('HomePage')
-
-  // const total: number = res.data.data.total
-  // const list: PostInfo[] = res.data.data.list
-  // console.log(list)
-
   return (
     <>
       <div className={styles.home}>

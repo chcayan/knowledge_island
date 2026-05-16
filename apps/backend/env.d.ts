@@ -1,6 +1,7 @@
 declare namespace NodeJS {
   interface ProcessEnv {
     NODE_ENV: 'development' | 'production' | 'test'
+    APP_NAME: string
     ORIGIN?: string
     CORS_ORIGIN: string
     CORS_ORIGIN_1: string

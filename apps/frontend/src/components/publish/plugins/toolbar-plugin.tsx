@@ -34,10 +34,11 @@ import ToggleLink from '../icons/toggle-link'
 import { FormulaInputNode } from '../nodes/formula-input-node'
 import InsertLatex from '../icons/insert-latex'
 import { uploadImageAPI } from '@/api'
-import { baseURL, CustomError } from '@/utils'
+import { CustomError } from '@/utils'
 import { useTranslations } from 'next-intl'
 import { GIF_SIZE_LIMIT } from '@/config/post-field'
 import { Toast } from '@/utils/toast'
+import { BASE_URL } from '@/config/request'
 
 function Divider() {
   return <div className="divider" />
@@ -65,7 +66,7 @@ export default function ToolbarPlugin() {
       try {
         const res = await uploadImageAPI(file)
         editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
-          src: baseURL + res.data.data.url,
+          src: BASE_URL + res.data.data.url,
           altText: file.name,
         })
       } catch (err) {

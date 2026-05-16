@@ -9,8 +9,7 @@ const publicRoutes = ['/', '/login', '/setting']
 export default async function proxy(request: NextRequest) {
   const response = handleI18nRouting(request)
   if (response.ok) {
-    // const token = request.cookies.get('token')
-    const token = true
+    const token = request.cookies.get('access_token')
 
     const pathname = request.nextUrl.pathname.replace(/^\/(en|zh)/, '') || '/'
 

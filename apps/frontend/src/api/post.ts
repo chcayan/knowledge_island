@@ -1,12 +1,13 @@
-import { baseURL, request } from '@/utils/request'
+import { request } from '@/utils/request'
 import { compressImage } from '@/utils/compress'
 import {
   CreatePostSchema,
   PostInfo,
   type CreatePostDto,
 } from '@knowledge_island/schemas'
+import { fetchData } from '@/utils'
 
-export function createPostAPI(dto: CreatePostDto) {
+export async function createPostAPI(dto: CreatePostDto) {
   const data = CreatePostSchema.parse(dto)
   return request.post('/post/create', data)
 }
@@ -20,22 +21,12 @@ export async function uploadImageAPI(file: File) {
 }
 
 export async function getPostAPI(page: number, pageSize: number) {
-  const params = new URLSearchParams({
-    page: String(page),
-    pageSize: String(pageSize),
-  })
-
-  const res = await fetch(`${baseURL}/post?${params}`, {
-    next: {
-      revalidate: 60,
+  const data = await fetchData('/post', {
+    params: {
+      page,
+      pageSize,
     },
   })
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch posts')
-  }
-
-  const data = await res.json()
 
   const {
     list,
@@ -43,7 +34,7 @@ export async function getPostAPI(page: number, pageSize: number) {
   }: {
     list: PostInfo[]
     total: number
-  } = data.data
+  } = data
 
   return { list, total }
 }

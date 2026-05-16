@@ -7,9 +7,10 @@ import { PostController } from './post.controller'
 import { Post } from './entities/post.entity'
 import { Tag } from './entities/tag.entity'
 import { Image } from './entities/image.entity'
+import { AuthModule } from '../auth/auth.module'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Post, Tag, Image])],
+  imports: [TypeOrmModule.forFeature([Post, Tag, Image]), AuthModule],
   controllers: [PostController],
   providers: [PostService],
 })
