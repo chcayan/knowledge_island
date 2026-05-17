@@ -36,7 +36,6 @@ export class PostController {
   }
 
   @Get()
-  @UseGuards(JwtGuard)
   async getPost(
     @Query('page', ParseIntPipe) page: number,
     @Query('pageSize', ParseIntPipe) pageSize: number

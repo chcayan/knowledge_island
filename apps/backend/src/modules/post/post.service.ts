@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 
 import { Tag } from './entities/tag.entity'
@@ -11,6 +11,7 @@ import { getFileMD5 } from '../../common/utils/md5.utils'
 import { CreatePostDto } from '@knowledge_island/schemas'
 import fs from 'fs'
 import path from 'path'
+import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
 
 @Injectable()
 export class PostService {
@@ -37,16 +38,27 @@ export class PostService {
 
     const allTags = [...existingTags, ...newTags]
 
-    const html = json2html(dto.content as JSON)
+    try {
+      const html = json2html(dto.content as JSON)
 
-    const post = this.postRepo.create({
-      ...dto,
-      tags: allTags,
-      contentHtml: html,
-      status: dto.status as unknown as PostStatus,
-    })
+      const post = this.postRepo.create({
+        ...dto,
+        tags: allTags,
+        contentHtml: html,
+        status: dto.status as unknown as PostStatus,
+      })
 
-    await this.postRepo.save(post)
+      await this.postRepo.save(post)
+    } catch {
+      throw new BadRequestException({
+        code: ERROR_CODE.LEXICAL_CONTENT_FORMAT_ERROR,
+        message: ERROR_MESSAGE[ERROR_CODE.LEXICAL_CONTENT_FORMAT_ERROR],
+        data: {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          content: dto.content,
+        },
+      })
+    }
   }
 
   async uploadImage(file: Express.Multer.File) {

@@ -9,6 +9,7 @@ import { AuthRequest } from '../interface/auth-request.interface'
 import { Reflector } from '@nestjs/core'
 import { Permission, UserPermValue } from '../constant/permission.constant'
 import { calculateRemainTime } from '../utils/time.utils'
+import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
 
 @Injectable()
 export class UserPermissionGuard implements CanActivate {
@@ -30,7 +31,11 @@ export class UserPermissionGuard implements CanActivate {
     const req = context.switchToHttp().getRequest<AuthRequest>()
     const userId = req.user.id
 
-    if (!userId) throw new ForbiddenException('未查询到用户')
+    if (!userId)
+      throw new ForbiddenException({
+        code: ERROR_CODE.FORBIDDEN,
+        message: ERROR_MESSAGE[ERROR_CODE.FORBIDDEN],
+      })
 
     const user = await this.userService.findOne(userId)
 
@@ -38,8 +43,11 @@ export class UserPermissionGuard implements CanActivate {
 
     if (banUntil && calculateRemainTime(banUntil)) {
       throw new ForbiddenException({
-        message: '该用户权限暂时被禁用',
-        time: calculateRemainTime(banUntil),
+        code: ERROR_CODE.TEMPORARY_FORBIDDEN,
+        message: ERROR_MESSAGE[ERROR_CODE.TEMPORARY_FORBIDDEN],
+        data: {
+          time: calculateRemainTime(banUntil),
+        },
       })
     }
 

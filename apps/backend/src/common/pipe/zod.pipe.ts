@@ -1,3 +1,4 @@
+import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
 import { BadRequestException, PipeTransform } from '@nestjs/common'
 import { z } from 'zod'
 
@@ -8,8 +9,11 @@ export class ZodValidationPipe implements PipeTransform {
     const result = this.schema.safeParse(value)
     if (!result.success) {
       throw new BadRequestException({
-        message: '参数校验失败',
-        ...z.treeifyError(result.error),
+        code: ERROR_CODE.BAD_REQUEST,
+        message: ERROR_MESSAGE[ERROR_CODE.BAD_REQUEST],
+        data: {
+          ...z.treeifyError(result.error),
+        },
       })
     }
     return result.data

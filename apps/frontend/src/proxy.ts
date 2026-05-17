@@ -17,7 +17,9 @@ export default async function proxy(request: NextRequest) {
 
     if (!token && !isPublicRoute) {
       console.log('未登录')
-      return NextResponse.redirect(new URL('/login', request.url))
+      return NextResponse.redirect(
+        new URL(`/login?redirect=${pathname}`, request.url)
+      )
     }
 
     if (token && pathname === '/login') {

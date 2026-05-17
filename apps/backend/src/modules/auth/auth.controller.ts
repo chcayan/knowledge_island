@@ -5,9 +5,12 @@ import type { AuthRequest } from '../../common/interface/auth-request.interface'
 import type { Response } from 'express'
 import { JwtPayload } from '../../common/interface/jwt-payload.interface'
 import {
+  ACCESS_TOKEN_MAX_AGE,
+  ACCESS_TOKEN_NAME,
   REFRESH_TOKEN_MAX_AGE,
   REFRESH_TOKEN_NAME,
 } from '../../common/config/cookie.config'
+import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
 
 @Controller('auth')
 export class AuthController {
@@ -22,9 +25,8 @@ export class AuthController {
 
     if (!refreshToken) {
       return res.status(401).json({
-        message: 'no token',
-        error: 'Unauthorized',
-        statusCode: 401,
+        code: ERROR_CODE.NO_TOKEN,
+        message: ERROR_MESSAGE[ERROR_CODE.NO_TOKEN],
       })
     }
 
@@ -37,9 +39,8 @@ export class AuthController {
 
       if (storedToken !== refreshToken) {
         return res.status(401).json({
-          message: 'Token mismatch',
-          error: 'Unauthorized',
-          statusCode: 401,
+          code: ERROR_CODE.TOKEN_MISMATCH,
+          message: ERROR_MESSAGE[ERROR_CODE.TOKEN_MISMATCH],
         })
       }
 
@@ -55,6 +56,13 @@ export class AuthController {
         payload.role
       )
 
+      res.cookie(ACCESS_TOKEN_NAME, newAccessToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'strict',
+        maxAge: ACCESS_TOKEN_MAX_AGE,
+      })
+
       res.cookie(REFRESH_TOKEN_NAME, newRefreshToken, {
         httpOnly: true,
         secure: true,
@@ -65,15 +73,11 @@ export class AuthController {
       return res.json({
         code: 0,
         message: 'success',
-        data: {
-          accessToken: newAccessToken,
-        },
       })
     } catch {
       return res.status(401).json({
-        message: '登录状态过期，请重新登录',
-        error: 'Unauthorized',
-        statusCode: 401,
+        code: ERROR_CODE.TOKEN_EXPIRED,
+        message: ERROR_MESSAGE[ERROR_CODE.TOKEN_EXPIRED],
       })
     }
   }

@@ -1,3 +1,5 @@
+'use client'
+
 import T, { ToastParams } from '@/components/common/toast'
 import { createRef, type RefObject } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -7,8 +9,14 @@ interface ToastRef {
 }
 
 let toastRef: RefObject<ToastRef | null>
+let initialized = false
 
 function createToast() {
+  if (typeof document === 'undefined') return
+  if (initialized) return
+
+  initialized = true
+
   const container = document.createElement('div')
   document.body.appendChild(container)
 
@@ -19,10 +27,13 @@ function createToast() {
   root.render(<T ref={toastRef} />)
 }
 
-createToast()
-
 export const Toast = {
+  init() {
+    if (!toastRef) {
+      createToast()
+    }
+  },
   show(options: ToastParams) {
-    toastRef.current?.show(options)
+    toastRef?.current?.show(options)
   },
 }

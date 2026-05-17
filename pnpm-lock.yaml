@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@knowledge_island/error':
+        specifier: workspace:*
+        version: link:packages/error
       '@knowledge_island/lexical':
         specifier: workspace:*
         version: link:packages/lexical
@@ -254,6 +257,8 @@ importers:
       babel-plugin-react-compiler:
         specifier: 1.0.0
         version: 1.0.0
+
+  packages/error: {}
 
   packages/lexical: {}
 

@@ -9,6 +9,7 @@ import styles from './layout.module.scss'
 import Nav from '@/components/layout/nav'
 import { locale } from '@/types/locale'
 import LogoIcon from '@/components/icon/logo-icon'
+import EmitterNotification from '@/components/common/emitter-notification'
 
 export async function generateMetadata({
   params,
@@ -61,6 +62,7 @@ export default async function RootLayout({
               <Nav />
             </header>
             <div className={styles.children}>{children}</div>
+            <EmitterNotification />
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

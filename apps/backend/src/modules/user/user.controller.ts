@@ -6,6 +6,8 @@ import { ZodValidationPipe } from '../../common/pipe/zod.pipe'
 import { AuthService } from '../auth/auth.service'
 import type { Response } from 'express'
 import {
+  ACCESS_TOKEN_MAX_AGE,
+  ACCESS_TOKEN_NAME,
   REFRESH_TOKEN_MAX_AGE,
   REFRESH_TOKEN_NAME,
 } from '../../common/config/cookie.config'
@@ -29,6 +31,13 @@ export class UserController {
       'user'
     )
 
+    res.cookie(ACCESS_TOKEN_NAME, accessToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+      maxAge: ACCESS_TOKEN_MAX_AGE,
+    })
+
     res.cookie(REFRESH_TOKEN_NAME, refreshToken, {
       httpOnly: true,
       secure: true,
@@ -39,9 +48,6 @@ export class UserController {
     return res.json({
       code: 0,
       message: 'success',
-      data: {
-        accessToken,
-      },
     })
   }
 

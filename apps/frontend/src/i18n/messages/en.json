@@ -57,7 +57,42 @@
       "TAG_COUNT_LIMIT": "The number of tags should not exceed {size}."
     },
     "event": {
-      "success": "Published successfully"
+      "success": "Publish successful"
+    }
+  },
+  "Login": {
+    "title": "Welcome back",
+    "form": {
+      "email": "email",
+      "password": "password",
+      "pwdInputHint": "Please enter the password",
+      "login": "Login",
+      "displayPwdHint": "display password",
+      "hidePwdHint": "hide password"
+    },
+    "event": {
+      "success": "Login successful"
+    }
+  },
+  "RequestError": {
+    "400": {
+      "400001": "Parameter verification failed",
+      "400002": "Lexical content format error"
+    },
+    "401": {
+      "401001": "Login status expired, please log in again",
+      "401002": "No token",
+      "401003": "Identity verification failed",
+      "401004": "Token verification failed",
+      "401005": "Username or password incorrect"
+    },
+    "403": {
+      "403001": "No permission to access",
+      "403002": "The user's permission is temporarily disabled, unlocking time: {time}",
+      "403003": "The user is temporarily prohibited from logging in, unlocking time: {time}"
+    },
+    "404": {
+      "404001": "The user was not found"
     }
   }
 }

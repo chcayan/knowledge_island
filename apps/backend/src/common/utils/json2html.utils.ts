@@ -10,13 +10,20 @@ import DOMPurify from 'isomorphic-dompurify'
 const editor = createHeadlessEditor({
   namespace: 'server',
   nodes: [ParagraphNode, TextNode, ImageNode, LinkNode, FormulaNode],
+  onError(error) {
+    throw error
+  },
 })
 
 export function json2html(json: JSON) {
   return withDOM(() => {
-    const editorState = editor.parseEditorState(JSON.stringify(json))
+    try {
+      const editorState = editor.parseEditorState(JSON.stringify(json))
 
-    editor.setEditorState(editorState)
+      editor.setEditorState(editorState)
+    } catch {
+      throw new Error('LEXICAL_CONTENT_FORMAT_ERROR')
+    }
 
     let baseHtml = ''
 

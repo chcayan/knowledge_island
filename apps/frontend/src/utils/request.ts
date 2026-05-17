@@ -1,5 +1,6 @@
 import { BASE_URL } from '@/config/request'
 import axios from 'axios'
+import emitter from './event-emitter'
 
 const instance = axios.create({
   baseURL: BASE_URL,
@@ -24,10 +25,16 @@ instance.interceptors.response.use(
     }
 
     if (err.response?.status === 401) {
+      emitter.emit('API:UNAUTHORIZED', err.response?.data?.code)
       return Promise.reject(err)
     }
 
     if (err.response?.status === 403) {
+      return Promise.reject(err)
+    }
+
+    if (err.response?.status === 404) {
+      emitter.emit('API:NOT_FOUND', err.response?.data?.code)
       return Promise.reject(err)
     }
 

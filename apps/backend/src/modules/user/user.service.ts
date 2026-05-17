@@ -11,6 +11,7 @@ import { User } from './entities/user.entity'
 import { LoginDto, RegisterDto } from '@knowledge_island/schemas'
 import { calculateRemainTime } from '../../common/utils/time.utils'
 import bcrypt from 'bcryptjs'
+import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
 
 @Injectable()
 export class UserService {
@@ -28,21 +29,30 @@ export class UserService {
       .getOne()
 
     if (!user) {
-      throw new NotFoundException('用户不存在')
+      throw new NotFoundException({
+        code: ERROR_CODE.USER_NOT_FOUND,
+        message: ERROR_MESSAGE[ERROR_CODE.USER_NOT_FOUND],
+      })
     }
 
     const loginBanUntil = user.loginBanUntil
     if (loginBanUntil && calculateRemainTime(loginBanUntil)) {
       throw new ForbiddenException({
-        message: '该用户暂时禁止登录',
-        time: calculateRemainTime(loginBanUntil),
+        code: ERROR_CODE.USER_LOGIN_FORBIDDEN,
+        message: ERROR_MESSAGE[ERROR_CODE.USER_LOGIN_FORBIDDEN],
+        data: {
+          time: calculateRemainTime(loginBanUntil),
+        },
       })
     }
 
     const isMatch = await bcrypt.compare(dto.password, user.password)
 
     if (!isMatch) {
-      throw new UnauthorizedException('用户名或密码错误')
+      throw new UnauthorizedException({
+        code: ERROR_CODE.USER_IDENTITY_VERIFICATION_FAILED,
+        message: ERROR_MESSAGE[ERROR_CODE.USER_IDENTITY_VERIFICATION_FAILED],
+      })
     }
 
     return user.id
@@ -57,7 +67,12 @@ export class UserService {
       where: { id },
     })
 
-    if (!result) throw new NotFoundException('未找到该用户')
+    if (!result) {
+      throw new NotFoundException({
+        code: ERROR_CODE.USER_NOT_FOUND,
+        message: ERROR_MESSAGE[ERROR_CODE.USER_NOT_FOUND],
+      })
+    }
 
     return result
   }

@@ -8,6 +8,7 @@ import ViewCountIcon from '../icon/view-count-icon'
 import CommentCountIcon from '../icon/comment-count-icon'
 import CollectionCountIcon from '../icon/collection-count-icon'
 import { useEffect, useRef, useState } from 'react'
+import 'katex/dist/katex.min.css'
 
 export default function PostCard({ post }: { post: PostInfo }) {
   const [isCollected, setIsCollected] = useState(false)
@@ -19,6 +20,8 @@ export default function PostCard({ post }: { post: PostInfo }) {
     const el = contentRef.current
 
     if (el) {
+      console.log(el.scrollHeight)
+      console.log(el.clientHeight)
       setOverflow(el.scrollHeight > el.clientHeight)
     }
   }, [])

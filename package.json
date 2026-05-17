@@ -8,7 +8,7 @@
     "commit": "git-cz",
     "precommit": "lint-staged",
     "prepare": "husky",
-    "build:package": "pnpm -F utils build && pnpm -F schemas build && pnpm -F lexical build",
+    "build:package": "pnpm -F utils build && pnpm -F schemas build && pnpm -F lexical build && pnpm -F error build",
     "dev": "pnpm -F frontend dev"
   },
   "keywords": [],
@@ -29,6 +29,7 @@
     "@knowledge_island/lexical": "workspace:*",
     "@knowledge_island/schemas": "workspace:*",
     "@knowledge_island/utils": "workspace:*",
+    "@knowledge_island/error": "workspace:*",
     "@lexical/headless": "^0.44.0",
     "@lexical/html": "^0.44.0",
     "@lexical/link": "^0.44.0",
