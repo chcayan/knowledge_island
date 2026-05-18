@@ -31,7 +31,7 @@ export class User {
   @Column({ select: false })
   password!: string
 
-  @Column({ default: '/uploads/default/avatar.jpg' })
+  @Column({ default: '/uploads/images/default/avatar.webp' })
   avatar!: string
 
   @CreateDateColumn()

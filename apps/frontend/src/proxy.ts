@@ -1,31 +1,63 @@
 import createMiddleware from 'next-intl/middleware'
 import { routing } from './i18n/routing'
 import { NextRequest, NextResponse } from 'next/server'
+import { BASE_URL } from './config/request'
 
 const handleI18nRouting = createMiddleware(routing)
 
 const publicRoutes = ['/', '/login', '/setting']
 
+async function refresh(token: string) {
+  try {
+    const res = await fetch(`${BASE_URL}/auth/refresh`, {
+      method: 'POST',
+      headers: {
+        Cookie: `refresh_token=${token}`,
+      },
+    })
+
+    const cookies = res.headers.getSetCookie()
+    return cookies
+  } catch (err) {
+    console.log('fetch error:', err)
+    return []
+  }
+}
+
 export default async function proxy(request: NextRequest) {
-  const response = handleI18nRouting(request)
+  let response = handleI18nRouting(request)
   if (response.ok) {
-    const token = request.cookies.get('access_token')
+    let accessToken = request.cookies.get('access_token')?.value
+    const refreshToken = request.cookies.get('refresh_token')?.value
+
+    let newCookies: string[] = []
+
+    if (!accessToken && refreshToken) {
+      const cookies = await refresh(refreshToken)
+
+      if (cookies && cookies.length > 0) {
+        newCookies = cookies
+        accessToken = 'just_refreshed'
+      }
+    }
 
     const pathname = request.nextUrl.pathname.replace(/^\/(en|zh)/, '') || '/'
 
     const isPublicRoute = publicRoutes.includes(pathname)
 
-    if (!token && !isPublicRoute) {
+    if (!accessToken && !isPublicRoute) {
       console.log('未登录')
-      return NextResponse.redirect(
+      response = NextResponse.redirect(
         new URL(`/login?redirect=${pathname}`, request.url)
       )
+    } else if (accessToken && pathname === '/login') {
+      console.log('已登录')
+      response = NextResponse.redirect(new URL('/', request.url))
     }
 
-    if (token && pathname === '/login') {
-      console.log('已登录')
-      return NextResponse.redirect(new URL('/', request.url))
-    }
+    newCookies.forEach((cookie) => {
+      response.headers.append('Set-Cookie', cookie)
+    })
   }
 
   return response

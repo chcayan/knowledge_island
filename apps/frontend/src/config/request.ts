@@ -1,4 +1,5 @@
 export const BASE_URL = 'http://localhost:8080'
+export const REQUEST_TIMEOUT = 10000
 
 export const BAD_REQUEST_CODE = '400001'
 export const UNAUTHORIZED_CODE = '401001'

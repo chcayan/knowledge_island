@@ -85,13 +85,14 @@ export default function ImageComponent({
         style={{
           width: '100%',
           display: 'block',
-          borderRadius: '10px',
+          // borderRadius: '10px',
           userSelect: 'none',
           outline: hovered
             ? '3px solid var(--theme-toolbar-scrollbar-thumb-color)'
             : '2px solid transparent',
           transition: 'outline 0.15s ease',
           boxSizing: 'border-box',
+          padding: '2px',
         }}
       />
       <div

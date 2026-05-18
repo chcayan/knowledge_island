@@ -1,12 +1,25 @@
-import { BASE_URL } from '@/config/request'
+import { BASE_URL, REQUEST_TIMEOUT } from '@/config/request'
 import axios from 'axios'
 import emitter from './event-emitter'
+import { refreshAPI } from '@/api/auth'
 
 const instance = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000,
+  timeout: REQUEST_TIMEOUT,
   withCredentials: true,
 })
+
+let isRefreshing = false
+let refreshSubscribers: (() => void)[] = []
+
+function subscribeTokenRefresh(cb: () => void) {
+  refreshSubscribers.push(cb)
+}
+
+function onRefreshed() {
+  refreshSubscribers.forEach((cb) => cb())
+  refreshSubscribers = []
+}
 
 instance.interceptors.request.use(
   (config) => {
@@ -20,16 +33,43 @@ instance.interceptors.response.use(
     return res
   },
   async (err) => {
+    const originalRequest = err.config
+
     if (err.response?.status === 400) {
+      emitter.emit('API:BAD_REQUEST', err.response?.data?.code)
       return Promise.reject(err)
     }
 
     if (err.response?.status === 401) {
-      emitter.emit('API:UNAUTHORIZED', err.response?.data?.code)
-      return Promise.reject(err)
+      if (originalRequest.url?.includes('/admin/login')) {
+        emitter.emit('API:UNAUTHORIZED', err.response?.data?.code)
+        return Promise.reject(err)
+      }
+
+      if (!isRefreshing) {
+        isRefreshing = true
+
+        try {
+          await refreshAPI()
+          onRefreshed()
+          return instance(originalRequest)
+        } catch {
+          emitter.emit('API:UNAUTHORIZED', err.response?.data?.code)
+          return Promise.reject(err)
+        } finally {
+          isRefreshing = false
+        }
+      } else {
+        return new Promise((resolve) => {
+          subscribeTokenRefresh(() => {
+            resolve(instance(originalRequest))
+          })
+        })
+      }
     }
 
     if (err.response?.status === 403) {
+      emitter.emit('API:FORBIDDEN', err.response?.data?.code)
       return Promise.reject(err)
     }
 

@@ -20,8 +20,6 @@ export default function PostCard({ post }: { post: PostInfo }) {
     const el = contentRef.current
 
     if (el) {
-      console.log(el.scrollHeight)
-      console.log(el.clientHeight)
       setOverflow(el.scrollHeight > el.clientHeight)
     }
   }, [])

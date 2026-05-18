@@ -81,9 +81,9 @@
     },
     "401": {
       "401001": "Login status expired, please log in again",
-      "401002": "No token",
-      "401003": "Identity verification failed",
-      "401004": "Token verification failed",
+      "401002": "Login status expired, please log in again",
+      "401003": "Login status expired, please log in again",
+      "401004": "Login status expired, please log in again",
       "401005": "Username or password incorrect"
     },
     "403": {
