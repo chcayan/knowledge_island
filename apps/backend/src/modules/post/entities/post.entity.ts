@@ -11,6 +11,7 @@ import {
 } from 'typeorm'
 import { User } from '../../user/entities/user.entity'
 import { Tag } from './tag.entity'
+import { POST_TITLE_MAX_LENGTH } from '@knowledge_island/schemas'
 
 export enum PostType {
   WRITE = 0,
@@ -30,7 +31,7 @@ export class Post {
   id!: string
 
   @Index()
-  @Column({ length: 100 })
+  @Column({ length: POST_TITLE_MAX_LENGTH })
   title!: string
 
   @Column({ type: 'json', select: false })

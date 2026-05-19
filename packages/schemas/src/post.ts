@@ -1,4 +1,5 @@
 import z from 'zod'
+import { POST_TITLE_MAX_LENGTH, TAG_NAME_MAX_LENGTH } from './config/config'
 
 enum PostType {
   WRITE = 0,
@@ -19,7 +20,10 @@ enum PostEditableStatus {
 
 export const PostSchema = z.object({
   id: z.uuid(),
-  title: z.string().min(1, '标题至少 1 个字').max(100, '标题最多 100 个字'),
+  title: z
+    .string()
+    .min(1, '标题至少 1 个字')
+    .max(POST_TITLE_MAX_LENGTH, `标题最多 ${POST_TITLE_MAX_LENGTH} 个字`),
   content: z.any().refine((val) => val !== null && val !== undefined, {
     message: '内容不能为空',
   }),
@@ -34,7 +38,10 @@ export const PostSchema = z.object({
   status: z.enum(PostEditableStatus, '请选择帖子状态（草稿/发布）'),
   tags: z
     .array(
-      z.string().min(1, '标签名字至少 1 个字').max(50, '标签名字最多 50 个字')
+      z
+        .string()
+        .min(1, '标签名字至少 1 个字')
+        .max(TAG_NAME_MAX_LENGTH, `标签名字最多 ${TAG_NAME_MAX_LENGTH} 个字`)
     )
     .default([]),
 })

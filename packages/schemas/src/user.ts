@@ -1,4 +1,11 @@
 import { z } from 'zod'
+import {
+  USER_NAME_MAX_LENGTH,
+  USER_PASSWORD_MAX_LENGTH,
+  USER_PASSWORD_MIN_LENGTH,
+  USER_PASSWORD_REGEX,
+  USER_SIGNATURE_MAX_LENGTH,
+} from './config/config'
 
 enum UserSex {
   UNKNOWN = 0,
@@ -11,21 +18,27 @@ export const UserSchema = z.object({
   name: z
     .string()
     .min(1, '用户名至少 1 个字')
-    .max(20, '用户名最多 20 个字')
+    .max(USER_NAME_MAX_LENGTH, `用户名最多 ${USER_NAME_MAX_LENGTH} 个字`)
     .regex(/^[\u4e00-\u9fa5a-zA-Z0-9_]+$/, '只能包含汉字/字母/数字/下划线'),
   email: z.email({ error: '邮箱不能为空' }),
   password: z
     .string()
-    .min(6, '密码至少 6 位')
-    .max(20, '密码最长 20 位')
-    .regex(/^[^\s]{6,20}$/, '只允许数字、字母、符号'),
+    .min(USER_PASSWORD_MIN_LENGTH, `密码至少 ${USER_PASSWORD_MIN_LENGTH} 位`)
+    .max(USER_PASSWORD_MAX_LENGTH, `密码最长 ${USER_PASSWORD_MAX_LENGTH} 位`)
+    .regex(USER_PASSWORD_REGEX, '只允许数字、字母、符号'),
   avatar: z.string().max(255),
   createdAt: z.date(),
   updatedAt: z.date(),
   followCount: z.number(),
   fanCount: z.number(),
   sex: z.enum(UserSex),
-  signature: z.string().min(1, '简介至少 1 个字').max(255, '简介最多 255 个字'),
+  signature: z
+    .string()
+    .min(1, '简介至少 1 个字')
+    .max(
+      USER_SIGNATURE_MAX_LENGTH,
+      `简介最多 ${USER_SIGNATURE_MAX_LENGTH} 个字`
+    ),
 })
 
 export const RegisterSchema = z

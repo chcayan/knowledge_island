@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm'
 import { Post } from '../../post/entities/post.entity'
+import { USER_NAME_MAX_LENGTH } from '@knowledge_island/schemas'
 
 export enum UserSex {
   UNKNOWN = 0,
@@ -21,7 +22,7 @@ export class User {
   id!: string
 
   @Index()
-  @Column({ length: 20 })
+  @Column({ length: USER_NAME_MAX_LENGTH })
   name!: string
 
   @Index({ unique: true })

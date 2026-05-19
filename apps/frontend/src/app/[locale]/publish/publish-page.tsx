@@ -16,6 +16,12 @@ import {
   TAG_LENGTH_LIMIT,
   TITLE_LENGTH_LIMIT,
 } from '@/config/post-field'
+import {
+  POST_EDITOR_CONTENT,
+  POST_TAGS,
+  POST_TITLE,
+  POST_TYPE,
+} from '@/config/local-storage'
 
 function checkContentIsNotEmpty(
   content: SerializedEditorState<SerializedLexicalNode>,
@@ -59,13 +65,14 @@ export default function PublishPage() {
   const t = useTranslations('Publish')
 
   const [type, setType] = useState<'write' | 'ask'>(
-    (localStorage.getItem('postType') as 'write') || 'write'
+    (localStorage.getItem(POST_TYPE) as 'write') || 'write'
   )
   const [tags, setTags] = useState<string[]>(
-    JSON.parse(localStorage.getItem('postTags') || '[]') || []
+    JSON.parse(localStorage.getItem(POST_TAGS) || '[]') || []
   )
 
   const inputRef = useRef<HTMLInputElement>(null)
+  const editorRef = useRef<{ reset: () => void }>(null)
 
   const addTag = () => {
     if (tags.length >= TAG_COUNT_LIMIT) {
@@ -98,23 +105,34 @@ export default function PublishPage() {
     }
 
     setTags([...tags, tag])
-    localStorage.setItem('postTags', JSON.stringify([...tags, tag]))
+    localStorage.setItem(POST_TAGS, JSON.stringify([...tags, tag]))
     inputEl.value = ''
   }
 
   const delTag = (value: string) => {
     setTags((prev) => prev.filter((tag) => tag !== value))
     localStorage.setItem(
-      'postTags',
+      POST_TAGS,
       JSON.stringify([...tags.filter((tag) => tag !== value)])
     )
   }
 
-  const [title, setTitle] = useState(localStorage.getItem('postTitle') || '')
+  const [title, setTitle] = useState(localStorage.getItem(POST_TITLE) || '')
   const [content, setContent] =
     useState<SerializedEditorState<SerializedLexicalNode>>()
 
   const [publishLoading, setPublishLoading] = useState(false)
+
+  const reset = () => {
+    setTitle('')
+    setTags([])
+    editorRef.current?.reset()
+
+    localStorage.removeItem(POST_TITLE)
+    localStorage.removeItem(POST_TYPE)
+    localStorage.removeItem(POST_TAGS)
+    localStorage.removeItem(POST_EDITOR_CONTENT)
+  }
 
   const createPost = async (status: 0 | 1) => {
     if (!title.trim()) {
@@ -130,7 +148,7 @@ export default function PublishPage() {
     }
 
     try {
-      const res = await createPostAPI({
+      await createPostAPI({
         title: title.trim(),
         content,
         type: type === 'write' ? 0 : 1,
@@ -141,7 +159,7 @@ export default function PublishPage() {
         msg: t('event.success'),
         type: 'success',
       })
-      console.log(res.data)
+      reset()
     } catch (err) {
       // TODO: track error
       console.log(err)
@@ -168,6 +186,7 @@ export default function PublishPage() {
   const handleDraft = () => {
     if (draftLoading) return
     console.log('draft')
+
     setDraftLoading(true)
 
     setTimeout(() => {
@@ -194,11 +213,11 @@ export default function PublishPage() {
             value={title}
             onChange={(e) => {
               setTitle(e.target.value)
-              localStorage.setItem('postTitle', e.target.value)
+              localStorage.setItem(POST_TITLE, e.target.value)
             }}
             maxLength={TITLE_LENGTH_LIMIT}
           />
-          <Editor onChange={setContent} />
+          <Editor ref={editorRef} onChange={setContent} />
         </main>
         <aside className={styles.aside}>
           <div className={styles.type}>
@@ -207,7 +226,7 @@ export default function PublishPage() {
               value={type}
               onChange={(type) => {
                 setType(type)
-                localStorage.setItem('postType', type)
+                localStorage.setItem(POST_TYPE, type)
               }}
               options={[
                 { value: 'write', label: 'Write' },

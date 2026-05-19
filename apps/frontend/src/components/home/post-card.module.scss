@@ -55,7 +55,10 @@ $gap: 10px;
         line-height: 1.5;
 
         img {
-          margin-top: 5px;
+          display: inline-block;
+          padding: 2px;
+          // margin-top: 5px;
+          transform: translateY(4px);
         }
       }
     }

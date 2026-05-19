@@ -85,14 +85,13 @@ export default function ImageComponent({
         style={{
           width: '100%',
           display: 'block',
-          // borderRadius: '10px',
-          userSelect: 'none',
           outline: hovered
             ? '3px solid var(--theme-toolbar-scrollbar-thumb-color)'
             : '2px solid transparent',
           transition: 'outline 0.15s ease',
           boxSizing: 'border-box',
           padding: '2px',
+          transform: 'translateY(4px)',
         }}
       />
       <div
@@ -111,6 +110,7 @@ export default function ImageComponent({
           cursor: 'ew-resize',
           opacity: hovered ? 1 : 0,
           transition: 'all 0.15s ease',
+          zIndex: '1',
         }}
       />
       <div

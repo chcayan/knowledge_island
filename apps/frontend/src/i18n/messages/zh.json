@@ -68,7 +68,11 @@
       "pwdInputHint": "请输入密码",
       "login": "登录",
       "displayPwdHint": "显示密码",
-      "hidePwdHint": "隐藏密码"
+      "hidePwdHint": "隐藏密码",
+      "emailEmptyHint": "邮箱是空的",
+      "emailInvalidHint": "邮箱格式不正确",
+      "pwdEmptyHint": "密码是空的",
+      "pwdInvalidHint": "密码只能包含英文、数字和特殊字符（ASCII 可打印字符），长度 6-20 位"
     },
     "event": {
       "success": "Login successful"

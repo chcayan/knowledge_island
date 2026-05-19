@@ -50,7 +50,7 @@ export function ImagePlugin() {
                 const res = await uploadImageAPI(file)
                 editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
                   src: BASE_URL + res.data.data.url,
-                  altText: 'Pasted Image',
+                  altText: 'Image',
                 })
               })()
             }
@@ -62,9 +62,47 @@ export function ImagePlugin() {
       COMMAND_PRIORITY_LOW
     )
 
+    const rootElement = editor.getRootElement()
+    const handleDrop = async (event: DragEvent) => {
+      const files = event.dataTransfer?.files
+
+      if (!files || files.length === 0) {
+        return
+      }
+
+      const imageFiles = Array.from(files).filter((file) =>
+        file.type.startsWith('image/')
+      )
+
+      if (imageFiles.length === 0) {
+        return
+      }
+
+      event.preventDefault()
+
+      for (const file of imageFiles) {
+        const res = await uploadImageAPI(file)
+
+        editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
+          src: BASE_URL + res.data.data.url,
+          altText: 'Image',
+        })
+      }
+    }
+
+    const handleDragOver = (event: DragEvent) => {
+      event.preventDefault()
+    }
+
+    rootElement?.addEventListener('drop', handleDrop)
+    rootElement?.addEventListener('dragover', handleDragOver)
+
     return () => {
       removeInsertCommand()
       removePasteCommand()
+
+      rootElement?.removeEventListener('drop', handleDrop)
+      rootElement?.removeEventListener('dragover', handleDragOver)
     }
   }, [editor])
 

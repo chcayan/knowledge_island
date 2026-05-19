@@ -68,7 +68,11 @@
       "pwdInputHint": "Please enter the password",
       "login": "Login",
       "displayPwdHint": "display password",
-      "hidePwdHint": "hide password"
+      "hidePwdHint": "hide password",
+      "emailEmptyHint": "The email is empty.",
+      "emailInvalidHint": "Email format incorrect.",
+      "pwdEmptyHint": "The password is empty.",
+      "pwdInvalidHint": "The password can only contain English letters, numbers, and special characters (ASCII printable characters), with a length of 6 to 20 characters."
     },
     "event": {
       "success": "Login successful"

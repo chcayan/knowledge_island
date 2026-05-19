@@ -6,6 +6,11 @@ import { loginAPI } from '@/api'
 import { Toast } from '@/utils/toast'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import {
+  USER_PASSWORD_MAX_LENGTH,
+  USER_PASSWORD_MIN_LENGTH,
+  USER_PASSWORD_REGEX_FOR_INPUT_ELEMENT,
+} from '@knowledge_island/schemas'
 
 const themeColor = 'var(--theme-font-color)'
 
@@ -42,6 +47,28 @@ export default function LoginPage() {
     login()
   }
 
+  const checkEmail = (e: React.InputEvent<HTMLInputElement>) => {
+    const input = e.currentTarget
+    if (input.validity.valueMissing) {
+      input.setCustomValidity(`${t('form.emailEmptyHint')} w(ﾟДﾟ)w`)
+    } else if (input.validity.typeMismatch) {
+      input.setCustomValidity(`${t('form.emailInvalidHint')} ( •̀ .̫ •́ )✧`)
+    } else {
+      input.setCustomValidity('')
+    }
+  }
+
+  const checkPassword = (e: React.InputEvent<HTMLInputElement>) => {
+    const input = e.currentTarget
+    if (input.validity.valueMissing) {
+      input.setCustomValidity(`${t('form.pwdEmptyHint')} w(ﾟДﾟ)w`)
+    } else if (input.validity.patternMismatch) {
+      input.setCustomValidity(`${t('form.pwdInvalidHint')} ( •̀ .̫ •́ )✧`)
+    } else {
+      input.setCustomValidity('')
+    }
+  }
+
   return (
     <>
       <div className={styles.login}>
@@ -65,6 +92,8 @@ export default function LoginPage() {
                   onFocus={() => setFocusedField('email')}
                   onBlur={() => setFocusedField(null)}
                   required
+                  onInvalid={checkEmail}
+                  onInput={checkEmail}
                 />
                 <div
                   className={styles['focus-line']}
@@ -88,8 +117,11 @@ export default function LoginPage() {
                     onFocus={() => setFocusedField('password')}
                     onBlur={() => setFocusedField(null)}
                     required
-                    minLength={6}
-                    maxLength={20}
+                    minLength={USER_PASSWORD_MIN_LENGTH}
+                    maxLength={USER_PASSWORD_MAX_LENGTH}
+                    pattern={USER_PASSWORD_REGEX_FOR_INPUT_ELEMENT}
+                    onInput={checkPassword}
+                    onInvalid={checkPassword}
                   />
                   <p
                     className={styles['eye-icon']}
@@ -115,7 +147,9 @@ export default function LoginPage() {
                 />
               </div>
             </div>
-            <button className={styles['login-btn']}>{t('form.login')}</button>
+            <button type="submit" className={styles['login-btn']}>
+              {t('form.login')}
+            </button>
           </form>
         </div>
       </div>
