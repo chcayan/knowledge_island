@@ -9,6 +9,15 @@
         "3": "知识分享",
         "4": "AI 问答"
       }
+    },
+    "publish": {
+      "title": "发布帖子"
+    },
+    "ai": {
+      "title": "AI"
+    },
+    "chat": {
+      "title": "聊天"
     }
   },
   "RootLayout": {
@@ -75,7 +84,7 @@
       "pwdInvalidHint": "密码只能包含英文、数字和特殊字符（ASCII 可打印字符），长度 6-20 位"
     },
     "event": {
-      "success": "Login successful"
+      "success": "登录成功"
     }
   },
   "RequestError": {
@@ -97,6 +106,14 @@
     },
     "404": {
       "404001": "未找到该用户"
+    }
+  },
+  "Global": {
+    "error": {
+      "NOT_FOUND_TIP": "页面不存在"
+    },
+    "event": {
+      "navigateToHome": "导航到首页"
     }
   }
 }

@@ -11,6 +11,7 @@ import {
   USER_PASSWORD_MIN_LENGTH,
   USER_PASSWORD_REGEX_FOR_INPUT_ELEMENT,
 } from '@knowledge_island/schemas'
+import LoadingButton from '@/components/common/loading-button'
 
 const themeColor = 'var(--theme-font-color)'
 
@@ -23,23 +24,31 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const [focusedField, setFocusedField] = useState<'email' | 'password' | null>(
     null
   )
 
   async function login() {
-    await loginAPI({
-      email,
-      password,
-    })
-    Toast.show({
-      msg: t('event.success'),
-      type: 'success',
-    })
+    setLoading(true)
 
-    const redirect = searchParams.get('redirect')
-    router.replace(redirect || '/')
+    try {
+      await loginAPI({
+        email,
+        password,
+      })
+
+      Toast.show({
+        msg: t('event.success'),
+        type: 'success',
+      })
+
+      const redirect = searchParams.get('redirect')
+      router.replace(redirect || '/')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleLogin = (e: SubmitEvent) => {
@@ -147,9 +156,19 @@ export default function LoginPage() {
                 />
               </div>
             </div>
-            <button type="submit" className={styles['login-btn']}>
-              {t('form.login')}
-            </button>
+            <LoadingButton
+              text={t('form.login')}
+              loading={loading}
+              disabled={loading}
+              style={{
+                width: '100%',
+                height: '55px',
+                backgroundColor: 'var(--theme-secondary-color)',
+                fontWeight: 'bold',
+                fontSize: '16px',
+              }}
+              type={'submit'}
+            />
           </form>
         </div>
       </div>

@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styles from './loading-button.module.scss'
-import { CSSProperties, ReactNode } from 'react'
+import { ButtonHTMLAttributes, CSSProperties, ReactNode } from 'react'
 
 export default function LoadingButton({
   text,
@@ -8,13 +9,15 @@ export default function LoadingButton({
   disabled,
   onClick,
   style,
+  type,
 }: {
   text: string
-  icon: ReactNode
+  icon?: ReactNode
   loading: boolean
   disabled: boolean
-  onClick: () => void
-  style: CSSProperties
+  onClick?: (...arg: any[]) => void
+  style?: CSSProperties
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type']
 }) {
   return (
     <button
@@ -22,6 +25,7 @@ export default function LoadingButton({
       onClick={onClick}
       disabled={disabled}
       style={style}
+      type={type}
     >
       {loading ? <span className={styles.loading} /> : icon}
       <span>{text}</span>

@@ -9,6 +9,15 @@
         "3": "Knowledge sharing",
         "4": "AI Q&A"
       }
+    },
+    "publish": {
+      "title": "Publish Post"
+    },
+    "ai": {
+      "title": "AI"
+    },
+    "chat": {
+      "title": "Chat"
     }
   },
   "RootLayout": {
@@ -97,6 +106,14 @@
     },
     "404": {
       "404001": "The user was not found"
+    }
+  },
+  "Global": {
+    "error": {
+      "NOT_FOUND_TIP": "Page not found."
+    },
+    "event": {
+      "navigateToHome": "Navigate to the homepage."
     }
   }
 }

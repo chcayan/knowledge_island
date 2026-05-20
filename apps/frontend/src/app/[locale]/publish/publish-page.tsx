@@ -275,6 +275,7 @@ export default function PublishPage() {
               onClick={handleDraft}
               style={{
                 backgroundColor: 'var(--theme-third-color)',
+                height: '40px',
               }}
               disabled={publishLoading || draftLoading}
             />
@@ -285,6 +286,7 @@ export default function PublishPage() {
               onClick={handlePublish}
               style={{
                 backgroundColor: 'var(--theme-primary-color)',
+                height: '40px',
               }}
               disabled={draftLoading || publishLoading}
             />
