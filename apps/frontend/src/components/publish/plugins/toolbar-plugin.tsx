@@ -36,9 +36,9 @@ import InsertLatex from '../icons/insert-latex'
 import { uploadImageAPI } from '@/api'
 import { CustomError } from '@/utils'
 import { useTranslations } from 'next-intl'
-import { GIF_SIZE_LIMIT } from '@/config/post-field'
 import { Toast } from '@/utils/toast'
 import { BASE_URL } from '@/config/request'
+import { GIF_SIZE_LIMIT } from '@/config/post-field'
 
 function Divider() {
   return <div className="divider" />

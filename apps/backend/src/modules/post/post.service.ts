@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 
 import { Tag } from './entities/tag.entity'
@@ -11,7 +11,6 @@ import { getFileMD5 } from '../../common/utils/md5.utils'
 import { CreatePostDto } from '@knowledge_island/schemas'
 import fs from 'fs'
 import path from 'path'
-import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
 
 @Injectable()
 export class PostService {
@@ -21,8 +20,8 @@ export class PostService {
     @InjectRepository(Image) private readonly imageRepo: Repository<Image>
   ) {}
 
-  async createPost(dto: CreatePostDto, userId: string) {
-    const tags = [...new Set((dto.tags ?? []).map((t) => t.trim()))]
+  async createTags(_tags: string[]) {
+    const tags = [...new Set((_tags ?? []).map((t) => t.trim()))]
 
     const existingTags = await this.tagRepo.find({
       where: tags.map((name) => ({ name })),
@@ -38,29 +37,53 @@ export class PostService {
 
     const allTags = [...existingTags, ...newTags]
 
-    try {
+    return allTags
+  }
+
+  async createPost(dto: CreatePostDto, userId: string) {
+    const allTags = await this.createTags(dto.tags)
+
+    const html = json2html(dto.content as JSON)
+
+    const post = this.postRepo.create({
+      ...dto,
+      tags: allTags,
+      contentHtml: html,
+      status: dto.status as unknown as PostStatus,
+      author: {
+        id: userId,
+      },
+    })
+
+    await this.postRepo.save(post)
+  }
+
+  async saveDraft(dto: CreatePostDto, userId: string) {
+    const exist = await this.postRepo
+      .createQueryBuilder('post')
+      .addSelect('post.content')
+      .leftJoin('post.author', 'author')
+      .where('author.id = :userId', {
+        userId,
+      })
+      .andWhere('post.status = :status', {
+        status: PostStatus.DRAFT,
+      })
+      .getOne()
+
+    if (exist) {
+      const allTags = await this.createTags(dto.tags)
       const html = json2html(dto.content as JSON)
 
-      const post = this.postRepo.create({
-        ...dto,
-        tags: allTags,
-        contentHtml: html,
-        status: dto.status as unknown as PostStatus,
-        author: {
-          id: userId,
-        },
-      })
+      exist.content = dto.content as string
+      exist.type = dto.type
+      exist.tags = allTags
+      exist.contentHtml = html
+      exist.status = PostStatus.DRAFT
 
-      await this.postRepo.save(post)
-    } catch {
-      throw new BadRequestException({
-        code: ERROR_CODE.LEXICAL_CONTENT_FORMAT_ERROR,
-        message: ERROR_MESSAGE[ERROR_CODE.LEXICAL_CONTENT_FORMAT_ERROR],
-        data: {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          content: dto.content,
-        },
-      })
+      await this.postRepo.save(exist)
+    } else {
+      await this.createPost(dto, userId)
     }
   }
 

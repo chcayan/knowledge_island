@@ -88,8 +88,7 @@
   },
   "RequestError": {
     "400": {
-      "400001": "Parameter verification failed",
-      "400002": "Lexical content format error"
+      "400001": "Parameter verification failed"
     },
     "401": {
       "401001": "Login status expired, please log in again",

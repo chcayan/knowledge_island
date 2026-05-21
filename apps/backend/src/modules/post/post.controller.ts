@@ -31,6 +31,15 @@ export class PostController {
     return this.postService.createPost(dto, userId)
   }
 
+  @Post('draft')
+  @UseGuards(JwtGuard)
+  async saveDraft(
+    @Body(new ZodValidationPipe(CreatePostSchema)) dto: CreatePostDto,
+    @User() userId: string
+  ) {
+    return this.postService.saveDraft(dto, userId)
+  }
+
   @Post('upload-image')
   @UseGuards(JwtGuard)
   @UseInterceptors(FileInterceptor('image', uploadOptions))

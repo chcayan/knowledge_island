@@ -12,6 +12,11 @@ export async function createPostAPI(dto: CreatePostDto) {
   return request.post('/post/create', data)
 }
 
+export async function saveDraftAPI(dto: CreatePostDto) {
+  const data = CreatePostSchema.parse(dto)
+  return request.post('/post/draft', data)
+}
+
 export async function uploadImageAPI(file: File) {
   const compressedFile = await compressImage(file)
   const formData = new FormData()

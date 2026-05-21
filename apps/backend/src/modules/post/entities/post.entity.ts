@@ -12,15 +12,15 @@ import { User } from '../../user/entities/user.entity'
 import { Tag } from './tag.entity'
 
 export enum PostType {
-  WRITE = 0,
-  ASK = 1,
+  WRITE = '0',
+  ASK = '1',
 }
 
 export enum PostStatus {
-  DRAFT = 0,
-  REVIEWING = 1,
-  PUBLISHED = 2,
-  VIOLATION = 3,
+  DRAFT = '0',
+  REVIEWING = '1',
+  PUBLISHED = '2',
+  VIOLATION = '3',
 }
 
 @Entity()

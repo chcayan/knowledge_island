@@ -2,7 +2,6 @@ import { defineErrorCode } from './utils'
 
 export const ERROR_CODE = defineErrorCode({
   BAD_REQUEST: 400001,
-  LEXICAL_CONTENT_FORMAT_ERROR: 400002,
 
   TOKEN_EXPIRED: 401001,
   NO_TOKEN: 401002,

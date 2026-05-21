@@ -9,19 +9,20 @@ import DraftIcon from '@/components/icon/draft-icon'
 import LoadingButton from '@/components/common/loading-button'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/utils/toast'
-import { createPostAPI } from '@/api'
+import { createPostAPI, saveDraftAPI } from '@/api'
 import { SerializedEditorState, SerializedLexicalNode } from 'lexical'
-import {
-  TAG_COUNT_LIMIT,
-  TAG_LENGTH_LIMIT,
-  TITLE_LENGTH_LIMIT,
-} from '@/config/post-field'
 import {
   POST_EDITOR_CONTENT,
   POST_TAGS,
   POST_TITLE,
   POST_TYPE,
 } from '@/config/local-storage'
+import {
+  PostEditableStatus,
+  PostType,
+  TAG_NAME_MAX_LENGTH,
+} from '@knowledge_island/schemas'
+import { TAG_COUNT_LIMIT } from '@/config/post-field'
 
 function checkContentIsNotEmpty(
   content: SerializedEditorState<SerializedLexicalNode>,
@@ -133,7 +134,7 @@ export default function PublishPage() {
     localStorage.removeItem(POST_EDITOR_CONTENT)
   }
 
-  const createPost = async (status: 0 | 1) => {
+  const createPost = async () => {
     if (!checkContentIsNotEmpty(content!, t('error.CONTENT_IS_NOT_NULL'))) {
       return
     }
@@ -141,8 +142,8 @@ export default function PublishPage() {
     try {
       await createPostAPI({
         content,
-        type: type === 'write' ? 0 : 1,
-        status,
+        type: type === 'write' ? PostType.WRITE : PostType.ASK,
+        status: PostEditableStatus.REVIEWING,
         tags,
       })
       Toast.show({
@@ -160,32 +161,50 @@ export default function PublishPage() {
     }
   }
 
+  const saveDraft = async () => {
+    if (!checkContentIsNotEmpty(content!, t('error.CONTENT_IS_NOT_NULL'))) {
+      return
+    }
+
+    try {
+      await saveDraftAPI({
+        content,
+        type: type === 'write' ? PostType.WRITE : PostType.ASK,
+        status: PostEditableStatus.DRAFT,
+        tags,
+      })
+      Toast.show({
+        msg: t('event.success'),
+        type: 'success',
+      })
+    } catch (err) {
+      // TODO: track error
+      console.log(err)
+      Toast.show({
+        msg: t('error.PUBLISH_POST_FAILED'),
+        type: 'error',
+      })
+    }
+  }
+
   const handlePublish = async () => {
     if (publishLoading) return
     console.log('publish')
 
     setPublishLoading(true)
-
-    await createPost(1)
-
+    await createPost()
     setPublishLoading(false)
   }
 
   const [draftLoading, setDraftLoading] = useState(false)
 
-  const handleDraft = () => {
+  const handleDraft = async () => {
     if (draftLoading) return
     console.log('draft')
 
     setDraftLoading(true)
-
-    setTimeout(() => {
-      setDraftLoading(false)
-      Toast.show({
-        msg: '保存成功',
-        type: 'success',
-      })
-    }, 2000)
+    await saveDraft()
+    setDraftLoading(false)
   }
 
   return (
@@ -218,7 +237,12 @@ export default function PublishPage() {
               <p>{t('aside.tag')}：</p>
               <span>{tags.length} / 10</span>
             </div>
-            <div className={styles['input-container']}>
+            <div
+              style={{
+                marginBottom: tags.length ? '0' : '15px',
+              }}
+              className={styles['input-container']}
+            >
               <input
                 ref={inputRef}
                 type="text"
@@ -226,7 +250,7 @@ export default function PublishPage() {
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') addTag()
                 }}
-                maxLength={TAG_LENGTH_LIMIT}
+                maxLength={TAG_NAME_MAX_LENGTH}
               />
               <button className="tab-focus" onClick={addTag}>
                 <span>+</span>

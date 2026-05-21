@@ -34,6 +34,7 @@ import { AuthModule } from './modules/auth/auth.module'
       charset: 'utf8mb4',
       entities: [__dirname + '/**/*.entity{.js,.ts}'],
       namingStrategy: new SnakeNamingStrategy(),
+      logging: true,
     }),
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), 'public/uploads'),

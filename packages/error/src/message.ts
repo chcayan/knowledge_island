@@ -3,7 +3,6 @@ import { ERROR_CODE } from './code'
 export const ERROR_MESSAGE = {
   // 400
   [ERROR_CODE.BAD_REQUEST]: '参数校验失败',
-  [ERROR_CODE.LEXICAL_CONTENT_FORMAT_ERROR]: 'lexical 内容格式错误',
 
   // 401
   [ERROR_CODE.TOKEN_EXPIRED]: '登录状态过期',

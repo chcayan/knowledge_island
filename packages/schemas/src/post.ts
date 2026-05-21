@@ -1,21 +1,21 @@
 import z from 'zod'
 import { TAG_NAME_MAX_LENGTH } from './config/config'
 
-enum PostType {
-  WRITE = 0,
-  ASK = 1,
+export enum PostType {
+  WRITE = '0',
+  ASK = '1',
 }
 
 enum PostStatus {
-  DRAFT = 0,
-  REVIEWING = 1,
-  PUBLISHED = 2,
-  VIOLATION = 3,
+  DRAFT = '0',
+  REVIEWING = '1',
+  PUBLISHED = '2',
+  VIOLATION = '3',
 }
 
-enum PostEditableStatus {
-  DRAFT = 0,
-  REVIEWING = 1,
+export enum PostEditableStatus {
+  DRAFT = '0',
+  REVIEWING = '1',
 }
 
 export const PostSchema = z.object({
