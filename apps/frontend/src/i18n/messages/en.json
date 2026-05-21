@@ -58,7 +58,6 @@
     "error": {
       "GIF_SIZE_LIMIT": "The gif size should not exceed {size}M.",
       "UPLOAD_IMAGE_FAILED": "Failed to upload the image.",
-      "TITLE_IS_NOT_NULL": "The title cannot be empty.",
       "CONTENT_IS_NOT_NULL": "The content cannot be empty.",
       "PUBLISH_POST_FAILED": "Publishing failed, please try again.",
       "TAG_REPEAT": "Duplicate tag names.",

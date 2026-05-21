@@ -38,20 +38,6 @@ $width: 628px;
       justify-content: space-between;
     }
 
-    .input-title {
-      margin-top: 15px;
-      margin-bottom: 5px;
-      max-width: $width;
-      width: 100%;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      gap: $gap;
-      padding: 0 $gap;
-      border-radius: $gap;
-      background-color: var(--theme-secondary-color);
-    }
-
     .title,
     .description {
       flex-shrink: 0;

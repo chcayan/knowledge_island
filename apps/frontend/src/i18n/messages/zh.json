@@ -58,7 +58,6 @@
     "error": {
       "GIF_SIZE_LIMIT": "gif 大小不超过 {size}M",
       "UPLOAD_IMAGE_FAILED": "上传图片失败",
-      "TITLE_IS_NOT_NULL": "标题不能为空",
       "CONTENT_IS_NOT_NULL": "内容不能为空",
       "PUBLISH_POST_FAILED": "发布失败，请重试",
       "TAG_REPEAT": "标签名重复",

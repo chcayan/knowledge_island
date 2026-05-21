@@ -2,7 +2,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  Index,
   JoinTable,
   ManyToMany,
   ManyToOne,
@@ -11,7 +10,6 @@ import {
 } from 'typeorm'
 import { User } from '../../user/entities/user.entity'
 import { Tag } from './tag.entity'
-import { POST_TITLE_MAX_LENGTH } from '@knowledge_island/schemas'
 
 export enum PostType {
   WRITE = 0,
@@ -29,10 +27,6 @@ export enum PostStatus {
 export class Post {
   @PrimaryGeneratedColumn('uuid')
   id!: string
-
-  @Index()
-  @Column({ length: POST_TITLE_MAX_LENGTH })
-  title!: string
 
   @Column({ type: 'json', select: false })
   content!: string

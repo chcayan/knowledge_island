@@ -34,7 +34,6 @@ export default function PostCard({ post }: { post: PostInfo }) {
         </div>
       </header>
       <div className={styles.main}>
-        <p className={styles.title}>{post.title}</p>
         <div
           ref={contentRef}
           className={styles['content-html']}

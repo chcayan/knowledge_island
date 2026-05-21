@@ -118,14 +118,12 @@ export default function PublishPage() {
     )
   }
 
-  const [title, setTitle] = useState(localStorage.getItem(POST_TITLE) || '')
   const [content, setContent] =
     useState<SerializedEditorState<SerializedLexicalNode>>()
 
   const [publishLoading, setPublishLoading] = useState(false)
 
   const reset = () => {
-    setTitle('')
     setTags([])
     editorRef.current?.reset()
 
@@ -136,21 +134,12 @@ export default function PublishPage() {
   }
 
   const createPost = async (status: 0 | 1) => {
-    if (!title.trim()) {
-      Toast.show({
-        msg: t('error.TITLE_IS_NOT_NULL'),
-        type: 'error',
-      })
-      return
-    }
-
     if (!checkContentIsNotEmpty(content!, t('error.CONTENT_IS_NOT_NULL'))) {
       return
     }
 
     try {
       await createPostAPI({
-        title: title.trim(),
         content,
         type: type === 'write' ? 0 : 1,
         status,
@@ -207,17 +196,6 @@ export default function PublishPage() {
             <h1 className={styles.title}>{t('title.publish')}</h1>
           </div>
           <p className={styles.description}>{t('description')}</p>
-          <input
-            type="text"
-            className={styles['input-title']}
-            placeholder={t('input.title')}
-            value={title}
-            onChange={(e) => {
-              setTitle(e.target.value)
-              localStorage.setItem(POST_TITLE, e.target.value)
-            }}
-            maxLength={TITLE_LENGTH_LIMIT}
-          />
           <Editor ref={editorRef} onChange={setContent} />
         </main>
         <aside className={styles.aside}>

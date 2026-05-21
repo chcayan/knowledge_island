@@ -1,5 +1,3 @@
-export const POST_TITLE_MAX_LENGTH = 100
-
 export const TAG_NAME_MAX_LENGTH = 50
 
 export const USER_NAME_MAX_LENGTH = 20
