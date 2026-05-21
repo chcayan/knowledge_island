@@ -93,7 +93,11 @@ $width: 628px;
     }
 
     .tag {
+      padding: 0;
+      gap: 0;
+
       .total {
+        padding: $gap * 1.5 $gap * 1.5 $gap;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -106,6 +110,7 @@ $width: 628px;
 
       .input-container {
         position: relative;
+        padding: 0 $gap * 1.5;
 
         input {
           height: 40px;
@@ -119,7 +124,7 @@ $width: 628px;
         button {
           position: absolute;
           top: 5px;
-          right: 5px;
+          right: 20px;
           width: 30px;
           height: 30px;
           font-size: 20px;
@@ -140,6 +145,7 @@ $width: 628px;
         gap: $gap;
         max-height: 400px;
         overflow-y: auto;
+        padding: $gap $gap * 1.5 $gap * 1.5;
 
         &::-webkit-scrollbar {
           width: 8px;

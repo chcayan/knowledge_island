@@ -44,6 +44,9 @@ export default function LoginPage() {
         type: 'success',
       })
 
+      setEmail('')
+      setPassword('')
+
       const redirect = searchParams.get('redirect')
       router.replace(redirect || '/')
     } finally {

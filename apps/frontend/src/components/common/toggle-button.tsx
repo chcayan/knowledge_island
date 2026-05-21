@@ -3,6 +3,8 @@
 import { ReactNode, useState } from 'react'
 import styles from './toggle-button.module.scss'
 import clsx from 'clsx'
+import { Toast } from '@/utils/toast'
+import { useTranslations } from 'next-intl'
 
 type Option<T extends string> = {
   label: ReactNode
@@ -22,6 +24,7 @@ export default function ToggleButton<T extends string>({
   defaultValue,
   onChange,
 }: Props<T>) {
+  const t = useTranslations('Global.toast')
   const [innerValue, setInnerValue] = useState<T | undefined>(defaultValue)
 
   const current = value ?? innerValue
@@ -34,6 +37,34 @@ export default function ToggleButton<T extends string>({
     onChange?.(val)
   }
 
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.key !== 'Enter' && e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') {
+      return
+    }
+
+    if (e.repeat) {
+      Toast.show({
+        msg: `${t('longPressTip')} (┬┬﹏┬┬)`,
+        type: 'error',
+      })
+      return
+    }
+
+    e.preventDefault()
+
+    if (e.shiftKey || e.key === 'ArrowLeft') {
+      const prevIndex = activeIndex <= 0 ? options.length - 1 : activeIndex - 1
+
+      handleChange(options[prevIndex].value)
+
+      return
+    }
+
+    const nextIndex = activeIndex >= options.length - 1 ? 0 : activeIndex + 1
+
+    handleChange(options[nextIndex].value)
+  }
+
   return (
     <>
       <div className={styles['toggle-button']}>
@@ -41,11 +72,13 @@ export default function ToggleButton<T extends string>({
         <div className={styles.wrapper}>
           {/* 滑块 */}
           <div
-            className={styles.slider}
+            className={`${styles.slider} tab-focus`}
             style={{
               width: `${100 / options.length}%`,
               transform: `translateX(${activeIndex * 100}%)`,
             }}
+            tabIndex={0}
+            onKeyDown={handleKeyDown}
           />
 
           <div
@@ -62,6 +95,7 @@ export default function ToggleButton<T extends string>({
                   styles.item,
                   current === option.value && styles.active
                 )}
+                tabIndex={-1}
               >
                 {option.label}
               </button>

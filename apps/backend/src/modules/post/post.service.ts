@@ -21,7 +21,7 @@ export class PostService {
     @InjectRepository(Image) private readonly imageRepo: Repository<Image>
   ) {}
 
-  async createPost(dto: CreatePostDto) {
+  async createPost(dto: CreatePostDto, userId: string) {
     const tags = [...new Set((dto.tags ?? []).map((t) => t.trim()))]
 
     const existingTags = await this.tagRepo.find({
@@ -46,6 +46,9 @@ export class PostService {
         tags: allTags,
         contentHtml: html,
         status: dto.status as unknown as PostStatus,
+        author: {
+          id: userId,
+        },
       })
 
       await this.postRepo.save(post)

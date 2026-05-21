@@ -221,6 +221,7 @@ export default forwardRef(function Editor(
           <RichTextPlugin
             contentEditable={
               <ContentEditable
+                tabIndex={0}
                 className={styles['editor-input']}
                 aria-placeholder={t('input.content')}
                 placeholder={

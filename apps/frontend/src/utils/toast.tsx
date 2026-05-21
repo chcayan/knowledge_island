@@ -31,6 +31,13 @@ export const Toast = {
   init() {
     if (!toastRef) {
       createToast()
+      return
+    }
+    if (toastRef) {
+      console.error('已存在 toast 实例')
+      console.group('Toast.init')
+      console.trace()
+      console.groupEnd()
     }
   },
   show(options: ToastParams) {

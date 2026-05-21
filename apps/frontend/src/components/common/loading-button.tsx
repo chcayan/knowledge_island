@@ -21,7 +21,7 @@ export default function LoadingButton({
 }) {
   return (
     <button
-      className={styles.btn}
+      className={`${styles.btn} tab-focus`}
       onClick={onClick}
       disabled={disabled}
       style={style}

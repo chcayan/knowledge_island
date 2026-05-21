@@ -67,6 +67,7 @@ export default function PublishPage() {
   const [type, setType] = useState<'write' | 'ask'>(
     (localStorage.getItem(POST_TYPE) as 'write') || 'write'
   )
+
   const [tags, setTags] = useState<string[]>(
     JSON.parse(localStorage.getItem(POST_TAGS) || '[]') || []
   )
@@ -249,22 +250,30 @@ export default function PublishPage() {
                 }}
                 maxLength={TAG_LENGTH_LIMIT}
               />
-              <button onClick={addTag}>
+              <button className="tab-focus" onClick={addTag}>
                 <span>+</span>
               </button>
             </div>
             {tags.length > 0 && (
-              <div className={styles.tags}>
+              <ul className={styles.tags}>
                 {tags.map((tag) => (
-                  <div key={tag} className={styles.item}>
+                  <li
+                    key={tag}
+                    className={`${styles.item} tab-focus`}
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key !== 'Enter') return
+                      delTag(tag)
+                    }}
+                  >
                     <span>#&nbsp;</span>
                     <span className={styles['name']}>{tag}</span>
-                    <button onClick={() => delTag(tag)}>
+                    <button tabIndex={-1} onClick={() => delTag(tag)}>
                       <span>x</span>
                     </button>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             )}
           </div>
           <div className={styles.operate}>

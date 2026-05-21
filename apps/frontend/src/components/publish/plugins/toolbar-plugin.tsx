@@ -184,6 +184,7 @@ export default function ToolbarPlugin() {
         }}
         className="toolbar-item spaced"
         aria-label="Undo"
+        tabIndex={-1}
       >
         <ArrowCounterclockwise />
       </button>
@@ -194,6 +195,7 @@ export default function ToolbarPlugin() {
         }}
         className="toolbar-item spaced"
         aria-label="Redo"
+        tabIndex={-1}
       >
         <ArrowClockwise />
       </button>
@@ -204,6 +206,7 @@ export default function ToolbarPlugin() {
         }}
         className={'toolbar-item spaced ' + (isBold ? 'active' : '')}
         aria-label="Format Bold"
+        tabIndex={-1}
       >
         <TypeBold />
       </button>
@@ -213,6 +216,7 @@ export default function ToolbarPlugin() {
         }}
         className={'toolbar-item spaced ' + (isItalic ? 'active' : '')}
         aria-label="Format Italics"
+        tabIndex={-1}
       >
         <TypeItalic />
       </button>
@@ -222,6 +226,7 @@ export default function ToolbarPlugin() {
         }}
         className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')}
         aria-label="Format Underline"
+        tabIndex={-1}
       >
         <TypeUnderline />
       </button>
@@ -231,6 +236,7 @@ export default function ToolbarPlugin() {
         }}
         className={'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')}
         aria-label="Format Strikethrough"
+        tabIndex={-1}
       >
         <TypeStrikethrough />
       </button>
@@ -241,6 +247,7 @@ export default function ToolbarPlugin() {
         }}
         className="toolbar-item spaced"
         aria-label="Left Align"
+        tabIndex={-1}
       >
         <TextLeft />
       </button>
@@ -250,6 +257,7 @@ export default function ToolbarPlugin() {
         }}
         className="toolbar-item spaced"
         aria-label="Center Align"
+        tabIndex={-1}
       >
         <TextCenter />
       </button>
@@ -259,6 +267,7 @@ export default function ToolbarPlugin() {
         }}
         className="toolbar-item spaced"
         aria-label="Right Align"
+        tabIndex={-1}
       >
         <TextRight />
       </button>
@@ -268,6 +277,7 @@ export default function ToolbarPlugin() {
         }}
         className="toolbar-item spaced"
         aria-label="Justify Align"
+        tabIndex={-1}
       >
         <TextJustify />
       </button>
@@ -283,6 +293,7 @@ export default function ToolbarPlugin() {
         onClick={() => fileInputRef.current?.click()}
         className="toolbar-item spaced"
         aria-label="Insert image"
+        tabIndex={-1}
       >
         <InsertImage />
       </button>
@@ -290,6 +301,7 @@ export default function ToolbarPlugin() {
         onClick={insertLink}
         className={'toolbar-item spaced ' + (isLink ? 'active' : '')}
         aria-label="toggle link"
+        tabIndex={-1}
       >
         <ToggleLink />
       </button>
@@ -297,6 +309,7 @@ export default function ToolbarPlugin() {
         onClick={insertFormula}
         className="toolbar-item spaced"
         aria-label="toggle link"
+        tabIndex={-1}
       >
         <InsertLatex />
       </button>{' '}

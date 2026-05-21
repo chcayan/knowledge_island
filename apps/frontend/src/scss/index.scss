@@ -57,3 +57,10 @@ input {
   display: inline-block;
   margin-bottom: 8px;
 }
+
+.tab-focus:focus-visible {
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 3px var(--theme-font-color);
+  border-radius: 6px;
+}

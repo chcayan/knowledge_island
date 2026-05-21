@@ -114,6 +114,9 @@
     },
     "event": {
       "navigateToHome": "导航到首页"
+    },
+    "toast": {
+      "longPressTip": "我走不动了"
     }
   }
 }

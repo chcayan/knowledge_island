@@ -114,6 +114,9 @@
     },
     "event": {
       "navigateToHome": "Navigate to the homepage."
+    },
+    "toast": {
+      "longPressTip": "I can't walk anymore."
     }
   }
 }
