@@ -34,7 +34,11 @@
     "searchPlaceholder": "请输入内容",
     "error": {
       "tip": "出了点问题！",
-      "action": "再试一次"
+      "action": "再试一次",
+      "noPost": "暂时没有帖子，"
+    },
+    "event": {
+      "publish": "去发布"
     }
   },
   "Publish": {
@@ -65,7 +69,8 @@
       "TAG_COUNT_LIMIT": "标签数量不超过 {size} 个"
     },
     "event": {
-      "success": "发布成功"
+      "publishSuccess": "发布成功",
+      "saveSuccess": "保存成功"
     }
   },
   "Login": {

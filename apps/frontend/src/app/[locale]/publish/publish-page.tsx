@@ -3,13 +3,13 @@
 import Editor from '@/components/publish/editor'
 import styles from './publish.module.scss'
 import ToggleButton from '@/components/common/toggle-button'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import PublishIcon from '@/components/icon/publish-icon'
 import DraftIcon from '@/components/icon/draft-icon'
 import LoadingButton from '@/components/common/loading-button'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/utils/toast'
-import { createPostAPI, saveDraftAPI } from '@/api'
+import { createPostAPI, getDraftAPI, saveDraftAPI } from '@/api'
 import { SerializedEditorState, SerializedLexicalNode } from 'lexical'
 import {
   POST_EDITOR_CONTENT,
@@ -72,6 +72,28 @@ export default function PublishPage() {
   const [tags, setTags] = useState<string[]>(
     JSON.parse(localStorage.getItem(POST_TAGS) || '[]') || []
   )
+
+  useEffect(() => {
+    async function recoverDraft() {
+      if (tags.length !== 0 && localStorage.getItem(POST_TYPE)) return
+      const { draft } = await getDraftAPI()
+      if (!draft) {
+        localStorage.setItem(POST_TYPE, 'write')
+        return
+      }
+
+      if (tags.length === 0) {
+        const tags = draft.tags.map((tag) => tag.name)
+        setTags(tags)
+      }
+
+      if (!localStorage.getItem(POST_TYPE)) {
+        setType(draft.type === '0' ? 'write' : 'ask')
+      }
+    }
+
+    recoverDraft()
+  }, [tags.length])
 
   const inputRef = useRef<HTMLInputElement>(null)
   const editorRef = useRef<{ reset: () => void }>(null)
@@ -147,7 +169,7 @@ export default function PublishPage() {
         tags,
       })
       Toast.show({
-        msg: t('event.success'),
+        msg: t('event.publishSuccess'),
         type: 'success',
       })
       reset()
@@ -174,7 +196,7 @@ export default function PublishPage() {
         tags,
       })
       Toast.show({
-        msg: t('event.success'),
+        msg: t('event.saveSuccess'),
         type: 'success',
       })
     } catch (err) {

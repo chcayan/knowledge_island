@@ -40,6 +40,12 @@ export class PostController {
     return this.postService.saveDraft(dto, userId)
   }
 
+  @Get('draft')
+  @UseGuards(JwtGuard)
+  async getDraft(@User() userId: string) {
+    return this.postService.getDraft(userId)
+  }
+
   @Post('upload-image')
   @UseGuards(JwtGuard)
   @UseInterceptors(FileInterceptor('image', uploadOptions))

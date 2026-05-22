@@ -34,7 +34,11 @@
     "searchPlaceholder": "Please enter content",
     "error": {
       "tip": "Something went wrong!",
-      "action": "Try again"
+      "action": "Try again",
+      "noPost": "No posts for now, "
+    },
+    "event": {
+      "publish": "to publish"
     }
   },
   "Publish": {
@@ -65,7 +69,8 @@
       "TAG_COUNT_LIMIT": "The number of tags should not exceed {size}."
     },
     "event": {
-      "success": "Publish successful"
+      "publishSuccess": "Publish successful",
+      "saveSuccess": "Save successful"
     }
   },
   "Login": {

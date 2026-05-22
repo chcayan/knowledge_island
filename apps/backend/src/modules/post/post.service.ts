@@ -41,6 +41,12 @@ export class PostService {
   }
 
   async createPost(dto: CreatePostDto, userId: string) {
+    const { draft: exist } = await this.getDraft(userId)
+
+    if (exist) {
+      await this.postRepo.remove(exist)
+    }
+
     const allTags = await this.createTags(dto.tags)
 
     const html = json2html(dto.content as JSON)
@@ -58,11 +64,13 @@ export class PostService {
     await this.postRepo.save(post)
   }
 
-  async saveDraft(dto: CreatePostDto, userId: string) {
+  async getDraft(userId: string) {
     const exist = await this.postRepo
       .createQueryBuilder('post')
       .addSelect('post.content')
       .leftJoin('post.author', 'author')
+      .addSelect(['author.id', 'author.name', 'author.avatar'])
+      .leftJoinAndSelect('post.tags', 'tags')
       .where('author.id = :userId', {
         userId,
       })
@@ -70,6 +78,12 @@ export class PostService {
         status: PostStatus.DRAFT,
       })
       .getOne()
+
+    return { draft: exist }
+  }
+
+  async saveDraft(dto: CreatePostDto, userId: string) {
+    const { draft: exist } = await this.getDraft(userId)
 
     if (exist) {
       const allTags = await this.createTags(dto.tags)
@@ -140,6 +154,10 @@ export class PostService {
       .createQueryBuilder('post')
       .leftJoin('post.author', 'author')
       .addSelect(['author.id', 'author.name', 'author.avatar'])
+      .leftJoinAndSelect('post.tags', 'tags')
+      .where('post.status = :status', {
+        status: PostStatus.REVIEWING, // TODO: modify to PUBLISHED
+      })
       .orderBy('post.createdAt', 'DESC')
       .skip((page - 1) * pageSize)
       .take(pageSize)

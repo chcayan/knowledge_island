@@ -2,6 +2,7 @@ import { request } from '@/utils/request'
 import { compressImage } from '@/utils/compress'
 import {
   CreatePostSchema,
+  DraftInfo,
   PostInfo,
   type CreatePostDto,
 } from '@knowledge_island/schemas'
@@ -42,4 +43,11 @@ export async function getPostAPI(page: number, pageSize: number) {
   } = data
 
   return { list, total }
+}
+
+export async function getDraftAPI() {
+  const res = await request.get('/post/draft')
+  const { draft }: { draft: DraftInfo | null } = res.data.data
+
+  return { draft }
 }

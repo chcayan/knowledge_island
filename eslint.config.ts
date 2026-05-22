@@ -27,6 +27,7 @@ const config: Linter.Config[] = defineConfig(
     },
     rules: {
       'eol-last': ['error', 'always'],
+      'no-html-link-for-pages': 'off',
     },
   },
 
@@ -34,9 +35,6 @@ const config: Linter.Config[] = defineConfig(
   {
     files: ['apps/frontend/**/*.{ts,js,tsx,jsx}'],
     extends: [...nextVitals, ...nextTs],
-    rules: {
-      'no-html-link-for-pages': 'off',
-    },
   },
 
   // backend

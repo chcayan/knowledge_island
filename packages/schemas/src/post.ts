@@ -51,16 +51,32 @@ export const CreatePostSchema = z.object({
 
 export const PostInfoSchema = PostSchema.omit({
   content: true,
-  type: true,
+  status: true,
+  tags: true,
 }).extend({
-  type: z.enum(PostStatus),
+  status: z.enum(PostStatus),
   author: z.object({
     id: z.uuid(),
     name: z.string(),
     avatar: z.string(),
   }),
+  tags: z.array(
+    z.object({
+      id: z.number(),
+      name: z.string(),
+      createdAt: z.date(),
+    })
+  ),
+})
+
+export const DraftInfoSchema = PostInfoSchema.omit({
+  status: true,
+}).extend({
+  status: z.literal('0'),
+  content: PostSchema.shape.content,
 })
 
 export type Post = z.infer<typeof PostSchema>
 export type CreatePostDto = z.infer<typeof CreatePostSchema>
 export type PostInfo = z.infer<typeof PostInfoSchema>
+export type DraftInfo = z.infer<typeof DraftInfoSchema>
