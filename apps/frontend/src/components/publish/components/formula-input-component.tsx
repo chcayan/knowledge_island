@@ -3,16 +3,19 @@ import { useState } from 'react'
 import { $getNodeByKey } from 'lexical'
 import { FormulaNode } from '../nodes/formula-node'
 import { useTranslations } from 'next-intl'
+import { FormulaInputNode } from '../nodes/formula-input-node'
 
 export default function FormulaInputComponent({
+  initialLatex,
   nodeKey,
 }: {
+  initialLatex: string
   nodeKey: string
 }) {
   const t = useTranslations('Publish')
 
   const [editor] = useLexicalComposerContext()
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(initialLatex || '')
 
   function confirm() {
     editor.update(() => {
@@ -26,6 +29,9 @@ export default function FormulaInputComponent({
 
       const formulaNode = new FormulaNode(value)
       node.replace(formulaNode)
+
+      const parent = formulaNode.getParent()
+      if (parent) editor.focus()
     })
   }
 
@@ -34,8 +40,23 @@ export default function FormulaInputComponent({
       autoFocus
       placeholder={t('input.latex')}
       value={value}
-      onClick={(e) => e.stopPropagation()}
-      onChange={(e) => setValue(e.target.value)}
+      onClick={(e) => {
+        e.stopPropagation()
+      }}
+      onChange={(e) => {
+        const newValue = e.target.value
+        setValue(newValue)
+
+        editor.update(
+          () => {
+            const node = $getNodeByKey(nodeKey)
+            if (node) {
+              ;(node as FormulaInputNode).setLatex(newValue)
+            }
+          },
+          { tag: 'history-merge' }
+        )
+      }}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
           e.preventDefault()

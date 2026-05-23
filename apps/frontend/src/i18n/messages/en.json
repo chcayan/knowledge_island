@@ -71,6 +71,21 @@
     "event": {
       "publishSuccess": "Publish successful",
       "saveSuccess": "Save successful"
+    },
+    "toolbar": {
+      "undo": "undo (ctrl + z)",
+      "redo": "redo (ctrl + y)",
+      "bold": "bold (ctrl + b)",
+      "italics": "italics (ctrl + i)",
+      "underline": "underline (ctrl + u)",
+      "strikethrough": "strikethrough (ctrl + d)",
+      "leftAlign": "left align (ctrl + l)",
+      "centerAlign": "center align (ctrl + e)",
+      "rightAlign": "right align (ctrl + r)",
+      "justifyAlign": "justify align (ctrl + j)",
+      "insertImage": "insert image (ctrl + 1)",
+      "toggleLink": "toggle link (ctrl + 2)",
+      "insertLaTeX": "insert LaTeX (ctrl + 3)"
     }
   },
   "Login": {

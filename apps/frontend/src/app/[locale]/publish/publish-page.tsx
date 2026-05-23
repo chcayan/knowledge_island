@@ -35,6 +35,9 @@ function checkContentIsNotEmpty(
       if (node.children?.[0]?.type === 'image') {
         return true
       }
+      if (node.children?.[0]?.type === 'formula') {
+        return true
+      }
       if (node.children?.[0]?.text?.trim()) {
         return true
       }
@@ -93,7 +96,10 @@ export default function PublishPage() {
     }
 
     recoverDraft()
-  }, [tags.length])
+
+    // recoverDraft 仅需要初始化一次
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const inputRef = useRef<HTMLInputElement>(null)
   const editorRef = useRef<{ reset: () => void }>(null)
@@ -184,10 +190,6 @@ export default function PublishPage() {
   }
 
   const saveDraft = async () => {
-    if (!checkContentIsNotEmpty(content!, t('error.CONTENT_IS_NOT_NULL'))) {
-      return
-    }
-
     try {
       await saveDraftAPI({
         content,
@@ -237,7 +239,11 @@ export default function PublishPage() {
             <h1 className={styles.title}>{t('title.publish')}</h1>
           </div>
           <p className={styles.description}>{t('description')}</p>
-          <Editor ref={editorRef} onChange={setContent} />
+          <Editor
+            ref={editorRef}
+            onChange={setContent}
+            saveDraft={handleDraft}
+          />
         </main>
         <aside className={styles.aside}>
           <div className={styles.type}>

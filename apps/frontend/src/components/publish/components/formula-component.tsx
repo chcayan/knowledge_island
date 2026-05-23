@@ -22,7 +22,7 @@ export default function FormulaComponent({
   const ref = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
-    if (!ref.current) return
+    if (!ref.current || editing) return
 
     try {
       katex.render(latex, ref.current, {
@@ -34,6 +34,8 @@ export default function FormulaComponent({
   }, [latex, editing])
 
   function save() {
+    if (!editing) return
+
     editor.update(() => {
       const node = $getNodeByKey(nodeKey)
       if (!node) return
@@ -44,6 +46,9 @@ export default function FormulaComponent({
       }
 
       ;(node as FormulaNode).setLatex(value)
+
+      const parent = node.getParent()
+      if (parent) editor.focus()
     })
 
     setEditing(false)
@@ -54,15 +59,24 @@ export default function FormulaComponent({
       <input
         value={value}
         autoFocus
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => {
+          e.stopPropagation()
+        }}
         onChange={(e) => setValue(e.target.value)}
         onBlur={save}
         onKeyDown={(e) => {
-          if (e.key === 'Enter') save()
+          if (e.key === 'Enter') {
+            e.preventDefault()
+            save()
+          } else if (e.key === 'Escape') {
+            e.preventDefault()
+            setValue(latex)
+            setEditing(false)
+          }
         }}
         placeholder={t('input.latex')}
         style={{
-          width: '100%',
+          width: '200px',
           height: '25px',
           padding: '5px',
           fontSize: '15px',
@@ -74,10 +88,12 @@ export default function FormulaComponent({
   }
 
   return (
-    <span
-      ref={ref}
-      onClick={() => setEditing(true)}
-      style={{ cursor: 'pointer' }}
-    />
+    <>
+      <span
+        ref={ref}
+        onClick={() => setEditing(true)}
+        style={{ cursor: 'pointer' }}
+      />
+    </>
   )
 }

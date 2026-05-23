@@ -48,7 +48,6 @@ import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin'
 import AutoUpdateLinkPlugin from './plugins/auto-update-link-plugin'
 import 'katex/dist/katex.min.css'
 import { FormulaNode } from './nodes/formula-node'
-import FormulaPlugin from './plugins/formula-plugin'
 import { FormulaInputNode } from './nodes/formula-input-node'
 import { useTranslations } from 'next-intl'
 import { POST_EDITOR_CONTENT } from '@/config/local-storage'
@@ -178,10 +177,12 @@ RefController.displayName = 'ref_controller'
 export default forwardRef(function Editor(
   {
     onChange,
+    saveDraft,
   }: {
     onChange: Dispatch<
       SetStateAction<SerializedEditorState<SerializedLexicalNode> | undefined>
     >
+    saveDraft: () => void
   },
   ref
 ) {
@@ -216,7 +217,7 @@ export default forwardRef(function Editor(
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className={styles['editor-container']}>
-        <ToolbarPlugin />
+        <ToolbarPlugin saveDraft={saveDraft} />
         <div className={styles['editor-inner']}>
           <RichTextPlugin
             contentEditable={
@@ -238,7 +239,6 @@ export default forwardRef(function Editor(
           <AutoUpdateLinkPlugin />
           <ImagePlugin />
           <LinkPlugin />
-          <FormulaPlugin />
           <OnChangePlugin onChange={handleEditorChange} />
           <RestorePlugin />
           <ClearEditorPlugin />

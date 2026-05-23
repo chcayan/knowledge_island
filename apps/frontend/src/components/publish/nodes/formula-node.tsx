@@ -41,7 +41,6 @@ export class FormulaNode extends DecoratorNode<JSX.Element> {
 
   setLatex(latex: string) {
     const writable = this.getWritable()
-    console.log(writable)
     writable.__latex = latex
   }
 

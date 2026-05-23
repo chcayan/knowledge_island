@@ -21,7 +21,13 @@ export class PostService {
   ) {}
 
   async createTags(_tags: string[]) {
-    const tags = [...new Set((_tags ?? []).map((t) => t.trim()))]
+    const tags = [...new Set((_tags ?? []).map((t) => t.trim()))].filter(
+      Boolean
+    )
+
+    if (tags.length === 0) {
+      return []
+    }
 
     const existingTags = await this.tagRepo.find({
       where: tags.map((name) => ({ name })),

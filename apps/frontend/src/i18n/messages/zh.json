@@ -71,6 +71,21 @@
     "event": {
       "publishSuccess": "发布成功",
       "saveSuccess": "保存成功"
+    },
+    "toolbar": {
+      "undo": "撤销 (ctrl + z)",
+      "redo": "恢复 (ctrl + y)",
+      "bold": "粗体 (ctrl + b)",
+      "italics": "斜体 (ctrl + i)",
+      "underline": "下划线 (ctrl + u)",
+      "strikethrough": "删除线 (ctrl + d)",
+      "leftAlign": "左对齐 (ctrl + l)",
+      "centerAlign": "居中 (ctrl + e)",
+      "rightAlign": "右对齐 (ctrl + r)",
+      "justifyAlign": "两端对齐 (ctrl + j)",
+      "insertImage": "插入图片 (ctrl + 1)",
+      "toggleLink": "链接 (ctrl + 2)",
+      "insertLaTeX": "插入 LaTeX (ctrl + 3)"
     }
   },
   "Login": {
