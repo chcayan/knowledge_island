@@ -2,10 +2,11 @@ import createMiddleware from 'next-intl/middleware'
 import { routing } from './i18n/routing'
 import { NextRequest, NextResponse } from 'next/server'
 import { BASE_URL } from './config/request'
+import { RouterPath } from './config/path'
 
 const handleI18nRouting = createMiddleware(routing)
 
-const publicRoutes = ['/', '/login', '/setting']
+const publicRoutes = ['/', RouterPath.login, RouterPath.setting]
 
 async function refresh(token: string) {
   try {
@@ -48,9 +49,9 @@ export default async function proxy(request: NextRequest) {
     if (!accessToken && !isPublicRoute) {
       console.log('未登录')
       response = NextResponse.redirect(
-        new URL(`/login?redirect=${pathname}`, request.url)
+        new URL(`${RouterPath.login}?redirect=${pathname}`, request.url)
       )
-    } else if (accessToken && pathname === '/login') {
+    } else if (accessToken && pathname === RouterPath.login) {
       console.log('已登录')
       response = NextResponse.redirect(new URL('/', request.url))
     }

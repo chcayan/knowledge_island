@@ -1,4 +1,11 @@
-import { Controller, Post, Req, Res } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UnauthorizedException,
+} from '@nestjs/common'
 import { AuthService } from './auth.service'
 import { JwtService } from '@nestjs/jwt'
 import type { AuthRequest } from '../../common/interface/auth-request.interface'
@@ -80,5 +87,29 @@ export class AuthController {
         message: ERROR_MESSAGE[ERROR_CODE.TOKEN_EXPIRED],
       })
     }
+  }
+
+  @Get('me')
+  getMe(@Req() req: AuthRequest, @Res() res: Response) {
+    const token = req.cookies.access_token
+
+    if (!token) {
+      throw new UnauthorizedException({
+        code: ERROR_CODE.NO_TOKEN,
+        message: ERROR_MESSAGE[ERROR_CODE.NO_TOKEN],
+      })
+    }
+
+    const payload = this.jwtService.verify<JwtPayload>(token, {
+      secret: process.env.ACCESS_SECRET,
+    })
+
+    return res.json({
+      code: 0,
+      message: 'success',
+      data: {
+        id: payload.id,
+      },
+    })
   }
 }

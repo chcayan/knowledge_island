@@ -1,19 +1,19 @@
-import LocaleToggle from '@/components/common/locale-toggle'
-import { locale } from '@/types/locale'
+'use client'
 
-export default async function Setting({
-  params,
-}: Readonly<{
-  params: Promise<{
-    locale: locale
-  }>
-}>) {
-  const { locale } = await params
+import { useTranslations } from 'next-intl'
+import dynamic from 'next/dynamic'
+import { useEffect } from 'react'
 
-  return (
-    <>
-      <p>setting</p>
-      <LocaleToggle locale={locale} />
-    </>
-  )
+const SettingPage = dynamic(() => import('./setting-page'), {
+  ssr: false,
+})
+
+export default function Setting() {
+  const t = useTranslations('Metadata.setting')
+
+  useEffect(() => {
+    document.title = t('title')
+  }, [t])
+
+  return <SettingPage />
 }

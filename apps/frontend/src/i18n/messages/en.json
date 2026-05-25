@@ -18,6 +18,9 @@
     },
     "chat": {
       "title": "Chat"
+    },
+    "setting": {
+      "title": "Setting"
     }
   },
   "RootLayout": {
@@ -87,6 +90,9 @@
       "toggleLink": "toggle link (ctrl + 2)",
       "insertLaTeX": "insert LaTeX (ctrl + 3)"
     }
+  },
+  "Setting": {
+    "title": "Setting"
   },
   "Login": {
     "title": "Welcome back",

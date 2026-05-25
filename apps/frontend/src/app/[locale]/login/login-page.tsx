@@ -12,6 +12,7 @@ import {
   USER_PASSWORD_REGEX_FOR_INPUT_ELEMENT,
 } from '@knowledge_island/schemas'
 import LoadingButton from '@/components/common/loading-button'
+import { useUserStore } from '@/stores'
 
 const themeColor = 'var(--theme-font-color)'
 
@@ -30,11 +31,13 @@ export default function LoginPage() {
     null
   )
 
+  const setUserId = useUserStore.getState().setUserId
+
   async function login() {
     setLoading(true)
 
     try {
-      await loginAPI({
+      const { id } = await loginAPI({
         email,
         password,
       })
@@ -44,6 +47,7 @@ export default function LoginPage() {
         type: 'success',
       })
 
+      setUserId(id)
       setEmail('')
       setPassword('')
 

@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common'
 import { UserService } from './user.service'
 import type { LoginDto, RegisterDto } from '@knowledge_island/schemas'
 import { LoginSchema, RegisterSchema } from '@knowledge_island/schemas'
@@ -11,6 +20,8 @@ import {
   REFRESH_TOKEN_MAX_AGE,
   REFRESH_TOKEN_NAME,
 } from '../../common/config/cookie.config'
+import type { AuthRequest } from '../../common/interface/auth-request.interface'
+import { JwtGuard } from '../../common/guard/jwt.guard'
 
 @Controller('user')
 export class UserController {
@@ -46,6 +57,23 @@ export class UserController {
       sameSite: 'strict',
       maxAge: REFRESH_TOKEN_MAX_AGE,
     })
+
+    return res.json({
+      code: 0,
+      message: 'success',
+      data: {
+        id: userId,
+      },
+    })
+  }
+
+  @Post('logout')
+  @UseGuards(JwtGuard)
+  async logout(@Req() req: AuthRequest, @Res() res: Response) {
+    await this.authService.remove(req.user.id, 'user')
+
+    res.clearCookie(ACCESS_TOKEN_NAME)
+    res.clearCookie(REFRESH_TOKEN_NAME)
 
     return res.json({
       code: 0,

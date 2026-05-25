@@ -18,6 +18,9 @@
     },
     "chat": {
       "title": "聊天"
+    },
+    "setting": {
+      "title": "设置"
     }
   },
   "RootLayout": {
@@ -87,6 +90,9 @@
       "toggleLink": "链接 (ctrl + 2)",
       "insertLaTeX": "插入 LaTeX (ctrl + 3)"
     }
+  },
+  "Setting": {
+    "title": "设置"
   },
   "Login": {
     "title": "欢迎回来",
