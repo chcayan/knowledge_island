@@ -1,13 +1,13 @@
-import Search from '@/components/common/search'
+import Search from '@/components/common/search/search'
 import ThemeToggle from '@/components/layout/theme-toggle'
 import styles from './page.module.scss'
-import PostList from '@/components/home/post-list'
+import PostList from '@/components/home/post-list/post-list'
 import { Suspense } from 'react'
-import CardListSkeleton from '@/components/home/card-list-skeleton'
 import ScrollRestoration from '@/components/layout/scroll-restoration'
 import { locale } from '@/types/locale'
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
+import CardListSkeleton from '@/components/home/card-list-skeleton/card-list-skeleton'
 
 export async function generateMetadata({
   params,

@@ -16,17 +16,26 @@
 
   .p {
     color: black;
+    font-weight: bold;
   }
 }
 
 .success {
-  background-color: rgb(180, 232, 180);
+  background-color: rgb(48, 177, 48);
+
+  .p {
+    color: var(--theme-primary-color) !important;
+  }
 }
 
 .error {
-  background-color: rgb(236, 164, 164);
+  background-color: rgb(239, 68, 68);
+
+  .p {
+    color: var(--theme-primary-color) !important;
+  }
 }
 
 .normal {
-  background-color: rgb(255, 255, 255);
+  background-color: var(--theme-secondary-color);
 }

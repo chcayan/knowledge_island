@@ -4,9 +4,9 @@
 import { PostInfo } from '@knowledge_island/schemas'
 import styles from './post-card.module.scss'
 import { formatCount, formatDateByYear, getImgUrl } from '@/utils'
-import ViewCountIcon from '../icon/view-count-icon'
-import CommentCountIcon from '../icon/comment-count-icon'
-import CollectionCountIcon from '../icon/collection-count-icon'
+import ViewCountIcon from '../../icon/view-count-icon'
+import CommentCountIcon from '../../icon/comment-count-icon'
+import CollectionCountIcon from '../../icon/collection-count-icon'
 import { useEffect, useRef, useState } from 'react'
 import 'katex/dist/katex.min.css'
 

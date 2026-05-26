@@ -11,7 +11,7 @@ import {
   USER_PASSWORD_MIN_LENGTH,
   USER_PASSWORD_REGEX_FOR_INPUT_ELEMENT,
 } from '@knowledge_island/schemas'
-import LoadingButton from '@/components/common/loading-button'
+import LoadingButton from '@/components/common/loading-button/loading-button'
 import { useUserStore } from '@/stores'
 
 const themeColor = 'var(--theme-font-color)'

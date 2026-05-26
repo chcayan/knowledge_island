@@ -2,9 +2,11 @@
 
 import {
   CONFLICT_EXCEPTION_CODE,
+  FORBIDDEN_CODE,
   NOT_FOUND_CODE,
   UNAUTHORIZED_CODE,
 } from '@/config/request'
+import { formatRemainTimeWithText } from '@/utils'
 import emitter from '@/utils/event-emitter'
 import { Toast } from '@/utils/toast'
 import { useTranslations } from 'next-intl'
@@ -12,7 +14,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 export default function EmitterNotification() {
-  const t = useTranslations('RequestError')
+  const t = useTranslations()
   const router = useRouter()
 
   useEffect(() => {
@@ -22,7 +24,7 @@ export default function EmitterNotification() {
       'API:UNAUTHORIZED',
       (code: typeof UNAUTHORIZED_CODE) => {
         Toast.show({
-          msg: t(`401.${code}`),
+          msg: t(`RequestError.401.${code}`),
           type: 'error',
         })
         if (Number(code) !== 401005) {
@@ -31,11 +33,33 @@ export default function EmitterNotification() {
       }
     )
 
+    const forbiddenOff = emitter.on(
+      'API:FORBIDDEN',
+      (code: typeof FORBIDDEN_CODE, time?: number) => {
+        Toast.show({
+          msg: t(
+            `RequestError.403.${code}`,
+            time
+              ? {
+                  time: formatRemainTimeWithText(time, {
+                    second: t('Global.date.timeUnit.second'),
+                    minute: t('Global.date.timeUnit.minute'),
+                    hour: t('Global.date.timeUnit.hour'),
+                    day: t('Global.date.timeUnit.day'),
+                  }),
+                }
+              : undefined
+          ),
+          type: 'error',
+        })
+      }
+    )
+
     const notFoundOff = emitter.on(
       'API:NOT_FOUND',
       (code: typeof NOT_FOUND_CODE) => {
         Toast.show({
-          msg: t(`404.${code}`),
+          msg: t(`RequestError.404.${code}`),
           type: 'error',
         })
       }
@@ -45,7 +69,7 @@ export default function EmitterNotification() {
       'API:CONFLICT_EXCEPTION',
       (code: typeof CONFLICT_EXCEPTION_CODE) => {
         Toast.show({
-          msg: t(`409.${code}`),
+          msg: t(`RequestError.409.${code}`),
           type: 'error',
         })
       }
@@ -53,27 +77,28 @@ export default function EmitterNotification() {
 
     const errNetworkOff = emitter.on('SERVER:ERR_NETWORK', () => {
       Toast.show({
-        msg: t('common.ERR_NETWORK'),
+        msg: t('RequestError.common.ERR_NETWORK'),
         type: 'error',
       })
     })
 
     const econnabortedOff = emitter.on('SERVER:ECONNABORTED', () => {
       Toast.show({
-        msg: t('common.ECONNABORTED'),
+        msg: t('RequestError.common.ECONNABORTED'),
         type: 'error',
       })
     })
 
     const serverExceptionOff = emitter.on('SERVER:EXCEPTION', () => {
       Toast.show({
-        msg: t('common.SERVER_EXCEPTION'),
+        msg: t('RequestError.common.SERVER_EXCEPTION'),
         type: 'error',
       })
     })
 
     return () => {
       unAuthOff()
+      forbiddenOff()
       notFoundOff()
       conflictExceptionOff()
       errNetworkOff()

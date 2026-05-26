@@ -1,4 +1,4 @@
-import CardSkeleton from './card-skeleton'
+import CardSkeleton from '../card-skeleton/card-skeleton'
 import styles from './card-list-skeleton.module.scss'
 
 export default function CardListSkeleton() {

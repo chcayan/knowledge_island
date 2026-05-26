@@ -2,6 +2,7 @@ import { BASE_URL, REQUEST_TIMEOUT } from '@/config/request'
 import axios from 'axios'
 import emitter from './event-emitter'
 import { refreshAPI } from '@/api/auth'
+import { ERROR_CODE } from '@knowledge_island/error'
 
 const instance = axios.create({
   baseURL: BASE_URL,
@@ -68,7 +69,20 @@ instance.interceptors.response.use(
     }
 
     if (err.response?.status === 403) {
-      emitter.emit('API:FORBIDDEN', err.response?.data?.code)
+      const code = err.response?.data?.code
+      if (
+        code &&
+        (code === ERROR_CODE.TEMPORARY_FORBIDDEN ||
+          code === ERROR_CODE.USER_LOGIN_FORBIDDEN)
+      ) {
+        emitter.emit(
+          'API:FORBIDDEN',
+          err.response?.data?.code,
+          err.response?.data?.data.time
+        )
+      } else {
+        emitter.emit('API:FORBIDDEN', err.response?.data?.code)
+      }
     }
 
     if (err.response?.status === 404) {

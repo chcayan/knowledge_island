@@ -92,7 +92,16 @@
     }
   },
   "Setting": {
-    "title": "Setting"
+    "title": "Setting",
+    "individual": {
+      "logout": {
+        "confirm": {
+          "title": "Logout",
+          "description": "Are you sure you want to logout of the current account?",
+          "confirmText": "logout"
+        }
+      }
+    }
   },
   "Login": {
     "title": {
@@ -158,6 +167,19 @@
     },
     "toast": {
       "longPressTip": "I can't walk anymore."
+    },
+    "date": {
+      "timeUnit": {
+        "second": "s",
+        "minute": "m",
+        "hour": "h",
+        "day": "d"
+      }
+    },
+    "confirm": {
+      "title": "Confirm action",
+      "confirmText": "confirm",
+      "cancelText": "cancel"
     }
   }
 }

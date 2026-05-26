@@ -8,6 +8,7 @@ import Nav from '@/components/layout/nav'
 import { locale } from '@/types/locale'
 import LogoIcon from '@/components/icon/logo-icon'
 import EmitterNotification from '@/components/common/emitter-notification'
+import ConfirmProvider from '@/components/common/confirm/confirm-provider'
 
 export default async function RootLayout({
   children,
@@ -28,17 +29,19 @@ export default async function RootLayout({
       <body className={styles.layout}>
         <ThemeProvider>
           <NextIntlClientProvider>
-            <header className={styles.header}>
-              <div className={styles.title}>
-                <h1>Knowledge Island</h1>
-              </div>
-              <div className={styles.logo}>
-                <LogoIcon width={40} height={40} />
-              </div>
-              <Nav />
-            </header>
-            <div className={styles.children}>{children}</div>
-            <EmitterNotification />
+            <ConfirmProvider>
+              <header className={styles.header}>
+                <div className={styles.title}>
+                  <h1>Knowledge Island</h1>
+                </div>
+                <div className={styles.logo}>
+                  <LogoIcon width={40} height={40} />
+                </div>
+                <Nav />
+              </header>
+              <div className={styles.children}>{children}</div>
+              <EmitterNotification />
+            </ConfirmProvider>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

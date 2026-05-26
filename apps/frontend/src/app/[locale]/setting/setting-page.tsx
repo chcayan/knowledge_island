@@ -1,6 +1,7 @@
 'use client'
 
 import { LogoutAPI } from '@/api'
+import { useConfirm } from '@/components/common/confirm/useConfirm'
 import LocaleToggle from '@/components/common/locale-toggle'
 import { RouterPath } from '@/config/path'
 import { useUserStore } from '@/stores'
@@ -16,9 +17,21 @@ export default function SettingPage() {
   const userId = useUserStore((state) => state.userId)
   const router = useRouter()
 
-  const handleLogin = async () => {
+  const confirm = useConfirm()
+
+  const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (userId) {
-      console.log('logout')
+      const ok = await confirm({
+        title: t('individual.logout.confirm.title'),
+        description: t('individual.logout.confirm.description'),
+        confirmText: t('individual.logout.confirm.confirmText'),
+        danger: true,
+        x: e.clientX,
+        y: e.clientY,
+      })
+
+      if (!ok) return
+
       await LogoutAPI()
 
       Toast.show({
@@ -28,7 +41,6 @@ export default function SettingPage() {
       const removeUserId = useUserStore.getState().removeUserId
       removeUserId()
     } else {
-      console.log('login')
       router.push(`${RouterPath.login}?redirect=${RouterPath.setting}`)
     }
   }
@@ -40,6 +52,12 @@ export default function SettingPage() {
       <LocaleToggle locale={locale} />
       <h3>个人</h3>
       <button onClick={handleLogin}>{userId ? '退出登录' : '登录'}</button>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, sunt
+        minus, facere eveniet perspiciatis, ut odio nobis corporis molestias
+        placeat doloribus praesentium repudiandae distinctio? Laboriosam
+        asperiores dolorem facilis perspiciatis culpa.
+      </p>
     </>
   )
 }

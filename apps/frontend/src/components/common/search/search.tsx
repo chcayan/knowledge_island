@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import SearchIcon from '../icon/search-icon'
+import SearchIcon from '../../icon/search-icon'
 import styles from './search.module.scss'
 
 export default function Search() {

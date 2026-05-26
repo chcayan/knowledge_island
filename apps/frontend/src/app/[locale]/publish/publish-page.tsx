@@ -2,11 +2,11 @@
 
 import Editor from '@/components/publish/editor'
 import styles from './publish.module.scss'
-import ToggleButton from '@/components/common/toggle-button'
+import ToggleButton from '@/components/common/toggle-button/toggle-button'
 import { useEffect, useRef, useState } from 'react'
 import PublishIcon from '@/components/icon/publish-icon'
 import DraftIcon from '@/components/icon/draft-icon'
-import LoadingButton from '@/components/common/loading-button'
+import LoadingButton from '@/components/common/loading-button/loading-button'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/utils/toast'
 import { createPostAPI, getDraftAPI, saveDraftAPI } from '@/api'

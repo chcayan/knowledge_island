@@ -1,6 +1,6 @@
 'use client'
 
-import T, { ToastParams } from '@/components/common/toast'
+import T, { ToastParams } from '@/components/common/toast/toast'
 import { createRef, type RefObject } from 'react'
 import { createRoot } from 'react-dom/client'
 

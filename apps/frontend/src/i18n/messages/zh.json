@@ -92,7 +92,16 @@
     }
   },
   "Setting": {
-    "title": "设置"
+    "title": "设置",
+    "individual": {
+      "logout": {
+        "confirm": {
+          "title": "退出登录",
+          "description": "你确定要退出当前账号吗？",
+          "confirmText": "退出"
+        }
+      }
+    }
   },
   "Login": {
     "title": {
@@ -158,6 +167,19 @@
     },
     "toast": {
       "longPressTip": "我走不动了"
+    },
+    "date": {
+      "timeUnit": {
+        "second": "秒",
+        "minute": "分钟",
+        "hour": "小时",
+        "day": "天"
+      }
+    },
+    "confirm": {
+      "title": "确认操作",
+      "confirmText": "确认",
+      "cancelText": "取消"
     }
   }
 }
