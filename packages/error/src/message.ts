@@ -18,4 +18,7 @@ export const ERROR_MESSAGE = {
 
   // 404
   [ERROR_CODE.USER_NOT_FOUND]: '未找到该用户',
+
+  // 409
+  [ERROR_CODE.EMAIL_HAS_BEEN_REGISTERED]: '邮箱已被注册',
 }

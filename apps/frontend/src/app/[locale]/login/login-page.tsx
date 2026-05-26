@@ -2,7 +2,7 @@
 import LogoIcon from '@/components/icon/logo-icon'
 import styles from './login.module.scss'
 import { SubmitEvent, useState } from 'react'
-import { loginAPI } from '@/api'
+import { loginAPI, registerAPI } from '@/api'
 import { Toast } from '@/utils/toast'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
@@ -18,6 +18,8 @@ const themeColor = 'var(--theme-font-color)'
 
 export default function LoginPage() {
   const t = useTranslations('Login')
+
+  const [type, setType] = useState<'login' | 'register'>('login')
 
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -43,7 +45,7 @@ export default function LoginPage() {
       })
 
       Toast.show({
-        msg: t('event.success'),
+        msg: t('event.loginSuccess'),
         type: 'success',
       })
 
@@ -53,6 +55,32 @@ export default function LoginPage() {
 
       const redirect = searchParams.get('redirect')
       router.replace(redirect || '/')
+    } catch {
+      /* empty */
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function register() {
+    setLoading(true)
+
+    try {
+      await registerAPI({
+        email,
+        password,
+      })
+
+      Toast.show({
+        msg: t('event.registerSuccess'),
+        type: 'success',
+      })
+
+      setEmail('')
+      setPassword('')
+      setType('login')
+    } catch {
+      /* empty */
     } finally {
       setLoading(false)
     }
@@ -60,7 +88,11 @@ export default function LoginPage() {
 
   const handleLogin = (e: SubmitEvent) => {
     e.preventDefault()
-    login()
+    if (type === 'login') {
+      login()
+    } else {
+      register()
+    }
   }
 
   const checkEmail = (e: React.InputEvent<HTMLInputElement>) => {
@@ -94,7 +126,9 @@ export default function LoginPage() {
         <div className={styles.right}>
           <form onSubmit={handleLogin} className={styles['form-wrapper']}>
             <div className={styles.logo}>{'✦'}</div>
-            <h1 className={styles.title}>{t('title')}</h1>
+            <h1 className={styles.title}>
+              {type === 'login' ? t('title.login') : t('title.register')}
+            </h1>
             <p className={styles.subtitle}>Hi~ o(*￣▽￣*)ブ</p>
             <div className={styles['input-group']}>
               <label className={styles.label}>{t('form.email')}</label>
@@ -139,8 +173,9 @@ export default function LoginPage() {
                     onInput={checkPassword}
                     onInvalid={checkPassword}
                   />
-                  <p
-                    className={styles['eye-icon']}
+                  <button
+                    type={'button'}
+                    className={`${styles['eye-icon']} tab-focus`}
                     style={{
                       color: showPassword ? themeColor : '#999',
                     }}
@@ -152,7 +187,7 @@ export default function LoginPage() {
                     }
                   >
                     {showPassword ? '( •̀ ω •́ )' : '( -_- )'}
-                  </p>
+                  </button>
                 </div>
                 <div
                   className={styles['focus-line']}
@@ -164,7 +199,7 @@ export default function LoginPage() {
               </div>
             </div>
             <LoadingButton
-              text={t('form.login')}
+              text={type === 'login' ? t('form.login') : t('form.register')}
               loading={loading}
               disabled={loading}
               style={{
@@ -176,6 +211,37 @@ export default function LoginPage() {
               }}
               type={'submit'}
             />
+            {type === 'login' ? (
+              <div className={styles.type}>
+                <p>{t('form.registerHint')}</p>
+                <button
+                  disabled={loading}
+                  className="tab-focus"
+                  onClick={() => setType('register')}
+                  type={'button'}
+                  style={{
+                    cursor: loading ? 'not-allowed' : '',
+                  }}
+                >
+                  {t('form.registerType')}
+                </button>
+              </div>
+            ) : (
+              <div className={styles.type}>
+                <p>{t('form.loginHint')}</p>
+                <button
+                  disabled={loading}
+                  className="tab-focus"
+                  onClick={() => setType('login')}
+                  type={'button'}
+                  style={{
+                    cursor: loading ? 'not-allowed' : '',
+                  }}
+                >
+                  {t('form.loginType')}
+                </button>
+              </div>
+            )}
           </form>
         </div>
       </div>

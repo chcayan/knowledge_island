@@ -67,7 +67,7 @@
 
         .input-wrapper {
           position: relative;
-          border-bottom: 2px solid #e5e7eb;
+          border-bottom: 2px solid var(--theme-input-line-color);
           transition: border-color 0.4s;
 
           .input {
@@ -119,6 +119,25 @@
               width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
               background-color 0.4s;
           }
+        }
+      }
+
+      .type {
+        margin-top: 17px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        p {
+          color: var(--theme-font-light-color);
+        }
+
+        button {
+          padding: 3px;
+          font-weight: bold;
+          font-size: 16px;
+          text-decoration-line: underline;
+          cursor: pointer;
         }
       }
     }

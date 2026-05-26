@@ -1,4 +1,5 @@
 import {
+  ConflictException,
   ForbiddenException,
   Injectable,
   NotFoundException,
@@ -58,8 +59,27 @@ export class UserService {
     return user.id
   }
 
-  register(dto: RegisterDto) {
-    console.log(dto)
+  async register(dto: RegisterDto) {
+    const user = await this.userRepo.findOne({
+      where: { email: dto.email },
+    })
+
+    if (user) {
+      throw new ConflictException({
+        code: ERROR_CODE.EMAIL_HAS_BEEN_REGISTERED,
+        message: ERROR_MESSAGE[ERROR_CODE.EMAIL_HAS_BEEN_REGISTERED],
+      })
+    }
+
+    const hashedPassword = await bcrypt.hash(dto.password, 10)
+
+    const newUser = this.userRepo.create({
+      name: '默认名字',
+      email: dto.email,
+      password: hashedPassword,
+    })
+
+    await this.userRepo.save(newUser)
   }
 
   async findOne(id: string) {

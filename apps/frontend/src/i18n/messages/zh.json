@@ -95,21 +95,30 @@
     "title": "设置"
   },
   "Login": {
-    "title": "欢迎回来",
+    "title": {
+      "login": "欢迎回来",
+      "register": "欢迎来到知岛"
+    },
     "form": {
       "email": "邮箱",
       "password": "密码",
       "pwdInputHint": "请输入密码",
       "login": "登录",
+      "register": "注册",
       "displayPwdHint": "显示密码",
       "hidePwdHint": "隐藏密码",
       "emailEmptyHint": "邮箱是空的",
       "emailInvalidHint": "邮箱格式不正确",
       "pwdEmptyHint": "密码是空的",
-      "pwdInvalidHint": "密码只能包含英文、数字和特殊字符（ASCII 可打印字符），长度 6-20 位"
+      "pwdInvalidHint": "密码只能包含英文、数字和特殊字符（ASCII 可打印字符），长度 6-20 位",
+      "loginType": "登录",
+      "registerType": "注册",
+      "loginHint": "如果您已有账户，请",
+      "registerHint": "如果你还没有账号，请"
     },
     "event": {
-      "success": "登录成功"
+      "loginSuccess": "登录成功",
+      "registerSuccess": "注册成功，前往登录页登录"
     }
   },
   "RequestError": {
@@ -130,6 +139,14 @@
     },
     "404": {
       "404001": "未找到该用户"
+    },
+    "409": {
+      "409001": "该邮箱已被注册"
+    },
+    "common": {
+      "ERR_NETWORK": "无法连接服务器，请稍后重试",
+      "ECONNABORTED": "请求超时，请稍后重试",
+      "SERVER_EXCEPTION": "服务器异常，请稍后重试"
     }
   },
   "Global": {

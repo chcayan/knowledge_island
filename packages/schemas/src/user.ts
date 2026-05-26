@@ -41,17 +41,10 @@ export const UserSchema = z.object({
     ),
 })
 
-export const RegisterSchema = z
-  .object({
-    name: UserSchema.shape.name,
-    email: UserSchema.shape.email,
-    password: UserSchema.shape.password,
-    confirmPassword: z.string({ error: '确认密码不能为空' }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    error: '两次密码不一致',
-    path: ['confirmPassword'],
-  })
+export const RegisterSchema = z.object({
+  email: UserSchema.shape.email,
+  password: UserSchema.shape.password,
+})
 
 export const LoginSchema = z.object({
   email: UserSchema.shape.email,

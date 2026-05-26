@@ -95,21 +95,30 @@
     "title": "Setting"
   },
   "Login": {
-    "title": "Welcome back",
+    "title": {
+      "login": "Welcome back",
+      "register": "Welcome to Knowledge Island"
+    },
     "form": {
-      "email": "email",
-      "password": "password",
+      "email": "Email",
+      "password": "Password",
       "pwdInputHint": "Please enter the password",
       "login": "Login",
+      "register": "Register",
       "displayPwdHint": "display password",
       "hidePwdHint": "hide password",
       "emailEmptyHint": "The email is empty.",
       "emailInvalidHint": "Email format incorrect.",
       "pwdEmptyHint": "The password is empty.",
-      "pwdInvalidHint": "The password can only contain English letters, numbers, and special characters (ASCII printable characters), with a length of 6 to 20 characters."
+      "pwdInvalidHint": "The password can only contain English letters, numbers, and special characters (ASCII printable characters), with a length of 6 to 20 characters.",
+      "loginType": "login",
+      "registerType": "Register",
+      "loginHint": "If you have an account, please",
+      "registerHint": "Don't have an account?"
     },
     "event": {
-      "success": "Login successful"
+      "loginSuccess": "Login successful",
+      "registerSuccess": "Register successful, go to the login page to log in"
     }
   },
   "RequestError": {
@@ -130,6 +139,14 @@
     },
     "404": {
       "404001": "The user was not found"
+    },
+    "409": {
+      "409001": "This email has been registered"
+    },
+    "common": {
+      "ERR_NETWORK": "Unable to connect to the server, please try again later",
+      "ECONNABORTED": "Request timed out, please try again later",
+      "SERVER_EXCEPTION": "Server exception, please try again later"
     }
   },
   "Global": {

@@ -5,8 +5,14 @@ type ApiEvent =
   | 'API:UNAUTHORIZED'
   | 'API:FORBIDDEN'
   | 'API:NOT_FOUND'
+  | 'API:CONFLICT_EXCEPTION'
 
-type EventName = ApiEvent
+type ServerEvent =
+  | 'SERVER:ERR_NETWORK'
+  | 'SERVER:ECONNABORTED'
+  | 'SERVER:EXCEPTION'
+
+type EventName = ApiEvent | ServerEvent
 
 class EventEmitter {
   private listeners: Record<EventName, Set<Function>> = {
@@ -14,6 +20,10 @@ class EventEmitter {
     'API:UNAUTHORIZED': new Set(),
     'API:FORBIDDEN': new Set(),
     'API:NOT_FOUND': new Set(),
+    'API:CONFLICT_EXCEPTION': new Set(),
+    'SERVER:ERR_NETWORK': new Set(),
+    'SERVER:ECONNABORTED': new Set(),
+    'SERVER:EXCEPTION': new Set(),
   }
 
   on(eventName: EventName, listener: Function) {

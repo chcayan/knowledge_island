@@ -37,7 +37,6 @@ instance.interceptors.response.use(
 
     if (err.response?.status === 400) {
       emitter.emit('API:BAD_REQUEST', err.response?.data?.code)
-      return Promise.reject(err)
     }
 
     if (err.response?.status === 401) {
@@ -70,15 +69,29 @@ instance.interceptors.response.use(
 
     if (err.response?.status === 403) {
       emitter.emit('API:FORBIDDEN', err.response?.data?.code)
-      return Promise.reject(err)
     }
 
     if (err.response?.status === 404) {
       emitter.emit('API:NOT_FOUND', err.response?.data?.code)
-      return Promise.reject(err)
     }
 
-    if (err.response?.status) return Promise.reject(err)
+    if (err.response?.status === 409) {
+      emitter.emit('API:CONFLICT_EXCEPTION', err.response?.data?.code)
+    }
+
+    if (err.response?.status >= 500) {
+      emitter.emit('SERVER:EXCEPTION')
+    }
+
+    if (err.code === 'ERR_NETWORK') {
+      emitter.emit('SERVER:ERR_NETWORK')
+    }
+
+    if (err.code === 'ECONNABORTED') {
+      emitter.emit('SERVER:ERR_NETWORK')
+    }
+
+    return Promise.reject(err)
   }
 )
 
