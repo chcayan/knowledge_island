@@ -9,6 +9,7 @@ import { locale } from '@/types/locale'
 import LogoIcon from '@/components/icon/logo-icon'
 import EmitterNotification from '@/components/common/emitter-notification'
 import ConfirmProvider from '@/components/common/confirm/confirm-provider'
+import StoreInitial from '@/components/common/store-initial'
 
 export default async function RootLayout({
   children,
@@ -41,6 +42,7 @@ export default async function RootLayout({
               </header>
               <div className={styles.children}>{children}</div>
               <EmitterNotification />
+              <StoreInitial />
             </ConfirmProvider>
           </NextIntlClientProvider>
         </ThemeProvider>

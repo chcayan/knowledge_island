@@ -35,10 +35,10 @@ export class User {
   @Column({ default: '/uploads/images/default/avatar.webp' })
   avatar!: string
 
-  @CreateDateColumn()
+  @CreateDateColumn({ select: false })
   createdAt!: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ select: false })
   updatedAt!: Date
 
   @Column({ default: 0 })

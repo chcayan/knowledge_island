@@ -17,13 +17,16 @@ import { FileInterceptor } from '@nestjs/platform-express'
 import { uploadOptions } from '../../common/config/upload.config'
 import { JwtGuard } from '../../common/guard/jwt.guard'
 import { User } from '../../common/decorator/user.decorator'
+import { UserPermissionGuard } from '../../common/guard/permission.guard'
+import { UserPermission } from '../../common/decorator/permission.decorator'
 
 @Controller('post')
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post('create')
-  @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard, UserPermissionGuard)
+  @UserPermission('user_post')
   async createPost(
     @Body(new ZodValidationPipe(CreatePostSchema)) dto: CreatePostDto,
     @User() userId: string

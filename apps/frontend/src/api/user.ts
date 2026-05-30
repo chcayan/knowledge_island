@@ -5,6 +5,7 @@ import {
   LoginSchema,
   RegisterDto,
   RegisterSchema,
+  UserPublic,
 } from '@knowledge_island/schemas'
 import axios from 'axios'
 
@@ -29,4 +30,11 @@ export async function LogoutAPI() {
       withCredentials: true,
     })
     .post('/user/logout')
+}
+
+export async function getUserInfoAPI(userId: string) {
+  const res = await request.get(`/user/${userId}`)
+  const data: UserPublic = res.data.data
+
+  return data
 }

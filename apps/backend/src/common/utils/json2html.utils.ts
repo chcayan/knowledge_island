@@ -44,6 +44,8 @@ export function json2html(json: JSON) {
         }
       )
 
-    return DOMPurify.sanitize(html)
+    return DOMPurify.sanitize(html, {
+      ADD_ATTR: ['target', 'rel'],
+    })
   })
 }

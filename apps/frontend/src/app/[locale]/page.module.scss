@@ -13,7 +13,7 @@ $mobile-size: 375px;
     max-width: 620px;
   }
 
-  .search {
+  .head {
     position: sticky;
     top: $gap * 2;
     z-index: 1;
@@ -21,6 +21,15 @@ $mobile-size: 375px;
     box-shadow:
       0 -20px 0 var(--theme-primary-color),
       0 20px 0 var(--theme-primary-color);
+    display: flex;
+    align-items: center;
+    gap: $gap;
+
+    @media (min-width: ($mobile-size * 2)) {
+      .user-control {
+        display: none;
+      }
+    }
 
     &::before,
     &::after {
@@ -50,7 +59,11 @@ $mobile-size: 375px;
     // width: 220px;
     width: 310px;
     flex-shrink: 0;
-    background-color: var(--theme-secondary-color);
+
+    .user-control {
+      width: fit-content;
+      margin-left: auto;
+    }
 
     @media (max-width: ($mobile-size * 2)) {
       display: none;

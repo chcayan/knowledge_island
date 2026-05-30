@@ -8,6 +8,7 @@ import { locale } from '@/types/locale'
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import CardListSkeleton from '@/components/home/card-list-skeleton/card-list-skeleton'
+import UserControl from '@/components/home/user-control/user-control'
 
 export async function generateMetadata({
   params,
@@ -44,14 +45,20 @@ export default async function Home(props: {
       <div className={styles.home}>
         <main className={styles.main}>
           <ScrollRestoration />
-          <div className={styles.search}>
+          <div className={styles.head}>
             <Search />
+            <div className={styles['user-control']}>
+              <UserControl />
+            </div>
           </div>
           <Suspense key={page} fallback={<CardListSkeleton />}>
             <PostList searchParams={props.searchParams} />
           </Suspense>
         </main>
         <aside className={styles.aside}>
+          <div className={styles['user-control']}>
+            <UserControl />
+          </div>
           <ThemeToggle />
         </aside>
       </div>

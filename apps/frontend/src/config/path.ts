@@ -4,4 +4,6 @@ export const RouterPath = {
   chat: '/chat',
   setting: '/setting',
   login: '/login',
+  notification: '/notification',
+  my: '/my',
 }

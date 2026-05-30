@@ -111,7 +111,10 @@ export default function ToolbarPlugin({
 
       const url = selection.getTextContent().trim()
 
-      $toggleLink(url)
+      $toggleLink({
+        url,
+        target: '_blank',
+      })
     })
   }, [editor])
 

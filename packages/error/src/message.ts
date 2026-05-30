@@ -15,6 +15,8 @@ export const ERROR_MESSAGE = {
   [ERROR_CODE.FORBIDDEN]: '没有权限访问',
   [ERROR_CODE.TEMPORARY_FORBIDDEN]: '该用户权限暂时被禁用',
   [ERROR_CODE.USER_LOGIN_FORBIDDEN]: '该用户暂时禁止登录',
+  [ERROR_CODE.USER_POST_FORBIDDEN]: '该用户暂时禁止发布帖子',
+  [ERROR_CODE.USER_COMMENT_FORBIDDEN]: '该用户暂时禁止发布评论',
 
   // 404
   [ERROR_CODE.USER_NOT_FOUND]: '未找到该用户',

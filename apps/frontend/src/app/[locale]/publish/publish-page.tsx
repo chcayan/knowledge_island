@@ -179,13 +179,8 @@ export default function PublishPage() {
         type: 'success',
       })
       reset()
-    } catch (err) {
-      // TODO: track error
-      console.log(err)
-      Toast.show({
-        msg: t('error.PUBLISH_POST_FAILED'),
-        type: 'error',
-      })
+    } catch {
+      /* empty */
     }
   }
 

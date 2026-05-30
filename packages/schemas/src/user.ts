@@ -39,6 +39,11 @@ export const UserSchema = z.object({
       USER_SIGNATURE_MAX_LENGTH,
       `简介最多 ${USER_SIGNATURE_MAX_LENGTH} 个字`
     ),
+  postBanUntil: z.date(),
+  commentBanUntil: z.date(),
+  loginBanUntil: z.date(),
+  canReviewPost: z.number(),
+  canManageUserPermission: z.number(),
 })
 
 export const RegisterSchema = z.object({
@@ -53,6 +58,13 @@ export const LoginSchema = z.object({
 
 export const UserPublicSchema = UserSchema.omit({
   password: true,
+  postBanUntil: true,
+  commentBanUntil: true,
+  loginBanUntil: true,
+  canReviewPost: true,
+  canManageUserPermission: true,
+  createdAt: true,
+  updatedAt: true,
 })
 
 export const UpdateUserSchema = z.object({

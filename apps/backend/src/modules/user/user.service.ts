@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   ConflictException,
   ForbiddenException,
@@ -82,7 +83,7 @@ export class UserService {
     await this.userRepo.save(newUser)
   }
 
-  async findOne(id: string) {
+  async findOne(id: string, hidePermField = true) {
     const result = await this.userRepo.findOne({
       where: { id },
     })
@@ -94,6 +95,19 @@ export class UserService {
       })
     }
 
-    return result
+    if (!hidePermField) {
+      return result
+    }
+
+    const {
+      postBanUntil,
+      commentBanUntil,
+      loginBanUntil,
+      canReviewPost,
+      canManageUserPermission,
+      ...hidePermFieldResult
+    } = result
+
+    return hidePermFieldResult
   }
 }

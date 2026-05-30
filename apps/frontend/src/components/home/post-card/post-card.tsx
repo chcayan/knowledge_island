@@ -25,7 +25,7 @@ export default function PostCard({ post }: { post: PostInfo }) {
   }, [])
 
   return (
-    <div className={styles.post}>
+    <div tabIndex={0} className={`${styles.post} tab-focus`}>
       <header>
         <img src={getImgUrl(post.author.avatar)} alt="avatar" />
         <div className={styles.info}>

@@ -21,6 +21,12 @@
     },
     "setting": {
       "title": "Setting"
+    },
+    "notification": {
+      "title": "Notification"
+    },
+    "my": {
+      "title": "{name}'s personal space"
     }
   },
   "RootLayout": {
@@ -67,6 +73,7 @@
       "UPLOAD_IMAGE_FAILED": "Failed to upload the image.",
       "CONTENT_IS_NOT_NULL": "The content cannot be empty.",
       "PUBLISH_POST_FAILED": "Publishing failed, please try again.",
+      "SAVE_DRAFT_FAILED": "Saving failed, please try again.",
       "TAG_REPEAT": "Duplicate tag names.",
       "TAG_EMPTY": "The tag name is not empty.",
       "TAG_COUNT_LIMIT": "The number of tags should not exceed {size}."
@@ -76,19 +83,19 @@
       "saveSuccess": "Save successful"
     },
     "toolbar": {
-      "undo": "undo (ctrl + z)",
-      "redo": "redo (ctrl + y)",
-      "bold": "bold (ctrl + b)",
-      "italics": "italics (ctrl + i)",
-      "underline": "underline (ctrl + u)",
-      "strikethrough": "strikethrough (ctrl + d)",
-      "leftAlign": "left align (ctrl + l)",
-      "centerAlign": "center align (ctrl + e)",
-      "rightAlign": "right align (ctrl + r)",
-      "justifyAlign": "justify align (ctrl + j)",
-      "insertImage": "insert image (ctrl + 1)",
-      "toggleLink": "toggle link (ctrl + 2)",
-      "insertLaTeX": "insert LaTeX (ctrl + 3)"
+      "undo": "undo (Ctrl + Z)",
+      "redo": "redo (Ctrl + Y)",
+      "bold": "bold (Ctrl + B)",
+      "italics": "italics (Ctrl + I)",
+      "underline": "underline (Ctrl + U)",
+      "strikethrough": "strikethrough (Ctrl + D)",
+      "leftAlign": "left align (Ctrl + L)",
+      "centerAlign": "center align (Ctrl + E)",
+      "rightAlign": "right align (Ctrl + R)",
+      "justifyAlign": "justify align (Ctrl + J)",
+      "insertImage": "insert image (Ctrl + 1)",
+      "toggleLink": "toggle link (Ctrl + 2)",
+      "insertLaTeX": "insert LaTeX (Ctrl + 3)"
     }
   },
   "Setting": {
@@ -143,8 +150,10 @@
     },
     "403": {
       "403001": "No permission to access",
-      "403002": "The user's permission is temporarily disabled, unlocking time: {time}",
-      "403003": "The user is temporarily prohibited from logging in, unlocking time: {time}"
+      "403002": "Permission temporarily suspended. Remaining time: {time}",
+      "403003": "Login temporarily suspended. Remaining time: {time}",
+      "403004": "Posting temporarily suspended. Remaining time: {time}",
+      "403005": "Commenting temporarily suspended. Remaining time: {time}"
     },
     "404": {
       "404001": "The user was not found"

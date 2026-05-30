@@ -21,6 +21,12 @@
     },
     "setting": {
       "title": "设置"
+    },
+    "notification": {
+      "title": "通知"
+    },
+    "my": {
+      "title": "{name}的个人空间"
     }
   },
   "RootLayout": {
@@ -67,6 +73,7 @@
       "UPLOAD_IMAGE_FAILED": "上传图片失败",
       "CONTENT_IS_NOT_NULL": "内容不能为空",
       "PUBLISH_POST_FAILED": "发布失败，请重试",
+      "SAVE_DRAFT_FAILED": "保存失败，请重试",
       "TAG_REPEAT": "标签名重复",
       "TAG_EMPTY": "标签名不为空 ",
       "TAG_COUNT_LIMIT": "标签数量不超过 {size} 个"
@@ -76,19 +83,19 @@
       "saveSuccess": "保存成功"
     },
     "toolbar": {
-      "undo": "撤销 (ctrl + z)",
-      "redo": "恢复 (ctrl + y)",
-      "bold": "粗体 (ctrl + b)",
-      "italics": "斜体 (ctrl + i)",
-      "underline": "下划线 (ctrl + u)",
-      "strikethrough": "删除线 (ctrl + d)",
-      "leftAlign": "左对齐 (ctrl + l)",
-      "centerAlign": "居中 (ctrl + e)",
-      "rightAlign": "右对齐 (ctrl + r)",
-      "justifyAlign": "两端对齐 (ctrl + j)",
-      "insertImage": "插入图片 (ctrl + 1)",
-      "toggleLink": "链接 (ctrl + 2)",
-      "insertLaTeX": "插入 LaTeX (ctrl + 3)"
+      "undo": "撤销 (Ctrl + Z)",
+      "redo": "恢复 (Ctrl + Y)",
+      "bold": "粗体 (Ctrl + B)",
+      "italics": "斜体 (Ctrl + I)",
+      "underline": "下划线 (Ctrl + U)",
+      "strikethrough": "删除线 (Ctrl + D)",
+      "leftAlign": "左对齐 (Ctrl + L)",
+      "centerAlign": "居中 (Ctrl + E)",
+      "rightAlign": "右对齐 (Ctrl + R)",
+      "justifyAlign": "两端对齐 (Ctrl + J)",
+      "insertImage": "插入图片 (Ctrl + 1)",
+      "toggleLink": "链接 (Ctrl + 2)",
+      "insertLaTeX": "插入 LaTeX (Ctrl + 3)"
     }
   },
   "Setting": {
@@ -143,8 +150,10 @@
     },
     "403": {
       "403001": "没有权限访问",
-      "403002": "该用户权限暂时被禁用，解禁剩余时间：{time}",
-      "403003": "该用户暂时禁止登录，解禁剩余时间：{time}"
+      "403002": "权限暂时被禁用，解禁剩余时间：{time}",
+      "403003": "暂时禁止登录，解禁剩余时间：{time}",
+      "403004": "暂时禁止发布帖子，解禁剩余时间：{time}",
+      "403005": "暂时禁止发布评论，解禁剩余时间：{time}"
     },
     "404": {
       "404001": "未找到该用户"
