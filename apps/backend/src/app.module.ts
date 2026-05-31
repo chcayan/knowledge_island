@@ -14,6 +14,7 @@ import { PostModule } from './modules/post/post.module'
 import { SeedModule } from './modules/seed/seed.module'
 import { RedisModule } from './modules/redis/redis.module'
 import { AuthModule } from './modules/auth/auth.module'
+import { ScheduleModule } from '@nestjs/schedule'
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { AuthModule } from './modules/auth/auth.module'
       rootPath: join(process.cwd(), 'public/uploads'),
       serveRoot: '/uploads',
     }),
+    ScheduleModule.forRoot(),
     UserModule,
     PostModule,
     SeedModule,

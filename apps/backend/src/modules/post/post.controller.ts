@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   ParseIntPipe,
   Post,
   Query,
@@ -56,11 +57,21 @@ export class PostController {
     return this.postService.uploadImage(file)
   }
 
+  @Get('/tag-post-count')
+  async getTagPostCount() {
+    return this.postService.getTagPostCount()
+  }
+
+  @Get(':id')
+  async getPost(@Param('id') id: string) {
+    return this.postService.getPost(id)
+  }
+
   @Get()
-  async getPost(
+  async getPostList(
     @Query('page', ParseIntPipe) page: number,
     @Query('pageSize', ParseIntPipe) pageSize: number
   ) {
-    return this.postService.getPost(page, pageSize)
+    return this.postService.getPostList(page, pageSize)
   }
 }

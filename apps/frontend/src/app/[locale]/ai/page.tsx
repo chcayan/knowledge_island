@@ -17,6 +17,6 @@ export async function generateMetadata({
   }
 }
 
-export default function Ai() {
+export default function AiPage() {
   return <p>ai</p>
 }

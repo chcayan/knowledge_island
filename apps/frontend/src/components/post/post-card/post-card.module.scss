@@ -8,7 +8,6 @@ $gap: 10px;
   header {
     display: flex;
     gap: $gap;
-    cursor: pointer;
 
     img {
       $size: 40px;
@@ -40,13 +39,10 @@ $gap: 10px;
 
   .main {
     position: relative;
-    cursor: pointer;
 
     .content-html {
       margin-top: $gap;
       font-size: 15px;
-      max-height: 300px;
-      overflow: hidden;
 
       p {
         color: var(--theme-font-light-color);
@@ -66,18 +62,21 @@ $gap: 10px;
       }
     }
 
-    .fade {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 50px;
-      pointer-events: none;
-      background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0),
-        var(--theme-post-card-color)
-      );
+    .tags {
+      margin-top: $gap;
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $gap;
+
+        li {
+          padding: 5px 10px;
+          background: var(--theme-secondary-color);
+          font-size: 13px;
+          cursor: pointer;
+        }
+      }
     }
   }
 

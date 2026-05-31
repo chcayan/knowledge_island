@@ -22,6 +22,6 @@ export async function generateMetadata({
   }
 }
 
-export default function My() {
+export default function MyPage() {
   return <p>my</p>
 }

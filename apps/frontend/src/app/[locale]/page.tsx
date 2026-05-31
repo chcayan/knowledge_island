@@ -1,5 +1,4 @@
 import Search from '@/components/common/search/search'
-import ThemeToggle from '@/components/layout/theme-toggle'
 import styles from './page.module.scss'
 import PostList from '@/components/home/post-list/post-list'
 import { Suspense } from 'react'
@@ -9,6 +8,7 @@ import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import CardListSkeleton from '@/components/home/card-list-skeleton/card-list-skeleton'
 import UserControl from '@/components/home/user-control/user-control'
+import TagPostCount from '@/components/home/tag-post-count/tag-post-count'
 
 export async function generateMetadata({
   params,
@@ -59,7 +59,7 @@ export default async function Home(props: {
           <div className={styles['user-control']}>
             <UserControl />
           </div>
-          <ThemeToggle />
+          <TagPostCount />
         </aside>
       </div>
     </>

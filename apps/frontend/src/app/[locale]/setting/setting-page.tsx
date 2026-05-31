@@ -3,6 +3,7 @@
 import { LogoutAPI } from '@/api'
 import { useConfirm } from '@/components/common/confirm/useConfirm'
 import LocaleToggle from '@/components/common/locale-toggle'
+import ThemeToggle from '@/components/layout/theme-toggle'
 import { RouterPath } from '@/config/path'
 import { useUserStore } from '@/stores'
 import { locale } from '@/types/locale'
@@ -52,6 +53,7 @@ export default function SettingPage() {
       <LocaleToggle locale={locale} />
       <h3>个人</h3>
       <button onClick={handleLogin}>{userId ? '退出登录' : '登录'}</button>
+      <ThemeToggle />
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, sunt
         minus, facere eveniet perspiciatis, ut odio nobis corporis molestias

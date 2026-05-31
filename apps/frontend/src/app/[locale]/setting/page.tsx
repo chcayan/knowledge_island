@@ -8,7 +8,7 @@ const SettingPage = dynamic(() => import('./setting-page'), {
   ssr: false,
 })
 
-export default function Setting() {
+export default function SettingClientPage() {
   const t = useTranslations('Metadata.setting')
 
   useEffect(() => {

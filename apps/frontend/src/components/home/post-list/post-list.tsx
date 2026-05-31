@@ -1,4 +1,4 @@
-import { getPostAPI } from '@/api'
+import { getPostListAPI } from '@/api'
 import styles from './post-list.module.scss'
 import PostCard from '../post-card/post-card'
 import Pagination from '../pagination/pagination'
@@ -19,7 +19,7 @@ export default async function PostList({ searchParams }: Props) {
   const page = Number(params?.page ?? 1)
   const pageSize = 20
 
-  const { list, total } = await getPostAPI(page, pageSize)
+  const { list, total } = await getPostListAPI(page, pageSize)
 
   if (total) {
     const totalPages = Math.ceil(total / pageSize)

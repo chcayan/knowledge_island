@@ -9,6 +9,7 @@ import { Tag } from './entities/tag.entity'
 import { Image } from './entities/image.entity'
 import { AuthModule } from '../auth/auth.module'
 import { UserModule } from '../user/user.module'
+import { PostSyncTask } from './post.sync-task'
 
 @Module({
   imports: [
@@ -17,6 +18,6 @@ import { UserModule } from '../user/user.module'
     UserModule,
   ],
   controllers: [PostController],
-  providers: [PostService],
+  providers: [PostService, PostSyncTask],
 })
 export class PostModule {}

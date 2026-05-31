@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 
 import { Tag } from './entities/tag.entity'
@@ -11,14 +11,19 @@ import { getFileMD5 } from '../../common/utils/md5.utils'
 import { CreatePostDto } from '@knowledge_island/schemas'
 import fs from 'fs'
 import path from 'path'
+import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
+import Redis from 'ioredis'
 
 @Injectable()
 export class PostService {
   constructor(
     @InjectRepository(Post) private readonly postRepo: Repository<Post>,
     @InjectRepository(Tag) private readonly tagRepo: Repository<Tag>,
-    @InjectRepository(Image) private readonly imageRepo: Repository<Image>
+    @InjectRepository(Image) private readonly imageRepo: Repository<Image>,
+    @Inject('REDIS_CLIENT') private readonly redis: Redis
   ) {}
+
+  private readonly logger = new Logger(PostService.name)
 
   async createTags(_tags: string[]) {
     const tags = [...new Set((_tags ?? []).map((t) => t.trim()))].filter(
@@ -152,8 +157,8 @@ export class PostService {
     }
   }
 
-  async getPost(page: number, pageSize: number) {
-    await new Promise((resolve) => setTimeout(resolve, 3000))
+  async getPostList(page: number, pageSize: number) {
+    // await new Promise((resolve) => setTimeout(resolve, 3000))
 
     // throw new Error('api failed')
     const [list, total] = await this.postRepo
@@ -173,5 +178,50 @@ export class PostService {
       list,
       total,
     }
+  }
+
+  async getPost(id: string) {
+    const post = await this.postRepo
+      .createQueryBuilder('post')
+      .leftJoin('post.author', 'author')
+      .addSelect(['author.id', 'author.name', 'author.avatar'])
+      .leftJoinAndSelect('post.tags', 'tags')
+      .where('post.status = :status', {
+        status: PostStatus.REVIEWING, // TODO: modify to PUBLISHED
+      })
+      .andWhere('post.id = :id', {
+        id,
+      })
+      .getOne()
+
+    if (!post) {
+      throw new NotFoundException({
+        code: ERROR_CODE.POST_NOT_FOUND,
+        message: ERROR_MESSAGE[ERROR_CODE.POST_NOT_FOUND],
+      })
+    }
+
+    void this.updatePostViewCount(id).catch((err) => {
+      this.logger.warn(`更新帖子 ${id} 浏览量失败`, err)
+    })
+
+    return post
+  }
+
+  async getTagPostCount() {
+    return this.tagRepo
+      .createQueryBuilder('tag')
+      .leftJoin('tag.posts', 'post')
+      .select('tag.id', 'id')
+      .addSelect('tag.name', 'name')
+      .addSelect('COUNT(post.id)', 'postCount')
+      .groupBy('tag.id')
+      .addGroupBy('tag.name')
+      .orderBy('postCount', 'DESC')
+      .getRawMany()
+  }
+
+  async updatePostViewCount(id: string) {
+    await this.redis.hincrby(`${process.env.APP_NAME}:post:view:count`, id, 1)
   }
 }

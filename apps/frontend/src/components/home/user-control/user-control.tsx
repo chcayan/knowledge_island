@@ -25,7 +25,7 @@ export default function UserControl() {
       >
         <NotificationIcon />
       </button>
-      <button className={styles.avatar}>
+      <button tabIndex={0} className={`${styles.avatar} tab-focus`}>
         {userInfo.id ? (
           <img
             src={getImgUrl(userInfo.avatar)}

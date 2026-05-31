@@ -1,0 +1,48 @@
+$gap: 10px;
+
+.tag-rankings {
+  background-color: var(--theme-post-card-color);
+  border-radius: $gap;
+  padding: $gap * 1.5;
+
+  .title {
+    font-weight: bold;
+  }
+
+  ul {
+    margin-top: $gap;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    li {
+      display: flex;
+      align-items: center;
+      opacity: 0.8;
+      font-size: 15px;
+
+      &:last-child {
+        .rank {
+          margin-right: $gap * 1;
+        }
+      }
+
+      .rank {
+        margin-right: $gap * 2;
+        font-weight: bold;
+      }
+
+      .name {
+        text-wrap: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-right: $gap * 1.5;
+        cursor: pointer;
+      }
+
+      .count {
+        margin-left: auto;
+      }
+    }
+  }
+}

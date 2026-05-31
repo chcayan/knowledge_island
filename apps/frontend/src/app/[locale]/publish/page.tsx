@@ -8,7 +8,7 @@ const PublishPage = dynamic(() => import('./publish-page'), {
   ssr: false,
 })
 
-export default function Publish() {
+export default function PublishClientPage() {
   const t = useTranslations('Metadata.publish')
 
   useEffect(() => {

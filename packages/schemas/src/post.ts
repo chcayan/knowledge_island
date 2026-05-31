@@ -29,7 +29,6 @@ export const PostSchema = z.object({
   commentCount: z.number(),
   createdAt: z.date(),
   updatedAt: z.date(),
-  authorId: z.uuid(),
   type: z.enum(PostType, '请选择类型'),
   status: z.enum(PostEditableStatus, '请选择帖子状态（草稿/发布）'),
   tags: z

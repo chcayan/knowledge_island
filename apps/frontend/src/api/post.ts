@@ -26,7 +26,7 @@ export async function uploadImageAPI(file: File) {
   return request.post('/post/upload-image', formData)
 }
 
-export async function getPostAPI(page: number, pageSize: number) {
+export async function getPostListAPI(page: number, pageSize: number) {
   const data = await fetchData('/post', {
     params: {
       page,
@@ -45,9 +45,28 @@ export async function getPostAPI(page: number, pageSize: number) {
   return { list, total }
 }
 
+export async function getPostAPI(id: string) {
+  const post: PostInfo = await fetchData(`/post/${id}`)
+
+  return post
+}
+
 export async function getDraftAPI() {
   const res = await request.get('/post/draft')
   const { draft }: { draft: DraftInfo | null } = res.data.data
 
   return { draft }
+}
+
+export type TagPostCountType = {
+  id: string
+  name: string
+  postCount: number
+}
+
+export async function getTagPostCountAPI() {
+  const res = await request.get('/post/tag-post-count')
+  const result: TagPostCountType[] = res.data.data
+
+  return result
 }

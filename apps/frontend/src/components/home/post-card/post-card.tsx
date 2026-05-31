@@ -9,12 +9,16 @@ import CommentCountIcon from '../../icon/comment-count-icon'
 import CollectionCountIcon from '../../icon/collection-count-icon'
 import { useEffect, useRef, useState } from 'react'
 import 'katex/dist/katex.min.css'
+import { useRouter } from 'next/navigation'
+import { RouterPath } from '@/config/path'
 
 export default function PostCard({ post }: { post: PostInfo }) {
   const [isCollected, setIsCollected] = useState(false)
 
   const contentRef = useRef<HTMLDivElement>(null)
   const [overflow, setOverflow] = useState(false)
+
+  const router = useRouter()
 
   useEffect(() => {
     const el = contentRef.current
@@ -24,16 +28,45 @@ export default function PostCard({ post }: { post: PostInfo }) {
     }
   }, [])
 
+  const navigateToUserPage = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    router.push(`${RouterPath.user}/${post.author.id}`)
+    console.log('navigateToUserPage')
+  }
+
+  const navigateToPostPage = (e: React.MouseEvent) => {
+    const target = e.target as HTMLElement
+    if (target.closest('a')) {
+      return
+    }
+
+    router.push(`${RouterPath.post}/${post.id}`)
+
+    console.log('navigateToPostPage')
+  }
+
+  const modifyCollectStatus = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setIsCollected((e) => !e)
+  }
+
   return (
-    <div tabIndex={0} className={`${styles.post} tab-focus`}>
-      <header>
-        <img src={getImgUrl(post.author.avatar)} alt="avatar" />
+    <article tabIndex={0} className={`${styles.post} tab-focus`}>
+      <header onClick={navigateToPostPage}>
+        <img
+          onClick={navigateToUserPage}
+          src={getImgUrl(post.author.avatar)}
+          alt="avatar"
+          style={{ cursor: 'pointer' }}
+        />
         <div className={styles.info}>
-          <p>{post.author.name}</p>
+          <p onClick={navigateToUserPage} style={{ cursor: 'pointer' }}>
+            {post.author.name}
+          </p>
           <p>{formatDateByYear(post.createdAt)}</p>
         </div>
       </header>
-      <div className={styles.main}>
+      <div className={styles.main} onClick={navigateToPostPage}>
         <div
           ref={contentRef}
           className={styles['content-html']}
@@ -63,12 +96,12 @@ export default function PostCard({ post }: { post: PostInfo }) {
         </div>
         <div className={styles.right}>
           <ul>
-            <li onClick={() => setIsCollected((e) => !e)}>
+            <li onClick={modifyCollectStatus}>
               <CollectionCountIcon isCollected={isCollected} />
             </li>
           </ul>
         </div>
       </footer>
-    </div>
+    </article>
   )
 }

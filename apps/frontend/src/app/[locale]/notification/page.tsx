@@ -20,6 +20,6 @@ export async function generateMetadata({
   }
 }
 
-export default function Notification() {
+export default function NotificationPage() {
   return <p>notification</p>
 }

@@ -6,6 +6,6 @@ const LoginPage = dynamic(() => import('./login-page'), {
   ssr: false,
 })
 
-export default function Login() {
+export default function LoginClientPage() {
   return <LoginPage />
 }

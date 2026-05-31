@@ -17,6 +17,6 @@ export async function generateMetadata({
   }
 }
 
-export default function Chat() {
+export default function ChatPage() {
   return <p>chat</p>
 }

@@ -48,6 +48,11 @@
     },
     "event": {
       "publish": "to publish"
+    },
+    "aside": {
+      "tag": {
+        "title": "Popular Tags"
+      }
     }
   },
   "Publish": {
@@ -156,7 +161,8 @@
       "403005": "Commenting temporarily suspended. Remaining time: {time}"
     },
     "404": {
-      "404001": "The user was not found"
+      "404001": "The user was not found",
+      "404002": "The post was not found"
     },
     "409": {
       "409001": "This email has been registered"

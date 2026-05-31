@@ -6,4 +6,6 @@ export const RouterPath = {
   login: '/login',
   notification: '/notification',
   my: '/my',
+  post: '/post',
+  user: '/user',
 }
