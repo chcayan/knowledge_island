@@ -181,6 +181,8 @@ export class PostService {
   }
 
   async getPost(id: string) {
+    await new Promise((resolve) => setTimeout(resolve, 3000))
+
     const post = await this.postRepo
       .createQueryBuilder('post')
       .leftJoin('post.author', 'author')

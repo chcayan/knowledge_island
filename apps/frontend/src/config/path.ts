@@ -1,4 +1,4 @@
-export const RouterPath = {
+export const RoutePath = {
   publish: '/publish',
   ai: '/ai',
   chat: '/chat',

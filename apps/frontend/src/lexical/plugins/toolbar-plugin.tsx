@@ -41,6 +41,7 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/utils/toast'
 import { BASE_URL } from '@/config/request'
 import { GIF_SIZE_LIMIT } from '@/config/post-field'
+import '../scss/toolbar-plugin.scss'
 
 function Divider() {
   return <div className="divider" />

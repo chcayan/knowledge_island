@@ -28,7 +28,7 @@ import {
 import { LinkNode } from '@lexical/link'
 
 import { theme } from './theme'
-import ToolbarPlugin from './plugins/toolbar-plugin'
+import ToolbarPlugin from '@/lexical/plugins/toolbar-plugin'
 import { parseAllowedColor, parseAllowedFontSize } from './style-config'
 import styles from './editor.module.scss'
 import './index.scss'
@@ -39,16 +39,15 @@ import {
   useEffect,
   useImperativeHandle,
   useRef,
-  useState,
 } from 'react'
-import RestorePlugin from './plugins/restore-plugin'
-import { ImageNode } from './nodes/image-node'
-import { ImagePlugin } from './plugins/image-plugin'
+import RestorePlugin from '@/lexical/plugins/restore-plugin'
+import { ImageNode } from '@/lexical/nodes/image-node'
+import { ImagePlugin } from '@/lexical/plugins/image-plugin'
 import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin'
-import AutoUpdateLinkPlugin from './plugins/auto-update-link-plugin'
+import AutoUpdateLinkPlugin from '@/lexical/plugins/auto-update-link-plugin'
 import 'katex/dist/katex.min.css'
-import { FormulaNode } from './nodes/formula-node'
-import { FormulaInputNode } from './nodes/formula-input-node'
+import { FormulaNode } from '@/lexical/nodes/formula-node'
+import { FormulaInputNode } from '@/lexical/nodes/formula-input-node'
 import { useTranslations } from 'next-intl'
 import { POST_EDITOR_CONTENT } from '@/config/local-storage'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
@@ -188,7 +187,7 @@ export default forwardRef(function Editor(
 ) {
   const t = useTranslations('Publish')
 
-  const [, setEditorState] = useState<string>()
+  // const [, setEditorState] = useState<string>()
 
   const timerRef = useRef<number | null>(null)
 
@@ -202,7 +201,7 @@ export default forwardRef(function Editor(
       const jsonString = JSON.stringify(editorStateJSON)
 
       onChange(editorStateJSON)
-      setEditorState(jsonString)
+      // setEditorState(jsonString)
       localStorage.setItem(POST_EDITOR_CONTENT, jsonString)
       // console.log(editorState)
     }, 300)

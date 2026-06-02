@@ -10,7 +10,7 @@ import CollectionCountIcon from '../../icon/collection-count-icon'
 import { useEffect, useRef, useState } from 'react'
 import 'katex/dist/katex.min.css'
 import { useRouter } from 'next/navigation'
-import { RouterPath } from '@/config/path'
+import { RoutePath } from '@/config/path'
 
 export default function PostCard({ post }: { post: PostInfo }) {
   const [isCollected, setIsCollected] = useState(false)
@@ -30,7 +30,7 @@ export default function PostCard({ post }: { post: PostInfo }) {
 
   const navigateToUserPage = (e: React.MouseEvent) => {
     e.stopPropagation()
-    router.push(`${RouterPath.user}/${post.author.id}`)
+    router.push(`${RoutePath.user}/${post.author.id}`)
     console.log('navigateToUserPage')
   }
 
@@ -40,7 +40,7 @@ export default function PostCard({ post }: { post: PostInfo }) {
       return
     }
 
-    router.push(`${RouterPath.post}/${post.id}`)
+    router.push(`${RoutePath.post}/${post.id}`)
 
     console.log('navigateToPostPage')
   }

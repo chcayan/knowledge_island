@@ -7,7 +7,7 @@ import { useUserStore } from '@/stores'
 import { getImgUrl } from '@/utils'
 import LoginIcon from '@/components/icon/login-icon'
 import { useRouter } from 'next/navigation'
-import { RouterPath } from '@/config/path'
+import { RoutePath } from '@/config/path'
 
 export default function UserControl() {
   const userInfo = useUserStore((state) => state.userInfo)
@@ -30,12 +30,12 @@ export default function UserControl() {
           <img
             src={getImgUrl(userInfo.avatar)}
             alt={'user-avatar'}
-            onClick={() => router.push(RouterPath.my)}
+            onClick={() => router.push(RoutePath.my)}
           />
         ) : (
           <div
             className={styles.login}
-            onClick={() => router.push(RouterPath.login)}
+            onClick={() => router.push(RoutePath.login)}
           >
             <LoginIcon />
           </div>

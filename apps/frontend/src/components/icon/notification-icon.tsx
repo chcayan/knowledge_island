@@ -1,6 +1,6 @@
 'use client'
 
-import { RouterPath } from '@/config/path'
+import { RoutePath } from '@/config/path'
 import { useRouter } from 'next/navigation'
 
 export default function NotificationIcon() {
@@ -8,7 +8,7 @@ export default function NotificationIcon() {
 
   return (
     <svg
-      onClick={() => router.push(RouterPath.notification)}
+      onClick={() => router.push(RoutePath.notification)}
       viewBox="0 0 1024 1024"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"

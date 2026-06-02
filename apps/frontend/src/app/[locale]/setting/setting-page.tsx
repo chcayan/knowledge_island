@@ -4,7 +4,7 @@ import { LogoutAPI } from '@/api'
 import { useConfirm } from '@/components/common/confirm/useConfirm'
 import LocaleToggle from '@/components/common/locale-toggle'
 import ThemeToggle from '@/components/layout/theme-toggle'
-import { RouterPath } from '@/config/path'
+import { RoutePath } from '@/config/path'
 import { useUserStore } from '@/stores'
 import { locale } from '@/types/locale'
 import { Toast } from '@/utils/toast'
@@ -42,7 +42,7 @@ export default function SettingPage() {
       const removeUserId = useUserStore.getState().removeUserId
       removeUserId()
     } else {
-      router.push(`${RouterPath.login}?redirect=${RouterPath.setting}`)
+      router.push(`${RoutePath.login}?redirect=${RoutePath.setting}`)
     }
   }
 

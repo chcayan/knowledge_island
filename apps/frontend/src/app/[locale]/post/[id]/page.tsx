@@ -3,16 +3,14 @@ import styles from './post.module.scss'
 import UserControl from '@/components/home/user-control/user-control'
 import { Suspense } from 'react'
 import CardSkeleton from '@/components/home/card-skeleton/card-skeleton'
-import PostCard from '@/components/post/post-card/post-card'
-import { getPostAPI } from '@/api'
 import BackButton from '@/components/common/back-button'
+import CommentInput from '@/components/post/comment-input/comment-input'
+import PostCardSkeleton from '@/components/post/post-card/post-card-skeleton'
 
 export default async function PostPage(props: {
   params: Promise<{ id: string }>
 }) {
   const params = await props.params
-
-  const post = await getPostAPI(params.id)
 
   return (
     <>
@@ -26,13 +24,14 @@ export default async function PostPage(props: {
             </div>
           </div>
           <Suspense fallback={<CardSkeleton />}>
-            <PostCard post={post} />
+            <PostCardSkeleton id={params.id} />
           </Suspense>
         </main>
         <aside className={styles.aside}>
           <div className={styles['user-control']}>
             <UserControl />
           </div>
+          <CommentInput />
         </aside>
       </div>
     </>

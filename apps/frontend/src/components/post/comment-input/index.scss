@@ -1,0 +1,11 @@
+.mini-editor-paragraph {
+  margin: 0;
+  margin-bottom: 5px;
+  white-space: pre-wrap;
+  position: relative;
+  line-height: 1.5;
+}
+
+.mini-editor-paragraph:last-child {
+  margin-bottom: 0;
+}
