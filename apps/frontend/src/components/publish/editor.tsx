@@ -203,7 +203,7 @@ export default forwardRef(function Editor(
       onChange(editorStateJSON)
       // setEditorState(jsonString)
       localStorage.setItem(POST_EDITOR_CONTENT, jsonString)
-      // console.log(editorState)
+      console.log(editorStateJSON)
     }, 300)
   }
 

@@ -18,6 +18,7 @@ export default function BackButton() {
         fontWeight: 'bold',
         fontSize: '20px',
         cursor: 'pointer',
+        userSelect: 'none',
       }}
     >
       <p

@@ -1,7 +1,9 @@
+$mobile-size: 375px;
+
 .editor-container {
   flex: 1;
   min-height: 0;
-  margin-top: 10px;
+  // margin-top: 10px;
   border-radius: 2px;
   max-width: 700px;
   // min-width: 500px;
@@ -42,6 +44,12 @@
       padding: 15px 10px 5px;
       caret-color: var(--theme-font-color);
       min-height: 200px;
+      max-height: calc(100vh - 160px);
+
+      @media (max-width: ($mobile-size * 2 - 22px)) {
+        max-height: 150px;
+        min-height: initial;
+      }
     }
 
     .editor-placeholder {

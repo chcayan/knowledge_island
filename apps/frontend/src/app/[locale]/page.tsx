@@ -43,24 +43,23 @@ export default async function Home(props: {
   return (
     <>
       <div className={styles.home}>
-        <main className={styles.main}>
-          <ScrollRestoration />
-          <div className={styles.head}>
-            <Search />
-            <div className={styles['user-control']}>
-              <UserControl />
-            </div>
-          </div>
-          <Suspense key={page} fallback={<CardListSkeleton />}>
-            <PostList searchParams={props.searchParams} />
-          </Suspense>
-        </main>
-        <aside className={styles.aside}>
+        <header className={styles.head}>
+          <Search />
           <div className={styles['user-control']}>
             <UserControl />
           </div>
-          <TagPostCount />
-        </aside>
+        </header>
+        <main className={styles.main}>
+          <div className={styles.post}>
+            <ScrollRestoration />
+            <Suspense key={page} fallback={<CardListSkeleton />}>
+              <PostList searchParams={props.searchParams} />
+            </Suspense>
+          </div>
+          <aside className={styles.aside}>
+            <TagPostCount />
+          </aside>
+        </main>
       </div>
     </>
   )

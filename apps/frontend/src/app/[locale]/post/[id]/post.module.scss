@@ -2,17 +2,8 @@ $gap: 10px;
 $mobile-size: 375px;
 
 .home {
-  display: flex;
   width: 100%;
   position: relative;
-  // grid-template-columns: auto auto;
-
-  .main {
-    width: 100%;
-    // height: calc(100vh - 40px);
-    // max-width: 710px;
-    max-width: 620px;
-  }
 
   .head {
     position: sticky;
@@ -26,9 +17,16 @@ $mobile-size: 375px;
     align-items: center;
     gap: $gap;
 
-    @media (min-width: ($mobile-size * 2 - 21.9px)) {
+    .user-control {
+      flex-shrink: 0;
+      width: 320px;
+      display: flex;
+      justify-content: end;
+    }
+
+    @media (max-width: ($mobile-size * 2 - 22px)) {
       .user-control {
-        display: none;
+        width: fit-content;
       }
     }
 
@@ -52,28 +50,41 @@ $mobile-size: 375px;
     }
   }
 
-  .aside {
-    position: sticky;
-    top: $gap * 2;
-    height: 100%;
-    margin-left: $gap * 2;
-    // width: 220px;
-    width: 310px;
-    flex-shrink: 0;
+  .main {
+    display: grid;
+    grid-template-columns: auto 330px;
 
-    .user-control {
-      width: fit-content;
-      margin-left: auto;
-      margin-bottom: $gap * 3;
+    .post {
+      width: 100%;
+      max-width: 620px;
+      height: fit-content;
+    }
+
+    .comment {
+      margin-bottom: 20px;
+    }
+
+    .aside {
+      position: sticky;
+      top: 90px;
+      margin-left: $gap * 2;
+      width: 310px;
+      height: 0;
 
       @media (max-width: ($mobile-size * 2 - 22px)) {
-        display: none;
+        height: auto;
+        margin-left: 0;
+        width: 100%;
       }
     }
-  }
 
-  @media (max-width: ($mobile-size * 2 - 22px)) {
-    // display: none;
-    grid-template-columns: auto;
+    @media (max-width: ($mobile-size * 2 - 22px)) {
+      display: flex;
+      flex-direction: column;
+
+      .comment {
+        margin-top: 20px;
+      }
+    }
   }
 }
