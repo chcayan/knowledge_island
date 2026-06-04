@@ -1,7 +1,7 @@
 'use client'
 
 /* eslint-disable @next/next/no-img-element */
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { $getNodeByKey, LexicalEditor } from 'lexical'
 import { ImageNode } from '../nodes/image-node'
 
@@ -26,8 +26,19 @@ export default function ImageComponent({
 
   const displayWidth = tempWidth ?? width
 
+  useEffect(() => {
+    const imageDOM = editor.getElementByKey(nodeKey)
+
+    if (imageDOM) {
+      imageDOM.style.width = `${displayWidth}%`
+    }
+  }, [displayWidth, editor, nodeKey])
+
   const startResize = (e: React.MouseEvent) => {
     e.preventDefault()
+
+    const imageDOM = editor.getElementByKey(nodeKey)
+    if (!imageDOM) return
 
     const startX = e.clientX
     const startWidth = displayWidth
@@ -39,6 +50,10 @@ export default function ImageComponent({
 
       currentWidthRef.current = nextWidth
 
+      if (imageDOM) {
+        imageDOM.style.width = `${nextWidth}%`
+      }
+
       setTempWidth(nextWidth)
     }
 
@@ -48,18 +63,14 @@ export default function ImageComponent({
       editor.update(
         () => {
           const node = $getNodeByKey(nodeKey)
-
           if (node instanceof ImageNode) {
             node.setWidth(finalWidth)
           }
         },
-        {
-          tag: 'resize-image',
-        }
+        { tag: 'resize-image' }
       )
 
       setTempWidth(null)
-
       document.removeEventListener('mousemove', onMove)
       document.removeEventListener('mouseup', onUp)
     }
@@ -72,8 +83,9 @@ export default function ImageComponent({
     <div
       style={{
         position: 'relative',
-        display: 'inline-block',
-        width: `${displayWidth}%`,
+        display: 'block',
+        // width: `${displayWidth}%`,
+        width: '100%',
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -94,7 +106,49 @@ export default function ImageComponent({
           transform: 'translateY(4px)',
         }}
       />
-      <div
+      {hovered && (
+        <>
+          <div
+            onMouseDown={startResize}
+            style={{
+              position: 'absolute',
+              right: -6,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: 12,
+              height: 48,
+              borderRadius: 999,
+              background: hovered
+                ? 'var(--theme-toolbar-scrollbar-thumb-color)'
+                : 'transparent',
+              cursor: 'ew-resize',
+              opacity: 1,
+              transition: 'all 0.15s ease',
+              zIndex: '1',
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              bottom: 5,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              fontSize: 12,
+              padding: '2px 8px',
+              borderRadius: 999,
+              background: '#111827',
+              color: '#fff',
+              opacity: 1,
+              transition: 'opacity 0.15s ease',
+              pointerEvents: 'none',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {Math.round(displayWidth)}%
+          </div>
+        </>
+      )}
+      {/* <div
         onMouseDown={startResize}
         style={{
           position: 'absolute',
@@ -131,7 +185,7 @@ export default function ImageComponent({
         }}
       >
         {Math.round(displayWidth)}%
-      </div>
+      </div> */}
     </div>
   )
 }

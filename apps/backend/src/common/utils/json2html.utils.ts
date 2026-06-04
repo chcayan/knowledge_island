@@ -27,7 +27,7 @@ export function json2html(json: JSON) {
 
     let baseHtml = ''
 
-    editor.getEditorState().read(() => {
+    editor.read(() => {
       baseHtml = $generateHtmlFromNodes(editor)
     })
 

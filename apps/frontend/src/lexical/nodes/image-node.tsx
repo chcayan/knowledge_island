@@ -1,4 +1,4 @@
-import { DecoratorNode, LexicalEditor } from 'lexical'
+import { DecoratorNode, LexicalEditor, LexicalNode } from 'lexical'
 import { JSX } from 'react'
 import ImageComponent from '../components/image-component'
 import { SerializedImageNode } from '../types/serialized-node'
@@ -48,6 +48,8 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
 
   createDOM() {
     const dom = document.createElement('span')
+    dom.style.display = 'inline-block'
+    dom.style.width = `${this.__width}%`
     return dom
   }
 
@@ -85,6 +87,6 @@ export function $createImageNode(
   return new ImageNode(src, altText, width)
 }
 
-export function $isImageNode(node: ImageNode) {
+export function $isImageNode(node: LexicalNode) {
   return node instanceof ImageNode
 }

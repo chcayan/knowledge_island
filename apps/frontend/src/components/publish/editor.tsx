@@ -1,17 +1,19 @@
 'use client'
 
-import { AutoFocusPlugin } from '@lexical/react/LexicalAutoFocusPlugin'
-import { LexicalComposer } from '@lexical/react/LexicalComposer'
-import { ClearEditorPlugin } from '@lexical/react/LexicalClearEditorPlugin'
+import { LexicalExtensionComposer } from '@lexical/react/LexicalExtensionComposer'
+import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
-import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary'
-import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
-import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
+
+import { RichTextExtension } from '@lexical/rich-text'
+import { HistoryExtension } from '@lexical/history'
+import { AutoFocusExtension, ClearEditorExtension } from '@lexical/extension'
+
 import {
   $isTextNode,
   CLEAR_EDITOR_COMMAND,
   CLEAR_HISTORY_COMMAND,
+  defineExtension,
   DOMConversionMap,
   DOMExportOutput,
   DOMExportOutputMap,
@@ -26,12 +28,15 @@ import {
   TextNode,
 } from 'lexical'
 import { LinkNode } from '@lexical/link'
+import { ImageNode } from '@/lexical/nodes/image-node'
+import { FormulaNode } from '@/lexical/nodes/formula-node'
+import { FormulaInputNode } from '@/lexical/nodes/formula-input-node'
 
 import { theme } from './theme'
-import ToolbarPlugin from '@/lexical/plugins/toolbar-plugin'
 import { parseAllowedColor, parseAllowedFontSize } from './style-config'
 import styles from './editor.module.scss'
 import './index.scss'
+
 import {
   Dispatch,
   forwardRef,
@@ -40,17 +45,16 @@ import {
   useImperativeHandle,
   useRef,
 } from 'react'
+
 import RestorePlugin from '@/lexical/plugins/restore-plugin'
-import { ImageNode } from '@/lexical/nodes/image-node'
-import { ImagePlugin } from '@/lexical/plugins/image-plugin'
-import { LinkPlugin } from '@lexical/react/LexicalLinkPlugin'
+import ImagePlugin from '@/lexical/plugins/image-plugin'
+import TreeViewPlugin from '@/lexical/plugins/tree-view-plugin'
+import ToolbarPlugin from '@/lexical/plugins/toolbar-plugin'
 import AutoUpdateLinkPlugin from '@/lexical/plugins/auto-update-link-plugin'
+
 import 'katex/dist/katex.min.css'
-import { FormulaNode } from '@/lexical/nodes/formula-node'
-import { FormulaInputNode } from '@/lexical/nodes/formula-input-node'
 import { useTranslations } from 'next-intl'
 import { POST_EDITOR_CONTENT } from '@/config/local-storage'
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 
 const removeStylesExportDOM = (
   editor: LexicalEditor,
@@ -138,11 +142,18 @@ const constructImportMap = (): DOMConversionMap => {
   return importMap
 }
 
-const editorConfig = {
+const extension = defineExtension({
   html: {
     export: exportMap,
     import: constructImportMap(),
   },
+  dependencies: [
+    RichTextExtension,
+    HistoryExtension,
+    AutoFocusExtension,
+    ClearEditorExtension,
+  ],
+  name: 'editor',
   namespace: 'editor',
   nodes: [
     ParagraphNode,
@@ -156,7 +167,7 @@ const editorConfig = {
     console.error(error)
   },
   theme,
-}
+})
 
 const RefController = forwardRef((props, ref) => {
   const [editor] = useLexicalComposerContext()
@@ -203,7 +214,7 @@ export default forwardRef(function Editor(
       onChange(editorStateJSON)
       // setEditorState(jsonString)
       localStorage.setItem(POST_EDITOR_CONTENT, jsonString)
-      console.log(editorStateJSON)
+      // console.log(editorStateJSON)
     }, 300)
   }
 
@@ -214,36 +225,28 @@ export default forwardRef(function Editor(
   }, [])
 
   return (
-    <LexicalComposer initialConfig={editorConfig}>
+    <LexicalExtensionComposer extension={extension} contentEditable={null}>
       <div className={styles['editor-container']}>
         <ToolbarPlugin saveDraft={saveDraft} />
         <div className={styles['editor-inner']}>
-          <RichTextPlugin
-            contentEditable={
-              <ContentEditable
-                tabIndex={0}
-                className={styles['editor-input']}
-                aria-placeholder={t('input.content')}
-                placeholder={
-                  <div className={styles['editor-placeholder']}>
-                    {t('input.content')}
-                  </div>
-                }
-              />
+          <ContentEditable
+            tabIndex={0}
+            className={styles['editor-input']}
+            aria-placeholder={t('input.content')}
+            placeholder={
+              <div className={styles['editor-placeholder']}>
+                {t('input.content')}
+              </div>
             }
-            ErrorBoundary={LexicalErrorBoundary}
           />
-          <HistoryPlugin />
-          <AutoFocusPlugin />
-          <AutoUpdateLinkPlugin />
-          <ImagePlugin />
-          <LinkPlugin />
-          <OnChangePlugin onChange={handleEditorChange} />
-          <RestorePlugin />
-          <ClearEditorPlugin />
-          <RefController ref={ref} />
         </div>
+        <AutoUpdateLinkPlugin />
+        <ImagePlugin />
+        <OnChangePlugin onChange={handleEditorChange} />
+        <RestorePlugin />
+        <RefController ref={ref} />
       </div>
-    </LexicalComposer>
+      {/* <TreeViewPlugin /> */}
+    </LexicalExtensionComposer>
   )
 })

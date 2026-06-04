@@ -13,7 +13,7 @@ import {
 import { uploadImageAPI } from '@/api'
 import { BASE_URL } from '@/config/request'
 
-export function ImagePlugin() {
+export default function ImagePlugin() {
   const [editor] = useLexicalComposerContext()
 
   useEffect(() => {
