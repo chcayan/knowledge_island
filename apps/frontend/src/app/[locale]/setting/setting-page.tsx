@@ -39,8 +39,8 @@ export default function SettingPage() {
         msg: '退出成功',
         type: 'success',
       })
-      const removeUserId = useUserStore.getState().removeUserId
-      removeUserId()
+      const remove = useUserStore.getState().remove
+      remove()
     } else {
       router.push(`${RoutePath.login}?redirect=${RoutePath.setting}`)
     }

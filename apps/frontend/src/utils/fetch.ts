@@ -12,16 +12,28 @@ function isEmptyObject(obj: unknown) {
   )
 }
 
+interface FetchOptions {
+  revalidate?: number | false
+  cache?: 'force-cache' | 'no-store' | undefined
+}
+
 export async function fetchData(
   url: string,
-  { params = {} }: { params?: object } = {}
+  {
+    params = {},
+    options = { revalidate: 60, cache: undefined },
+  }: {
+    params?: object
+    options?: FetchOptions
+  } = {}
 ) {
   let res
 
   if (isEmptyObject(params)) {
     res = await fetch(`${BASE_URL + url}`, {
+      cache: options.cache,
       next: {
-        revalidate: 60,
+        revalidate: options.revalidate,
       },
       headers: {
         Cookie: (await cookies()).toString(),

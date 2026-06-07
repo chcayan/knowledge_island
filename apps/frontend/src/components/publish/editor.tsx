@@ -48,7 +48,7 @@ import {
 
 import RestorePlugin from '@/lexical/plugins/restore-plugin'
 import ImagePlugin from '@/lexical/plugins/image-plugin'
-import TreeViewPlugin from '@/lexical/plugins/tree-view-plugin'
+// import TreeViewPlugin from '@/lexical/plugins/tree-view-plugin'
 import ToolbarPlugin from '@/lexical/plugins/toolbar-plugin'
 import AutoUpdateLinkPlugin from '@/lexical/plugins/auto-update-link-plugin'
 

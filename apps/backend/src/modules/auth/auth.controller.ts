@@ -5,6 +5,7 @@ import {
   Req,
   Res,
   UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common'
 import { AuthService } from './auth.service'
 import { JwtService } from '@nestjs/jwt'
@@ -18,6 +19,9 @@ import {
   REFRESH_TOKEN_NAME,
 } from '../../common/config/cookie.config'
 import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
+import { UserPermission } from '../../common/decorator/permission.decorator'
+import { UserPermissionGuard } from '../../common/guard/permission.guard'
+import { JwtGuard } from '../../common/guard/jwt.guard'
 
 @Controller('auth')
 export class AuthController {
@@ -90,6 +94,8 @@ export class AuthController {
   }
 
   @Get('me')
+  @UseGuards(JwtGuard, UserPermissionGuard)
+  @UserPermission('user_login')
   getMe(@Req() req: AuthRequest, @Res() res: Response) {
     const token = req.cookies.access_token
 

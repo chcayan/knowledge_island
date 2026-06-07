@@ -11,11 +11,23 @@ interface ToastRef {
 let toastRef: RefObject<ToastRef | null>
 let initialized = false
 
+let initPromise: Promise<void> | null = null
+let resolveInit: (() => void) | null = null
+
 function createToast() {
-  if (typeof document === 'undefined') return
-  if (initialized) return
+  if (typeof document === 'undefined') {
+    return Promise.resolve()
+  }
+
+  if (initialized) {
+    return initPromise!
+  }
 
   initialized = true
+
+  initPromise = new Promise<void>((resolve) => {
+    resolveInit = resolve
+  })
 
   const container = document.createElement('div')
   document.body.appendChild(container)
@@ -24,17 +36,27 @@ function createToast() {
 
   const root = createRoot(container)
 
-  root.render(<T ref={toastRef} />)
+  root.render(
+    <T
+      ref={(instance: ToastRef) => {
+        toastRef.current = instance
+
+        if (instance) {
+          resolveInit?.()
+          resolveInit = null
+        }
+      }}
+    />
+  )
 }
 
 export const Toast = {
-  init() {
-    if (!toastRef) {
-      createToast()
-      return
-    }
+  async init() {
+    await createToast()
+    console.log('init toast success')
   },
-  show(options: ToastParams) {
+  async show(options: ToastParams) {
+    await createToast()
     toastRef?.current?.show(options)
   },
 }

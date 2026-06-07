@@ -17,7 +17,7 @@ import { useUserStore } from '@/stores'
 const themeColor = 'var(--theme-font-color)'
 
 export default function LoginPage() {
-  const t = useTranslations('Login')
+  const t = useTranslations()
 
   const [type, setType] = useState<'login' | 'register'>('login')
 
@@ -45,13 +45,14 @@ export default function LoginPage() {
       })
 
       Toast.show({
-        msg: t('event.loginSuccess'),
+        msg: t('Login.event.loginSuccess'),
         type: 'success',
       })
 
       setUserId(id)
       setEmail('')
       setPassword('')
+      useUserStore.getState().init(t)
 
       const redirect = searchParams.get('redirect')
       router.replace(redirect || '/')
@@ -72,7 +73,7 @@ export default function LoginPage() {
       })
 
       Toast.show({
-        msg: t('event.registerSuccess'),
+        msg: t('Login.event.registerSuccess'),
         type: 'success',
       })
 
@@ -98,9 +99,9 @@ export default function LoginPage() {
   const checkEmail = (e: React.InputEvent<HTMLInputElement>) => {
     const input = e.currentTarget
     if (input.validity.valueMissing) {
-      input.setCustomValidity(`${t('form.emailEmptyHint')} w(ﾟДﾟ)w`)
+      input.setCustomValidity(`${t('Login.form.emailEmptyHint')} w(ﾟДﾟ)w`)
     } else if (input.validity.typeMismatch) {
-      input.setCustomValidity(`${t('form.emailInvalidHint')} ( •̀ .̫ •́ )✧`)
+      input.setCustomValidity(`${t('Login.form.emailInvalidHint')} ( •̀ .̫ •́ )✧`)
     } else {
       input.setCustomValidity('')
     }
@@ -109,9 +110,9 @@ export default function LoginPage() {
   const checkPassword = (e: React.InputEvent<HTMLInputElement>) => {
     const input = e.currentTarget
     if (input.validity.valueMissing) {
-      input.setCustomValidity(`${t('form.pwdEmptyHint')} w(ﾟДﾟ)w`)
+      input.setCustomValidity(`${t('Login.form.pwdEmptyHint')} w(ﾟДﾟ)w`)
     } else if (input.validity.patternMismatch) {
-      input.setCustomValidity(`${t('form.pwdInvalidHint')} ( •̀ .̫ •́ )✧`)
+      input.setCustomValidity(`${t('Login.form.pwdInvalidHint')} ( •̀ .̫ •́ )✧`)
     } else {
       input.setCustomValidity('')
     }
@@ -127,11 +128,13 @@ export default function LoginPage() {
           <form onSubmit={handleLogin} className={styles['form-wrapper']}>
             <div className={styles.logo}>{'✦'}</div>
             <h1 className={styles.title}>
-              {type === 'login' ? t('title.login') : t('title.register')}
+              {type === 'login'
+                ? t('Login.title.login')
+                : t('Login.title.register')}
             </h1>
             <p className={styles.subtitle}>Hi~ o(*￣▽￣*)ブ</p>
             <div className={styles['input-group']}>
-              <label className={styles.label}>{t('form.email')}</label>
+              <label className={styles.label}>{t('Login.form.email')}</label>
               <div className={styles['input-wrapper']}>
                 <input
                   type="email"
@@ -155,12 +158,12 @@ export default function LoginPage() {
               </div>
             </div>
             <div className={styles['input-group']}>
-              <label className={styles.label}>{t('form.password')}</label>
+              <label className={styles.label}>{t('Login.form.password')}</label>
               <div className={styles['input-wrapper']}>
                 <div className={styles['password-container']}>
                   <input
                     type={showPassword ? 'text' : 'password'}
-                    placeholder={t('form.pwdInputHint')}
+                    placeholder={t('Login.form.pwdInputHint')}
                     className={styles.input}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -182,8 +185,8 @@ export default function LoginPage() {
                     onClick={() => setShowPassword(!showPassword)}
                     title={
                       showPassword
-                        ? t('form.hidePwdHint')
-                        : t('form.displayPwdHint')
+                        ? t('Login.form.hidePwdHint')
+                        : t('Login.form.displayPwdHint')
                     }
                   >
                     {showPassword ? '( •̀ ω •́ )' : '( -_- )'}
@@ -199,7 +202,11 @@ export default function LoginPage() {
               </div>
             </div>
             <LoadingButton
-              text={type === 'login' ? t('form.login') : t('form.register')}
+              text={
+                type === 'login'
+                  ? t('Login.form.login')
+                  : t('Login.form.register')
+              }
               loading={loading}
               disabled={loading}
               style={{
@@ -213,7 +220,7 @@ export default function LoginPage() {
             />
             {type === 'login' ? (
               <div className={styles.type}>
-                <p>{t('form.registerHint')}</p>
+                <p>{t('Login.form.registerHint')}</p>
                 <button
                   disabled={loading}
                   className="tab-focus"
@@ -223,12 +230,12 @@ export default function LoginPage() {
                     cursor: loading ? 'not-allowed' : '',
                   }}
                 >
-                  {t('form.registerType')}
+                  {t('Login.form.registerType')}
                 </button>
               </div>
             ) : (
               <div className={styles.type}>
-                <p>{t('form.loginHint')}</p>
+                <p>{t('Login.form.loginHint')}</p>
                 <button
                   disabled={loading}
                   className="tab-focus"
@@ -238,7 +245,7 @@ export default function LoginPage() {
                     cursor: loading ? 'not-allowed' : '',
                   }}
                 >
-                  {t('form.loginType')}
+                  {t('Login.form.loginType')}
                 </button>
               </div>
             )}

@@ -35,8 +35,6 @@ export class UserController {
     @Body(new ZodValidationPipe(LoginSchema)) dto: LoginDto,
     @Res() res: Response
   ) {
-    await new Promise((resolve) => setTimeout(resolve, 3000))
-
     const userId = await this.userService.login(dto)
     const accessToken = this.authService.generateAccessToken(userId, 'user')
     const refreshToken = await this.authService.generateRefreshToken(

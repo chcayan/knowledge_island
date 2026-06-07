@@ -11,6 +11,8 @@ import { Permission, UserPermValue } from '../constant/permission.constant'
 import { calculateRemainTime } from '../utils/time.utils'
 import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
 import { User } from '../../modules/user/entities/user.entity'
+import { Response } from 'express'
+import { ACCESS_TOKEN_NAME, REFRESH_TOKEN_NAME } from '../config/cookie.config'
 
 type ForbiddenExceptionMessageMapType = {
   code: number
@@ -52,6 +54,8 @@ export class UserPermissionGuard implements CanActivate {
     }
 
     const req = context.switchToHttp().getRequest<AuthRequest>()
+    const res = context.switchToHttp().getResponse<Response>()
+
     const userId = req.user.id
 
     if (!userId)
@@ -65,6 +69,11 @@ export class UserPermissionGuard implements CanActivate {
     const banUntil = user[requiredPermission]
 
     if (banUntil && calculateRemainTime(banUntil)) {
+      if (requiredPermission === 'loginBanUntil') {
+        res.clearCookie(ACCESS_TOKEN_NAME)
+        res.clearCookie(REFRESH_TOKEN_NAME)
+      }
+
       throw new ForbiddenException({
         code: forbiddenExceptionMessageMap[requiredPermission].code,
         message: forbiddenExceptionMessageMap[requiredPermission].message,
