@@ -10,10 +10,11 @@ import { Image } from './entities/image.entity'
 import { AuthModule } from '../auth/auth.module'
 import { UserModule } from '../user/user.module'
 import { PostSyncTask } from './post.sync-task'
+import { Comment } from './entities/comment.entity'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Post, Tag, Image]),
+    TypeOrmModule.forFeature([Post, Tag, Image, Comment]),
     AuthModule,
     UserModule,
   ],

@@ -1,6 +1,7 @@
 import { request } from '@/utils/request'
 import { compressImage } from '@/utils/compress'
 import {
+  CommentInfo,
   CreatePostSchema,
   DraftInfo,
   PostInfo,
@@ -47,8 +48,12 @@ export async function getPostListAPI(page: number, pageSize: number) {
 
 export async function getPostAPI(id: string) {
   const post: PostInfo = await fetchData(`/post/${id}`)
-
   return post
+}
+
+export async function getCommentsAPI(id: string) {
+  const comments: CommentInfo[] = await fetchData(`/post/comments/${id}`)
+  return comments
 }
 
 export async function getDraftAPI() {

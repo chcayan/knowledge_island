@@ -16,6 +16,26 @@ $mobile-size: 375px;
   border-top-right-radius: 10px;
   display: flex;
   flex-direction: column;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    width: 100%;
+    position: absolute;
+    z-index: -1;
+    left: 0px;
+    height: 40px;
+    background-color: var(--theme-primary-color);
+  }
+
+  &::before {
+    top: -20px;
+  }
+
+  &::after {
+    bottom: -20px;
+  }
 
   .editor-inner {
     background: var(--theme-secondary-color);

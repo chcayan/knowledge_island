@@ -6,10 +6,13 @@ import CardSkeleton from '@/components/home/card-skeleton/card-skeleton'
 import BackButton from '@/components/common/back-button'
 import CommentInput from '@/components/post/comment-input/comment-input'
 import PostCardSkeleton from '@/components/post/post-card/post-card-skeleton'
+import CommentListSkeleton from '@/components/post/comment-list/comment-list-skeleton'
+import { getTranslations } from 'next-intl/server'
 
 export default async function PostPage(props: {
   params: Promise<{ id: string }>
 }) {
+  const t = await getTranslations('Post')
   const params = await props.params
 
   return (
@@ -31,13 +34,12 @@ export default async function PostPage(props: {
           <aside className={styles.aside}>
             <CommentInput />
           </aside>
-          <ul className={styles.comment}>
-            <li>发的撒法发</li>
-            <li>啊的撒法发</li>
-            <li>啊手动阀手动阀方式</li>
-            <li>v啊阿斯顿发发发</li>
-            <li>啊但是发射点发顺丰的</li>
-          </ul>
+          <div className={styles.comment}>
+            <h3>{t('comment.title')}</h3>
+            <ul>
+              <CommentListSkeleton id={params.id} />
+            </ul>
+          </div>
         </main>
       </div>
     </>

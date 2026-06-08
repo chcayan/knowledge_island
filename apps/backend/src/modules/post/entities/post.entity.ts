@@ -5,11 +5,13 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
 import { User } from '../../user/entities/user.entity'
 import { Tag } from './tag.entity'
+import { Comment } from './comment.entity'
 
 export enum PostType {
   WRITE = '0',
@@ -73,4 +75,7 @@ export class Post {
   })
   @JoinTable()
   tags!: Tag[]
+
+  @OneToMany(() => Comment, (comment) => comment.post)
+  comments!: Comment[]
 }

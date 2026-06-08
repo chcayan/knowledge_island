@@ -62,6 +62,11 @@ export class PostController {
     return this.postService.getTagPostCount()
   }
 
+  @Get('/comments/:id')
+  async getComments(@Param('id') id: string) {
+    return this.postService.getComments(id)
+  }
+
   @Get(':id')
   async getPost(@Param('id') id: string) {
     return this.postService.getPost(id)

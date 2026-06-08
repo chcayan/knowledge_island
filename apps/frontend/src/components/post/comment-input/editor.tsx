@@ -69,7 +69,7 @@ export default forwardRef(function Editor(
   },
   ref
 ) {
-  const t = useTranslations('Publish')
+  const t = useTranslations('Post')
 
   const timerRef = useRef<number | null>(null)
 
@@ -99,10 +99,10 @@ export default forwardRef(function Editor(
               <ContentEditable
                 tabIndex={0}
                 className={styles['editor-input']}
-                aria-placeholder={t('input.content')}
+                aria-placeholder={t('comment.input')}
                 placeholder={
                   <div className={styles['editor-placeholder']}>
-                    {t('input.content')}
+                    {t('comment.input')}
                   </div>
                 }
               />
@@ -117,7 +117,7 @@ export default forwardRef(function Editor(
         <div className={styles['editor-toolbar']}>
           <MiniToolbarPlugin />
           <LoadingButton
-            text={'send'}
+            text={t('comment.send')}
             loading={false}
             disabled={false}
             style={{

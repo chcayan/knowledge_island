@@ -1,0 +1,33 @@
+.reply-action {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  height: 25px;
+
+  .like {
+    display: flex;
+    gap: 8px;
+
+    &:hover {
+      color: #666;
+    }
+
+    span {
+      margin-top: 2px;
+    }
+  }
+
+  button {
+    height: 20px;
+    border: none;
+    background: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 12px;
+
+    &:hover {
+      color: #1677ff;
+    }
+  }
+}

@@ -33,13 +33,11 @@ export default function LoginPage() {
     null
   )
 
-  const setUserId = useUserStore.getState().setUserId
-
   async function login() {
     setLoading(true)
 
     try {
-      const { id } = await loginAPI({
+      await loginAPI({
         email,
         password,
       })
@@ -49,10 +47,9 @@ export default function LoginPage() {
         type: 'success',
       })
 
-      setUserId(id)
       setEmail('')
       setPassword('')
-      useUserStore.getState().init(t)
+      useUserStore.getState().init()
 
       const redirect = searchParams.get('redirect')
       router.replace(redirect || '/')

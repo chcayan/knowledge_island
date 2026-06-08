@@ -9,6 +9,7 @@ import CommentCountIcon from '../../icon/comment-count-icon'
 import CollectionCountIcon from '../../icon/collection-count-icon'
 import { useState } from 'react'
 import 'katex/dist/katex.min.css'
+import LexicalHtml from '../lexical-html/lexical-html'
 
 export default function PostCard({ post }: { post: PostInfo }) {
   const [isCollected, setIsCollected] = useState(false)
@@ -23,12 +24,13 @@ export default function PostCard({ post }: { post: PostInfo }) {
         </div>
       </header>
       <div className={styles.main}>
-        <div
+        {/* <div
           className={styles['content-html']}
           dangerouslySetInnerHTML={{
             __html: post.contentHtml,
           }}
-        />
+        /> */}
+        <LexicalHtml html={post.contentHtml} />
         <div className={styles.tags}>
           <ul>
             {post.tags.length > 0 &&

@@ -1,5 +1,6 @@
 import z from 'zod'
 import { TAG_NAME_MAX_LENGTH } from './config/config'
+import { AuthorSchema } from './common'
 
 export enum PostType {
   WRITE = '0',
@@ -31,6 +32,13 @@ export const PostSchema = z.object({
   updatedAt: z.date(),
   type: z.enum(PostType, '请选择类型'),
   status: z.enum(PostEditableStatus, '请选择帖子状态（草稿/发布）'),
+  authorId: z.uuid(),
+})
+
+export const CreatePostSchema = z.object({
+  content: PostSchema.shape.content,
+  type: PostSchema.shape.type,
+  status: PostSchema.shape.status,
   tags: z
     .array(
       z
@@ -41,24 +49,12 @@ export const PostSchema = z.object({
     .default([]),
 })
 
-export const CreatePostSchema = z.object({
-  content: PostSchema.shape.content,
-  type: PostSchema.shape.type,
-  status: PostSchema.shape.status,
-  tags: PostSchema.shape.tags,
-})
-
 export const PostInfoSchema = PostSchema.omit({
   content: true,
   status: true,
-  tags: true,
 }).extend({
   status: z.enum(PostStatus),
-  author: z.object({
-    id: z.uuid(),
-    name: z.string(),
-    avatar: z.string(),
-  }),
+  author: AuthorSchema.shape.author,
   tags: z.array(
     z.object({
       id: z.number(),

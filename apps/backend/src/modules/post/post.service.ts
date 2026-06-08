@@ -13,14 +13,21 @@ import fs from 'fs'
 import path from 'path'
 import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
 import Redis from 'ioredis'
+import { Comment } from './entities/comment.entity'
 
 @Injectable()
 export class PostService {
   constructor(
-    @InjectRepository(Post) private readonly postRepo: Repository<Post>,
-    @InjectRepository(Tag) private readonly tagRepo: Repository<Tag>,
-    @InjectRepository(Image) private readonly imageRepo: Repository<Image>,
-    @Inject('REDIS_CLIENT') private readonly redis: Redis
+    @InjectRepository(Post)
+    private readonly postRepo: Repository<Post>,
+    @InjectRepository(Tag)
+    private readonly tagRepo: Repository<Tag>,
+    @InjectRepository(Image)
+    private readonly imageRepo: Repository<Image>,
+    @InjectRepository(Comment)
+    private readonly commentRepo: Repository<Comment>,
+    @Inject('REDIS_CLIENT')
+    private readonly redis: Redis
   ) {}
 
   private readonly logger = new Logger(PostService.name)
@@ -225,5 +232,71 @@ export class PostService {
 
   async updatePostViewCount(id: string) {
     await this.redis.hincrby(`${process.env.APP_NAME}:post:view:count`, id, 1)
+  }
+
+  async getComments(postId: string) {
+    const comments = await this.commentRepo.find({
+      where: {
+        post: {
+          id: postId,
+        },
+      },
+      relations: {
+        author: true,
+        parent: true,
+        replyComment: {
+          author: true,
+        },
+      },
+      order: {
+        createdAt: 'ASC',
+      },
+    })
+
+    const roots = comments.filter((comment) => comment.parent === null)
+
+    const replies = comments.filter((comment) => comment.parent !== null)
+
+    const replyMap = new Map<string, Comment[]>()
+
+    for (const reply of replies) {
+      const rootId = reply.parent!.id
+
+      if (!replyMap.has(rootId)) {
+        replyMap.set(rootId, [])
+      }
+
+      replyMap.get(rootId)!.push(reply)
+    }
+
+    return roots.map((root) => ({
+      id: root.id,
+      content: root.content,
+      createdAt: root.createdAt,
+      likeCount: root.likeCount,
+      author: {
+        id: root.author.id,
+        name: root.author.name,
+        avatar: root.author.avatar,
+      },
+      replies:
+        replyMap.get(root.id)?.map((reply) => ({
+          id: reply.id,
+          content: reply.content,
+          createdAt: reply.createdAt,
+          likeCount: reply.likeCount,
+          author: {
+            id: reply.author.id,
+            name: reply.author.name,
+            avatar: reply.author.avatar,
+          },
+          replyUser: reply.replyComment
+            ? {
+                id: reply.replyComment.author.id,
+                name: reply.replyComment.author.name,
+              }
+            : null,
+        })) ?? [],
+    }))
   }
 }

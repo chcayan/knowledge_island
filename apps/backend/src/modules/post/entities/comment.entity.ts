@@ -1,22 +1,66 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm'
+import { User } from '../../user/entities/user.entity'
+import { Post } from './post.entity'
+
+export enum CommentStatus {
+  REVIEWING = '0',
+  PUBLISHED = '1',
+  VIOLATION = '2',
+}
 
 @Entity()
 export class Comment {
   @PrimaryGeneratedColumn('uuid')
   id!: string
 
-  @Column()
-  postId!: string
+  @ManyToOne(() => Comment, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'parentId' })
+  parent!: Comment | null
 
-  @Column()
-  userId!: string
+  @ManyToOne(() => Comment, {
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn({ name: 'replyCommentId' })
+  replyComment!: Comment | null
 
-  @Column({ nullable: true })
-  parentId!: string
-
-  @Column({ nullable: true })
-  replyUserId!: string
-
-  @Column('text')
+  @Column({ type: 'text' })
   content!: string
+
+  @Column({ default: 0 })
+  likeCount!: number
+
+  @Column({
+    type: 'enum',
+    enum: CommentStatus,
+    default: CommentStatus.REVIEWING,
+  })
+  status!: CommentStatus
+
+  @CreateDateColumn()
+  createdAt!: Date
+
+  @UpdateDateColumn()
+  updatedAt!: Date
+
+  @ManyToOne(() => User, (user) => user.comments, {
+    onDelete: 'CASCADE',
+  })
+  author!: User
+
+  @ManyToOne(() => Post, (post) => post.comments, {
+    onDelete: 'CASCADE',
+  })
+  post!: Post
 }

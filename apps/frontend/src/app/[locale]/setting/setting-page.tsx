@@ -15,13 +15,13 @@ export default function SettingPage() {
   const t = useTranslations('Setting')
   const params = useParams()
   const locale = params.locale as locale
-  const userId = useUserStore((state) => state.userId)
+  const userInfo = useUserStore((state) => state.userInfo)
   const router = useRouter()
 
   const confirm = useConfirm()
 
   const handleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (userId) {
+    if (userInfo.id) {
       const ok = await confirm({
         title: t('individual.logout.confirm.title'),
         description: t('individual.logout.confirm.description'),
@@ -52,7 +52,7 @@ export default function SettingPage() {
       <h3>语言</h3>
       <LocaleToggle locale={locale} />
       <h3>个人</h3>
-      <button onClick={handleLogin}>{userId ? '退出登录' : '登录'}</button>
+      <button onClick={handleLogin}>{userInfo.id ? '退出登录' : '登录'}</button>
       <ThemeToggle />
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam, sunt

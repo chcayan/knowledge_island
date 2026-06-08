@@ -9,6 +9,7 @@ import {
 } from 'typeorm'
 import { Post } from '../../post/entities/post.entity'
 import { USER_NAME_MAX_LENGTH } from '@knowledge_island/schemas'
+import { Comment } from '../../post/entities/comment.entity'
 
 export enum UserSex {
   UNKNOWN = 0,
@@ -83,4 +84,7 @@ export class User {
 
   @OneToMany(() => Post, (post) => post.author)
   posts!: Post[]
+
+  @OneToMany(() => Comment, (comment) => comment.author)
+  comments!: Comment[]
 }

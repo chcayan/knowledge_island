@@ -142,6 +142,15 @@
       "registerSuccess": "注册成功，前往登录页登录"
     }
   },
+  "Post": {
+    "comment": {
+      "input": "良言一句三冬暖，恶语伤人六月寒",
+      "send": "发送",
+      "title": "评论：",
+      "emptyTip": "暂时没有评论",
+      "reply": "回复"
+    }
+  },
   "RequestError": {
     "400": {
       "400001": "参数校验失败"
