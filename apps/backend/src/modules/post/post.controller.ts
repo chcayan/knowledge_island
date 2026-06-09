@@ -13,7 +13,12 @@ import {
 
 import { PostService } from './post.service'
 import { ZodValidationPipe } from '../../common/pipe/zod.pipe'
-import { CreatePostSchema, type CreatePostDto } from '@knowledge_island/schemas'
+import {
+  CreatePostSchema,
+  CreateCommentSchema,
+  type CreatePostDto,
+  type CreateCommentDto,
+} from '@knowledge_island/schemas'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { uploadOptions } from '../../common/config/upload.config'
 import { JwtGuard } from '../../common/guard/jwt.guard'
@@ -33,6 +38,16 @@ export class PostController {
     @User() userId: string
   ) {
     return this.postService.createPost(dto, userId)
+  }
+
+  @Post('comment/create')
+  @UseGuards(JwtGuard, UserPermissionGuard)
+  @UserPermission('user_speak')
+  async createComment(
+    @Body(new ZodValidationPipe(CreateCommentSchema)) dto: CreateCommentDto,
+    @User() userId: string
+  ) {
+    return this.postService.createComment(dto, userId)
   }
 
   @Post('draft')
@@ -57,12 +72,12 @@ export class PostController {
     return this.postService.uploadImage(file)
   }
 
-  @Get('/tag-post-count')
+  @Get('tag-post-count')
   async getTagPostCount() {
     return this.postService.getTagPostCount()
   }
 
-  @Get('/comments/:id')
+  @Get('comments/:id')
   async getComments(@Param('id') id: string) {
     return this.postService.getComments(id)
   }

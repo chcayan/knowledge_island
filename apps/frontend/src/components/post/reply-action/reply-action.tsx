@@ -5,13 +5,18 @@ import LikeIcon from '@/components/icon/like-icon'
 import DislikeIcon from '@/components/icon/dislike-icon'
 import { formatCount } from '@/utils'
 import { useTranslations } from 'next-intl'
+import emitter from '@/utils/event-emitter'
 
 export default function ReplyAction({
-  id,
+  parentId,
+  replyCommentId,
+  name,
   isRoot,
   likeCount,
 }: {
-  id: string
+  parentId: string
+  replyCommentId?: string
+  name: string
   isRoot: boolean
   likeCount: number
 }) {
@@ -39,8 +44,21 @@ export default function ReplyAction({
     })
   }
 
-  const onReply = (id: string) => {
-    console.log(`id: ${id}, isRoot: ${isRoot}`)
+  const onReply = (parentId: string, replyCommentId?: string) => {
+    emitter.emit('EVENT:COMMENT_INPUT_FOCUS')
+    // console.log(
+    //   `isRoot: ${isRoot}, parentId: ${parentId}, replyCommentId: ${replyCommentId}, name: ${name} `
+    // )
+    if (isRoot) {
+      emitter.emit('EVENT:COMMENT_REPLY_WITH_ROOT', parentId, name)
+    } else {
+      emitter.emit(
+        'EVENT:COMMENT_REPLY_WITHOUT_ROOT',
+        parentId,
+        replyCommentId,
+        name
+      )
+    }
   }
 
   return (
@@ -52,7 +70,9 @@ export default function ReplyAction({
       <button className={styles.like} onClick={setDislike}>
         <DislikeIcon isDislike={likeStatus === 'dislike'} />
       </button>
-      <button onClick={() => onReply(id)}>{t('comment.reply')}</button>
+      <button onClick={() => onReply(parentId, replyCommentId)}>
+        {t('comment.reply')}
+      </button>
     </div>
   )
 }

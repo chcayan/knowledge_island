@@ -8,12 +8,12 @@ import { Image } from './entities/image.entity'
 import { Repository } from 'typeorm'
 import { json2html } from '../../common/utils/json2html.utils'
 import { getFileMD5 } from '../../common/utils/md5.utils'
-import { CreatePostDto } from '@knowledge_island/schemas'
+import { CreateCommentDto, CreatePostDto } from '@knowledge_island/schemas'
 import fs from 'fs'
 import path from 'path'
 import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
 import Redis from 'ioredis'
-import { Comment } from './entities/comment.entity'
+import { Comment, CommentStatus } from './entities/comment.entity'
 
 @Injectable()
 export class PostService {
@@ -188,8 +188,6 @@ export class PostService {
   }
 
   async getPost(id: string) {
-    await new Promise((resolve) => setTimeout(resolve, 3000))
-
     const post = await this.postRepo
       .createQueryBuilder('post')
       .leftJoin('post.author', 'author')
@@ -249,7 +247,7 @@ export class PostService {
         },
       },
       order: {
-        createdAt: 'ASC',
+        createdAt: 'DESC',
       },
     })
 
@@ -267,6 +265,10 @@ export class PostService {
       }
 
       replyMap.get(rootId)!.push(reply)
+    }
+
+    for (const replyList of replyMap.values()) {
+      replyList.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
     }
 
     return roots.map((root) => ({
@@ -298,5 +300,40 @@ export class PostService {
             : null,
         })) ?? [],
     }))
+  }
+
+  async updateCommentViewCount(id: string) {
+    await this.redis.hincrby(
+      `${process.env.APP_NAME}:post:comment:count`,
+      id,
+      1
+    )
+  }
+
+  async createComment(dto: CreateCommentDto, userId: string) {
+    const html = json2html(dto.contentJSON as JSON)
+
+    const comment = this.commentRepo.create({
+      content: html,
+      status: CommentStatus.PUBLISHED, // TODO: modify to REVIEWING
+      post: {
+        id: dto.postId,
+      } as Post,
+      parent: {
+        id: dto.parentId,
+      } as Comment,
+      replyComment: {
+        id: dto.replyCommentId,
+      } as Comment,
+      author: {
+        id: userId,
+      },
+    })
+
+    await this.commentRepo.save(comment)
+
+    void this.updateCommentViewCount(dto.postId).catch((err) => {
+      this.logger.warn(`更新帖子 ${dto.postId} 评论量失败`, err)
+    })
   }
 }

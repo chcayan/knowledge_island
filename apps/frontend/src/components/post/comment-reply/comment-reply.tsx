@@ -7,9 +7,10 @@ import ReplyAction from '../reply-action/reply-action'
 
 type ReplyItemProps = {
   comment: CommentInfo['replies'][number]
+  parentId: string
 }
 
-export default function CommentReply({ comment }: ReplyItemProps) {
+export default function CommentReply({ comment, parentId }: ReplyItemProps) {
   return (
     <div className={styles['comment-reply']}>
       <img
@@ -35,9 +36,11 @@ export default function CommentReply({ comment }: ReplyItemProps) {
         </div>
         <LexicalHtml html={comment.content} />
         <ReplyAction
-          id={comment.id}
+          parentId={parentId}
+          replyCommentId={comment.id}
           isRoot={false}
           likeCount={comment.likeCount}
+          name={comment.author.name}
         />
       </div>
     </div>

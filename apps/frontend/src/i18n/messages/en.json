@@ -148,7 +148,12 @@
       "send": "Send",
       "title": "Comments:",
       "emptyTip": "There are currently no comments.",
-      "reply": "Reply"
+      "reply": "Reply",
+      "emptyInputTip": "The content cannot be empty.",
+      "replyToUser": "Reply to {name}: "
+    },
+    "event": {
+      "success": "Send successful"
     }
   },
   "RequestError": {

@@ -70,6 +70,7 @@ $mobile-size: 375px;
       margin-left: $gap * 2;
       width: 310px;
       height: 0;
+      z-index: 1;
 
       @media (max-width: ($mobile-size * 2 - 22px)) {
         height: auto;

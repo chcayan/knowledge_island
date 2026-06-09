@@ -25,6 +25,7 @@ import {
   useEffect,
   useImperativeHandle,
   useRef,
+  useState,
 } from 'react'
 import { ImageNode } from '@/lexical/nodes/image-node'
 import { FormulaNode } from '@/lexical/nodes/formula-node'
@@ -35,6 +36,7 @@ import ImagePlugin from '@/lexical/plugins/image-plugin'
 import MiniToolbarPlugin from '@/lexical/plugins/mini-toolbar-plugin'
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import LoadingButton from '@/components/common/loading-button/loading-button'
+import emitter from '@/utils/event-emitter'
 
 const editorConfig = {
   namespace: 'comment-input',
@@ -49,6 +51,9 @@ const RefController = forwardRef((props, ref) => {
   const [editor] = useLexicalComposerContext()
 
   useImperativeHandle(ref, () => ({
+    focus() {
+      editor.focus()
+    },
     reset() {
       editor.dispatchCommand(CLEAR_EDITOR_COMMAND, undefined)
     },
@@ -62,10 +67,12 @@ RefController.displayName = 'ref_controller_by_comment_input'
 export default forwardRef(function Editor(
   {
     onChange,
+    send,
   }: {
     onChange: Dispatch<
       SetStateAction<SerializedEditorState<SerializedLexicalNode> | undefined>
     >
+    send: () => void
   },
   ref
 ) {
@@ -81,11 +88,30 @@ export default forwardRef(function Editor(
     timerRef.current = window.setTimeout(() => {
       const editorStateJSON = editorState.toJSON()
       onChange(editorStateJSON)
-    }, 300)
+    }, 100)
   }
 
+  const [name, setName] = useState('')
+
   useEffect(() => {
+    const commentReplyWithRootOff = emitter.on(
+      'EVENT:COMMENT_REPLY_WITH_ROOT',
+      (_parentId: string, name: string) => {
+        setName(name)
+      }
+    )
+
+    const commentReplyWithoutRootOff = emitter.on(
+      'EVENT:COMMENT_REPLY_WITHOUT_ROOT',
+      (_parentId: string, _replyCommentId: string, name: string) => {
+        setName(name)
+      }
+    )
+
     return () => {
+      commentReplyWithRootOff()
+      commentReplyWithoutRootOff()
+
       if (timerRef.current) window.clearTimeout(timerRef.current)
     }
   }, [])
@@ -99,37 +125,70 @@ export default forwardRef(function Editor(
               <ContentEditable
                 tabIndex={0}
                 className={styles['editor-input']}
-                aria-placeholder={t('comment.input')}
+                aria-placeholder={
+                  name ? t('comment.replyToUser', { name }) : t('comment.input')
+                }
                 placeholder={
                   <div className={styles['editor-placeholder']}>
-                    {t('comment.input')}
+                    {name
+                      ? t('comment.replyToUser', { name })
+                      : t('comment.input')}
                   </div>
                 }
               />
             }
             ErrorBoundary={LexicalErrorBoundary}
           />
-          <ImagePlugin />
-          <OnChangePlugin onChange={handleEditorChange} />
-          <ClearEditorPlugin />
-          <RefController ref={ref} />
         </div>
         <div className={styles['editor-toolbar']}>
           <MiniToolbarPlugin />
-          <LoadingButton
-            text={t('comment.send')}
-            loading={false}
-            disabled={false}
+          <div
             style={{
-              marginRight: '5px',
-              background: 'var(--theme-third-color)',
-              height: '30px',
-              width: '70px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              cursor: 'pointer',
             }}
-          />
+          >
+            {name && (
+              <button
+                className="tab-focus"
+                style={{
+                  height: '30px',
+                  width: '70px',
+                }}
+                onClick={() => {
+                  setName('')
+                  emitter.emit('EVENT:COMMENT_REPLY_RESET')
+                }}
+              >
+                取消回复
+              </button>
+            )}
+            <LoadingButton
+              text={t('comment.send')}
+              loading={false}
+              disabled={false}
+              style={{
+                marginRight: '5px',
+                background: 'var(--theme-third-color)',
+                height: '30px',
+                width: '70px',
+              }}
+              onClick={() => {
+                send()
+                setName('')
+                emitter.emit('EVENT:COMMENT_REPLY_RESET')
+              }}
+            />
+          </div>
         </div>
+        <ImagePlugin />
+        <OnChangePlugin onChange={handleEditorChange} />
+        <ClearEditorPlugin />
+        <RefController ref={ref} />
+        <HistoryPlugin />
       </div>
-      <HistoryPlugin />
     </LexicalComposer>
   )
 })

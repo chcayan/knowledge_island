@@ -33,9 +33,10 @@ export default function CommentItem({ comment }: CommentItemProps) {
 
           <LexicalHtml html={comment.content} />
           <ReplyAction
-            id={comment.id}
+            parentId={comment.id}
             isRoot={true}
             likeCount={comment.likeCount}
+            name={comment.author.name}
           />
         </div>
       </div>
@@ -43,7 +44,11 @@ export default function CommentItem({ comment }: CommentItemProps) {
       {comment.replies.length > 0 && (
         <div className={styles['replies']}>
           {comment.replies.map((reply) => (
-            <CommentReply key={reply.id} comment={reply} />
+            <CommentReply
+              key={reply.id}
+              comment={reply}
+              parentId={comment.id}
+            />
           ))}
         </div>
       )}

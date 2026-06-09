@@ -74,7 +74,7 @@ export default function MiniToolbarPlugin() {
             return true
           }
 
-          if (isMod && (event.key === '2' || event.code === 'Digit2')) {
+          if (isMod && (event.key === '3' || event.code === 'Digit3')) {
             event.preventDefault()
             insertFormula()
             return true

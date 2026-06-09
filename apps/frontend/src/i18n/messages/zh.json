@@ -148,7 +148,12 @@
       "send": "发送",
       "title": "评论：",
       "emptyTip": "暂时没有评论",
-      "reply": "回复"
+      "reply": "回复",
+      "emptyInputTip": "内容不能为空",
+      "replyToUser": "回复{name}："
+    },
+    "event": {
+      "success": "发送成功"
     }
   },
   "RequestError": {

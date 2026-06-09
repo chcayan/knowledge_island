@@ -12,7 +12,13 @@ type ServerEvent =
   | 'SERVER:ECONNABORTED'
   | 'SERVER:EXCEPTION'
 
-type EventName = ApiEvent | ServerEvent
+type BaseEvent =
+  | 'EVENT:COMMENT_REPLY_WITH_ROOT'
+  | 'EVENT:COMMENT_REPLY_WITHOUT_ROOT'
+  | 'EVENT:COMMENT_REPLY_RESET'
+  | 'EVENT:COMMENT_INPUT_FOCUS'
+
+type EventName = ApiEvent | ServerEvent | BaseEvent
 
 class EventEmitter {
   private listeners: Record<EventName, Set<Function>> = {
@@ -24,6 +30,10 @@ class EventEmitter {
     'SERVER:ERR_NETWORK': new Set(),
     'SERVER:ECONNABORTED': new Set(),
     'SERVER:EXCEPTION': new Set(),
+    'EVENT:COMMENT_REPLY_WITH_ROOT': new Set(),
+    'EVENT:COMMENT_REPLY_WITHOUT_ROOT': new Set(),
+    'EVENT:COMMENT_REPLY_RESET': new Set(),
+    'EVENT:COMMENT_INPUT_FOCUS': new Set(),
   }
 
   on(eventName: EventName, listener: Function) {

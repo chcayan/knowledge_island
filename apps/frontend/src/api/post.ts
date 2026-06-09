@@ -2,6 +2,8 @@ import { request } from '@/utils/request'
 import { compressImage } from '@/utils/compress'
 import {
   CommentInfo,
+  CreateCommentDto,
+  CreateCommentSchema,
   CreatePostSchema,
   DraftInfo,
   PostInfo,
@@ -12,6 +14,11 @@ import { fetchData } from '@/utils'
 export async function createPostAPI(dto: CreatePostDto) {
   const data = CreatePostSchema.parse(dto)
   return request.post('/post/create', data)
+}
+
+export async function createCommentAPI(dto: CreateCommentDto) {
+  const data = CreateCommentSchema.parse(dto)
+  return request.post('/post/comment/create', data)
 }
 
 export async function saveDraftAPI(dto: CreatePostDto) {
@@ -52,7 +59,11 @@ export async function getPostAPI(id: string) {
 }
 
 export async function getCommentsAPI(id: string) {
-  const comments: CommentInfo[] = await fetchData(`/post/comments/${id}`)
+  const comments: CommentInfo[] = await fetchData(`/post/comments/${id}`, {
+    options: {
+      cache: 'no-store',
+    },
+  })
   return comments
 }
 
