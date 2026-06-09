@@ -16,8 +16,10 @@ import { ZodValidationPipe } from '../../common/pipe/zod.pipe'
 import {
   CreatePostSchema,
   CreateCommentSchema,
+  CreateCommentReactionSchema,
   type CreatePostDto,
   type CreateCommentDto,
+  type CreateCommentReactionDto,
 } from '@knowledge_island/schemas'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { uploadOptions } from '../../common/config/upload.config'
@@ -48,6 +50,16 @@ export class PostController {
     @User() userId: string
   ) {
     return this.postService.createComment(dto, userId)
+  }
+
+  @Post('comment/reaction')
+  @UseGuards(JwtGuard)
+  async changeCommentReactionType(
+    @Body(new ZodValidationPipe(CreateCommentReactionSchema))
+    dto: CreateCommentReactionDto,
+    @User() userId: string
+  ) {
+    return this.postService.changeCommentReactionType(dto, userId)
   }
 
   @Post('draft')

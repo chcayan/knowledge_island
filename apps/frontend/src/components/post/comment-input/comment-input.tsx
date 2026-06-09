@@ -9,6 +9,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import emitter from '@/utils/event-emitter'
 import { createCommentAPI } from '@/api'
 import { Toast } from '@/utils/toast'
+import { useUserStore } from '@/stores'
 
 export default function CommentInput() {
   const pathname = usePathname()
@@ -61,6 +62,16 @@ export default function CommentInput() {
 
   const createComment = async () => {
     if (!checkContentIsNotEmpty(content!, t('comment.emptyInputTip'))) {
+      return
+    }
+
+    const userId = useUserStore.getState().userInfo.id
+
+    if (!userId) {
+      Toast.show({
+        msg: '未登录，请先登录',
+        type: 'error',
+      })
       return
     }
 

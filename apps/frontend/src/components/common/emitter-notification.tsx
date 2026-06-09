@@ -27,9 +27,6 @@ export default function EmitterNotification() {
           msg: t(`RequestError.401.${code}`),
           type: 'error',
         })
-        if (Number(code) !== 401005) {
-          router.replace('/login')
-        }
       }
     )
 

@@ -37,7 +37,7 @@ export default function LoginPage() {
     setLoading(true)
 
     try {
-      await loginAPI({
+      const { id } = await loginAPI({
         email,
         password,
       })
@@ -49,6 +49,7 @@ export default function LoginPage() {
 
       setEmail('')
       setPassword('')
+      useUserStore.getState().setUserId(id)
       useUserStore.getState().init()
 
       const redirect = searchParams.get('redirect')

@@ -7,10 +7,12 @@ import { create } from 'zustand'
 // type Translator = ReturnType<typeof useTranslations<never>>
 
 interface UserState {
+  userId: string
   userInfo: UserPublic
 
-  remove: () => void
   init: () => void
+  setUserId: (userId: string) => void
+  remove: () => void
 }
 
 const emptyUserInfo = {
@@ -24,7 +26,7 @@ const emptyUserInfo = {
   signature: '',
 }
 
-export const useUserStore = create<UserState>((set) => ({
+export const useUserStore = create<UserState>((set, get) => ({
   userId: '',
   userInfo: emptyUserInfo,
 
@@ -35,7 +37,18 @@ export const useUserStore = create<UserState>((set) => ({
     localStorage.removeItem(USER_ID)
   },
 
+  setUserId(userId) {
+    localStorage.setItem(USER_ID, userId)
+    set({
+      userId,
+    })
+  },
+
   async init() {
+    set({
+      userId: localStorage.getItem(USER_ID) || '',
+    })
+    if (!get().userId) return
     await getMeAPI()
       .then(async (res) => {
         const userId = res.data.data.id
@@ -44,6 +57,8 @@ export const useUserStore = create<UserState>((set) => ({
           userInfo,
         })
       })
-      .catch(() => {})
+      .catch(() => {
+        localStorage.removeItem(USER_ID)
+      })
   },
 }))

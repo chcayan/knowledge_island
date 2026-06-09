@@ -176,7 +176,8 @@
     },
     "404": {
       "404001": "The user was not found",
-      "404002": "The post was not found"
+      "404002": "The post was not found",
+      "404003": "The comment was not found"
     },
     "409": {
       "409001": "This email has been registered"

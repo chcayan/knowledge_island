@@ -8,12 +8,18 @@ import { Image } from './entities/image.entity'
 import { Repository } from 'typeorm'
 import { json2html } from '../../common/utils/json2html.utils'
 import { getFileMD5 } from '../../common/utils/md5.utils'
-import { CreateCommentDto, CreatePostDto } from '@knowledge_island/schemas'
+import {
+  CommentReactionType,
+  CreateCommentDto,
+  CreateCommentReactionDto,
+  CreatePostDto,
+} from '@knowledge_island/schemas'
 import fs from 'fs'
 import path from 'path'
 import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
 import Redis from 'ioredis'
 import { Comment, CommentStatus } from './entities/comment.entity'
+import { CommentReaction } from './entities/comment-reaction.entity'
 
 @Injectable()
 export class PostService {
@@ -26,6 +32,8 @@ export class PostService {
     private readonly imageRepo: Repository<Image>,
     @InjectRepository(Comment)
     private readonly commentRepo: Repository<Comment>,
+    @InjectRepository(CommentReaction)
+    private readonly commentReactionRepo: Repository<CommentReaction>,
     @Inject('REDIS_CLIENT')
     private readonly redis: Redis
   ) {}
@@ -335,5 +343,123 @@ export class PostService {
     void this.updateCommentViewCount(dto.postId).catch((err) => {
       this.logger.warn(`更新帖子 ${dto.postId} 评论量失败`, err)
     })
+  }
+
+  async changeCommentReactionType(
+    dto: CreateCommentReactionDto,
+    userId: string
+  ) {
+    const comment = await this.commentRepo.findOne({
+      where: {
+        id: dto.commentId,
+      },
+    })
+
+    if (!comment) {
+      throw new NotFoundException({
+        code: ERROR_CODE.COMMENT_NOT_FOUND,
+        message: ERROR_MESSAGE[ERROR_CODE.COMMENT_NOT_FOUND],
+      })
+    }
+
+    const reaction = await this.commentReactionRepo.findOne({
+      where: {
+        user: {
+          id: userId,
+        },
+        comment: {
+          id: dto.commentId,
+        },
+      },
+    })
+
+    let currentUserVote: CommentReactionType | null
+
+    /**
+     * NONE -> UPVOTE
+     * NONE -> DOWNVOTE
+     */
+    if (!reaction) {
+      await this.commentReactionRepo.save({
+        user: {
+          id: userId,
+        },
+        comment: {
+          id: dto.commentId,
+        },
+        type: dto.type,
+      })
+
+      if (dto.type === CommentReactionType.LIKE) {
+        await this.commentRepo.increment({ id: dto.commentId }, 'likeCount', 1)
+      } else {
+        await this.commentRepo.increment(
+          { id: dto.commentId },
+          'dislikeCount',
+          1
+        )
+      }
+
+      currentUserVote = dto.type
+    } else if (reaction.type === dto.type) {
+      /**
+       * UPVOTE -> NONE
+       * DOWNVOTE -> NONE
+       */
+
+      await this.commentReactionRepo.remove(reaction)
+
+      if (dto.type === CommentReactionType.LIKE) {
+        await this.commentRepo.decrement({ id: dto.commentId }, 'likeCount', 1)
+      } else {
+        await this.commentRepo.decrement(
+          { id: dto.commentId },
+          'dislikeCount',
+          1
+        )
+      }
+
+      currentUserVote = null
+    } else {
+      /**
+       * UPVOTE -> DOWNVOTE
+       * DOWNVOTE -> UPVOTE
+       */
+
+      const oldType = reaction.type
+
+      reaction.type = dto.type
+
+      await this.commentReactionRepo.save(reaction)
+
+      if (
+        oldType === CommentReactionType.LIKE &&
+        dto.type === CommentReactionType.DISLIKE
+      ) {
+        await this.commentRepo.decrement({ id: dto.commentId }, 'likeCount', 1)
+
+        await this.commentRepo.increment(
+          { id: dto.commentId },
+          'dislikeCount',
+          1
+        )
+      }
+
+      if (
+        oldType === CommentReactionType.DISLIKE &&
+        dto.type === CommentReactionType.LIKE
+      ) {
+        await this.commentRepo.decrement(
+          { id: dto.commentId },
+          'dislikeCount',
+          1
+        )
+
+        await this.commentRepo.increment({ id: dto.commentId }, 'likeCount', 1)
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      currentUserVote = dto.type
+    }
   }
 }

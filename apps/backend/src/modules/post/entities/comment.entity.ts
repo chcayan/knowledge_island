@@ -41,6 +41,9 @@ export class Comment {
   @Column({ default: 0 })
   likeCount!: number
 
+  @Column({ default: 0 })
+  dislikeCount!: number
+
   @Column({
     type: 'enum',
     enum: CommentStatus,
