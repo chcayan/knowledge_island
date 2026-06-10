@@ -1,7 +1,6 @@
 $mobile-size: 375px;
 
 .editor-container {
-  flex: 1;
   min-height: 0;
   // margin-top: 10px;
   border-radius: 2px;
@@ -14,9 +13,6 @@ $mobile-size: 375px;
   text-align: left;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
 
   &::before,
   &::after {
@@ -68,7 +64,7 @@ $mobile-size: 375px;
 
       @media (max-width: ($mobile-size * 2 - 22px)) {
         max-height: 150px;
-        min-height: initial;
+        min-height: 45px;
       }
     }
 
@@ -90,6 +86,7 @@ $mobile-size: 375px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 45px;
     background: var(--theme-secondary-color);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;

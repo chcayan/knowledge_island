@@ -52,6 +52,7 @@ export const CommentInfoSchema = CommentSchema.pick({
   createdAt: true,
 }).extend({
   author: AuthorSchema.shape.author,
+  userReaction: z.enum(CommentReactionType),
   replies: z.array(
     z.object({
       id: CommentSchema.shape.id,
@@ -59,6 +60,7 @@ export const CommentInfoSchema = CommentSchema.pick({
       content: CommentSchema.shape.content,
       likeCount: CommentSchema.shape.likeCount,
       createdAt: CommentSchema.shape.createdAt,
+      userReaction: z.enum(CommentReactionType),
       replyUser: z.object({
         id: AuthorSchema.shape.author.shape.id,
         name: AuthorSchema.shape.author.shape.name,

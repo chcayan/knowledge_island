@@ -6,41 +6,65 @@ import DislikeIcon from '@/components/icon/dislike-icon'
 import { formatCount } from '@/utils'
 import { useTranslations } from 'next-intl'
 import emitter from '@/utils/event-emitter'
+import { CommentReactionType } from '@knowledge_island/schemas'
+import { changeCommentReactionTypeAPI } from '@/api'
 
 export default function ReplyAction({
+  commentId,
   parentId,
   replyCommentId,
   name,
   isRoot,
   likeCount,
+  userReaction,
 }: {
+  commentId: string
   parentId: string
   replyCommentId?: string
   name: string
   isRoot: boolean
   likeCount: number
+  userReaction: CommentReactionType | null
 }) {
   const t = useTranslations('Post')
 
-  const [likeStatus, setLikeStatus] = useState<'none' | 'like' | 'dislike'>(
-    'none'
+  const [likeStatus, setLikeStatus] = useState<CommentReactionType | null>(
+    userReaction
   )
 
   const [count, setCount] = useState(likeCount)
 
-  const setLike = () => {
-    setLikeStatus(likeStatus === 'like' ? 'none' : 'like')
-    setCount((count) => {
-      if (likeStatus === 'like') return count - 1
-      else return count + 1
+  const setLike = async () => {
+    await changeCommentReactionTypeAPI({
+      type: CommentReactionType.LIKE,
+      commentId,
+    }).then(() => {
+      setLikeStatus(
+        likeStatus === CommentReactionType.LIKE
+          ? null
+          : CommentReactionType.LIKE
+      )
+      setCount((count) => {
+        if (likeStatus === CommentReactionType.LIKE) return count - 1
+        else return count + 1
+      })
     })
   }
 
-  const setDislike = () => {
-    setLikeStatus(likeStatus === 'dislike' ? 'none' : 'dislike')
-    setCount((count) => {
-      if (likeStatus === 'like') count -= 1
-      return count
+  const setDislike = async () => {
+    await changeCommentReactionTypeAPI({
+      type: CommentReactionType.DISLIKE,
+      commentId,
+    }).then(() => {
+      setLikeStatus(
+        likeStatus === CommentReactionType.DISLIKE
+          ? null
+          : CommentReactionType.DISLIKE
+      )
+      setCount((count) => {
+        if (likeStatus === CommentReactionType.LIKE) count -= 1
+        return count
+      })
     })
   }
 
@@ -64,11 +88,11 @@ export default function ReplyAction({
   return (
     <div className={styles['reply-action']}>
       <button className={styles.like} onClick={setLike}>
-        <LikeIcon isLike={likeStatus === 'like'} />
+        <LikeIcon isLike={likeStatus === CommentReactionType.LIKE} />
         <span>{formatCount(count)}</span>
       </button>
       <button className={styles.like} onClick={setDislike}>
-        <DislikeIcon isDislike={likeStatus === 'dislike'} />
+        <DislikeIcon isDislike={likeStatus === CommentReactionType.DISLIKE} />
       </button>
       <button onClick={() => onReply(parentId, replyCommentId)}>
         {t('comment.reply')}

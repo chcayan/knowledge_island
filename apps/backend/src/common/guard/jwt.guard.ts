@@ -20,11 +20,12 @@ export class JwtGuard implements CanActivate {
 
     const accessToken = req.cookies.access_token
 
-    if (!accessToken)
+    if (!accessToken) {
       throw new UnauthorizedException({
         code: ERROR_CODE.NO_TOKEN,
         message: ERROR_MESSAGE[ERROR_CODE.NO_TOKEN],
       })
+    }
 
     try {
       const payload = this.jwtService.verify<JwtPayload>(accessToken, {

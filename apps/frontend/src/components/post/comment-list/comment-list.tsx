@@ -2,7 +2,7 @@ import { getCommentsAPI } from '@/api'
 import CommentItem from './comment-item'
 import { getTranslations } from 'next-intl/server'
 
-export default async function CommentListSkeleton({ id }: { id: string }) {
+export default async function CommentList({ id }: { id: string }) {
   const t = await getTranslations('Post')
   const comments = await getCommentsAPI(id)
 

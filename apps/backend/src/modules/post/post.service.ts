@@ -5,7 +5,7 @@ import { Tag } from './entities/tag.entity'
 import { Post, PostStatus } from './entities/post.entity'
 import { Image } from './entities/image.entity'
 
-import { Repository } from 'typeorm'
+import { In, Repository } from 'typeorm'
 import { json2html } from '../../common/utils/json2html.utils'
 import { getFileMD5 } from '../../common/utils/md5.utils'
 import {
@@ -240,7 +240,7 @@ export class PostService {
     await this.redis.hincrby(`${process.env.APP_NAME}:post:view:count`, id, 1)
   }
 
-  async getComments(postId: string) {
+  async getComments(postId: string, userId?: string) {
     const comments = await this.commentRepo.find({
       where: {
         post: {
@@ -279,11 +279,34 @@ export class PostService {
       replyList.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
     }
 
+    const commentIds = comments.map((comment) => comment.id)
+
+    const userReactions = userId
+      ? await this.commentReactionRepo.find({
+          where: {
+            user: {
+              id: userId,
+            },
+            comment: {
+              id: In(commentIds),
+            },
+          },
+          relations: {
+            comment: true,
+          },
+        })
+      : []
+
+    const reactionMap = new Map(
+      userReactions.map((reaction) => [reaction.comment.id, reaction.type])
+    )
+
     return roots.map((root) => ({
       id: root.id,
       content: root.content,
       createdAt: root.createdAt,
       likeCount: root.likeCount,
+      userReaction: reactionMap.get(root.id) ?? null,
       author: {
         id: root.author.id,
         name: root.author.name,
@@ -295,6 +318,7 @@ export class PostService {
           content: reply.content,
           createdAt: reply.createdAt,
           likeCount: reply.likeCount,
+          userReaction: reactionMap.get(reply.id) ?? null,
           author: {
             id: reply.author.id,
             name: reply.author.name,
@@ -373,7 +397,7 @@ export class PostService {
       },
     })
 
-    let currentUserVote: CommentReactionType | null
+    // let currentUserVote: CommentReactionType | null
 
     /**
      * NONE -> UPVOTE
@@ -400,7 +424,7 @@ export class PostService {
         )
       }
 
-      currentUserVote = dto.type
+      // currentUserVote = dto.type
     } else if (reaction.type === dto.type) {
       /**
        * UPVOTE -> NONE
@@ -419,7 +443,7 @@ export class PostService {
         )
       }
 
-      currentUserVote = null
+      // currentUserVote = null
     } else {
       /**
        * UPVOTE -> DOWNVOTE
@@ -458,8 +482,7 @@ export class PostService {
         await this.commentRepo.increment({ id: dto.commentId }, 'likeCount', 1)
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      currentUserVote = dto.type
+      // currentUserVote = dto.type
     }
   }
 }

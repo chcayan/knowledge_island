@@ -27,6 +27,8 @@ import { JwtGuard } from '../../common/guard/jwt.guard'
 import { User } from '../../common/decorator/user.decorator'
 import { UserPermissionGuard } from '../../common/guard/permission.guard'
 import { UserPermission } from '../../common/decorator/permission.decorator'
+import { OptionalJwtGuard } from '../../common/guard/optional-jwt.guard'
+import { OptionalUser } from '../../common/decorator/optional-user.decorator'
 
 @Controller('post')
 export class PostController {
@@ -90,8 +92,9 @@ export class PostController {
   }
 
   @Get('comments/:id')
-  async getComments(@Param('id') id: string) {
-    return this.postService.getComments(id)
+  @UseGuards(OptionalJwtGuard)
+  async getComments(@Param('id') id: string, @OptionalUser() userId: string) {
+    return this.postService.getComments(id, userId)
   }
 
   @Get(':id')

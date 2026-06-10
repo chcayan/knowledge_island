@@ -36,11 +36,13 @@ export default function CommentReply({ comment, parentId }: ReplyItemProps) {
         </div>
         <LexicalHtml html={comment.content} />
         <ReplyAction
+          commentId={comment.id}
           parentId={parentId}
           replyCommentId={comment.id}
           isRoot={false}
           likeCount={comment.likeCount}
           name={comment.author.name}
+          userReaction={comment.userReaction}
         />
       </div>
     </div>

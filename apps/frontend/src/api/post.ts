@@ -3,6 +3,7 @@ import { compressImage } from '@/utils/compress'
 import {
   CommentInfo,
   CreateCommentDto,
+  CreateCommentReactionDto,
   CreateCommentSchema,
   CreatePostSchema,
   DraftInfo,
@@ -85,4 +86,10 @@ export async function getTagPostCountAPI() {
   const result: TagPostCountType[] = res.data.data
 
   return result
+}
+
+export async function changeCommentReactionTypeAPI(
+  dto: CreateCommentReactionDto
+) {
+  return request.post('/post/comment/reaction', dto)
 }
