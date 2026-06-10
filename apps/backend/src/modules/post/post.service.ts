@@ -5,7 +5,7 @@ import { Tag } from './entities/tag.entity'
 import { Post, PostStatus } from './entities/post.entity'
 import { Image } from './entities/image.entity'
 
-import { In, Repository } from 'typeorm'
+import { In, IsNull, Repository } from 'typeorm'
 import { json2html } from '../../common/utils/json2html.utils'
 import { getFileMD5 } from '../../common/utils/md5.utils'
 import {
@@ -246,10 +246,36 @@ export class PostService {
     pageSize: number,
     userId?: string
   ) {
-    const [comments, total] = await this.commentRepo.findAndCount({
+    const [roots, total] = await this.commentRepo.findAndCount({
       where: {
         post: {
           id: postId,
+        },
+        parent: IsNull(),
+      },
+      relations: {
+        author: true,
+      },
+      order: {
+        createdAt: 'DESC',
+      },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+    })
+
+    const rootIds = roots.map((root) => root.id)
+
+    if (rootIds.length === 0) {
+      return {
+        list: [],
+        total,
+      }
+    }
+
+    const replies = await this.commentRepo.find({
+      where: {
+        parent: {
+          id: In(rootIds),
         },
       },
       relations: {
@@ -260,15 +286,9 @@ export class PostService {
         },
       },
       order: {
-        createdAt: 'DESC',
+        createdAt: 'ASC',
       },
-      skip: (page - 1) * pageSize,
-      take: pageSize,
     })
-
-    const roots = comments.filter((comment) => comment.parent === null)
-
-    const replies = comments.filter((comment) => comment.parent !== null)
 
     const replyMap = new Map<string, Comment[]>()
 
@@ -282,11 +302,7 @@ export class PostService {
       replyMap.get(rootId)!.push(reply)
     }
 
-    for (const replyList of replyMap.values()) {
-      replyList.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
-    }
-
-    const commentIds = comments.map((comment) => comment.id)
+    const commentIds = [...rootIds, ...replies.map((reply) => reply.id)]
 
     const userReactions = userId
       ? await this.commentReactionRepo.find({
