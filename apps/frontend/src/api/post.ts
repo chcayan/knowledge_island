@@ -59,13 +59,33 @@ export async function getPostAPI(id: string) {
   return post
 }
 
-export async function getCommentsAPI(id: string) {
-  const comments: CommentInfo[] = await fetchData(`/post/comments/${id}`, {
+export async function getCommentsAPI(
+  id: string,
+  page: number,
+  pageSize: number
+) {
+  const data = await fetchData(`/post/comments/${id}`, {
+    params: {
+      page,
+      pageSize,
+    },
     options: {
       cache: 'no-store',
     },
   })
-  return comments
+
+  const {
+    list,
+    total,
+  }: {
+    list: CommentInfo[]
+    total: number
+  } = data
+
+  return {
+    list,
+    total,
+  }
 }
 
 export async function getDraftAPI() {

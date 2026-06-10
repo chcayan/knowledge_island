@@ -240,8 +240,13 @@ export class PostService {
     await this.redis.hincrby(`${process.env.APP_NAME}:post:view:count`, id, 1)
   }
 
-  async getComments(postId: string, userId?: string) {
-    const comments = await this.commentRepo.find({
+  async getComments(
+    postId: string,
+    page: number,
+    pageSize: number,
+    userId?: string
+  ) {
+    const [comments, total] = await this.commentRepo.findAndCount({
       where: {
         post: {
           id: postId,
@@ -257,6 +262,8 @@ export class PostService {
       order: {
         createdAt: 'DESC',
       },
+      skip: (page - 1) * pageSize,
+      take: pageSize,
     })
 
     const roots = comments.filter((comment) => comment.parent === null)
@@ -301,7 +308,7 @@ export class PostService {
       userReactions.map((reaction) => [reaction.comment.id, reaction.type])
     )
 
-    return roots.map((root) => ({
+    const list = roots.map((root) => ({
       id: root.id,
       content: root.content,
       createdAt: root.createdAt,
@@ -332,6 +339,8 @@ export class PostService {
             : null,
         })) ?? [],
     }))
+
+    return { list, total }
   }
 
   async updateCommentViewCount(id: string) {

@@ -12,9 +12,13 @@ import CommentListSkeleton from '@/components/post/comment-skeleton/comment-list
 
 export default async function PostPage(props: {
   params: Promise<{ id: string }>
+  searchParams?: Promise<{
+    page?: string
+  }>
 }) {
   const t = await getTranslations('Post')
   const params = await props.params
+  const searchParams = await props.searchParams
 
   return (
     <>
@@ -39,7 +43,7 @@ export default async function PostPage(props: {
             <h3>{t('comment.title')}</h3>
             <ul>
               <Suspense fallback={<CommentListSkeleton />}>
-                <CommentList id={params.id} />
+                <CommentList searchParams={searchParams} id={params.id} />
               </Suspense>
             </ul>
           </div>

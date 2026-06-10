@@ -78,6 +78,7 @@ export default function Pagination({ currentPage, total, pageSize }: Props) {
   return (
     <div className={styles.pagination}>
       <Link
+        replace
         href={createPageURL(Math.max(currentPage - 1, 1))}
         className={`${styles.button} ${
           currentPage === 1 ? styles.disabled : ''
@@ -97,6 +98,7 @@ export default function Pagination({ currentPage, total, pageSize }: Props) {
 
         return (
           <Link
+            replace
             key={`page-${page}`}
             href={createPageURL(page)}
             className={`${styles.button} ${
@@ -109,6 +111,7 @@ export default function Pagination({ currentPage, total, pageSize }: Props) {
       })}
 
       <Link
+        replace
         href={createPageURL(Math.min(currentPage + 1, totalPages))}
         className={`${styles.button} ${
           currentPage === totalPages ? styles.disabled : ''

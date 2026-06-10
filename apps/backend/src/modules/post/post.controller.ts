@@ -93,8 +93,13 @@ export class PostController {
 
   @Get('comments/:id')
   @UseGuards(OptionalJwtGuard)
-  async getComments(@Param('id') id: string, @OptionalUser() userId: string) {
-    return this.postService.getComments(id, userId)
+  async getComments(
+    @Param('id') id: string,
+    @Query('page', ParseIntPipe) page: number,
+    @Query('pageSize', ParseIntPipe) pageSize: number,
+    @OptionalUser() userId: string
+  ) {
+    return this.postService.getComments(id, page, pageSize, userId)
   }
 
   @Get(':id')

@@ -1,7 +1,7 @@
 import { getPostListAPI } from '@/api'
 import styles from './post-list.module.scss'
 import PostCard from '../post-card/post-card'
-import Pagination from '../pagination/pagination'
+import Pagination from '../../common/pagination/pagination'
 import { redirect } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 

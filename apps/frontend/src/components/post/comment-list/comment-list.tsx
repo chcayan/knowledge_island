@@ -1,18 +1,45 @@
 import { getCommentsAPI } from '@/api'
 import CommentItem from './comment-item'
 import { getTranslations } from 'next-intl/server'
+import { redirect } from 'next/navigation'
+import Pagination from '@/components/common/pagination/pagination'
 
-export default async function CommentList({ id }: { id: string }) {
+interface Props {
+  searchParams?: {
+    page?: string
+  }
+  id: string
+}
+
+export default async function CommentList({ searchParams, id }: Props) {
   const t = await getTranslations('Post')
-  const comments = await getCommentsAPI(id)
 
-  return comments.length === 0 ? (
-    <p style={{ marginTop: '10px' }}>{t('comment.emptyTip')}</p>
-  ) : (
-    comments.map((comment) => (
-      <li key={comment.id}>
-        <CommentItem comment={comment} />
-      </li>
-    ))
-  )
+  const params = await searchParams
+  const page = Number(params?.page ?? 1)
+  console.log(params)
+  const pageSize = 2
+
+  const { list, total } = await getCommentsAPI(id, page, pageSize)
+
+  if (total) {
+    const totalPages = Math.ceil(total / pageSize)
+
+    if (page > totalPages) {
+      redirect('/')
+    }
+
+    return (
+      <>
+        {list.map((comment) => (
+          <li key={comment.id}>
+            <CommentItem comment={comment} />
+          </li>
+        ))}
+        <div style={{ height: '20px' }}></div>
+        <Pagination currentPage={page} total={total} pageSize={pageSize} />
+      </>
+    )
+  } else {
+    return <p style={{ marginTop: '10px' }}>{t('comment.emptyTip')}</p>
+  }
 }
