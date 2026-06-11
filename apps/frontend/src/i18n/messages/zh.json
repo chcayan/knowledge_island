@@ -150,7 +150,10 @@
       "emptyTip": "暂时没有评论",
       "reply": "回复",
       "emptyInputTip": "内容不能为空",
-      "replyToUser": "回复{name}："
+      "replyToUser": "回复{name}：",
+      "replyText": "回复",
+      "expand": "查看更多回复",
+      "collapse": "收起回复"
     },
     "event": {
       "success": "发送成功"

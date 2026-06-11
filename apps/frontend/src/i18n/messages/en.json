@@ -150,7 +150,10 @@
       "emptyTip": "There are currently no comments.",
       "reply": "Reply",
       "emptyInputTip": "The content cannot be empty.",
-      "replyToUser": "Reply to {name}: "
+      "replyToUser": "Reply to {name}: ",
+      "replyText": "reply to",
+      "expand": "View more replies.",
+      "collapse": "Hide replies."
     },
     "event": {
       "success": "Send successful"

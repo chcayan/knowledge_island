@@ -5,6 +5,7 @@ import styles from './comment-replies.module.scss'
 import { CommentInfo } from '@knowledge_island/schemas'
 import CommentReply from '../comment-reply/comment-reply'
 import { COMMENT_REPLY_COUNT } from '@/config/post-field'
+import { useTranslations } from 'next-intl'
 
 interface Props {
   replies: CommentInfo['replies']
@@ -14,6 +15,8 @@ interface Props {
 const STEP = COMMENT_REPLY_COUNT
 
 export default function CommentReplies({ replies, parentId }: Props) {
+  const t = useTranslations('Post')
+
   const [visibleCount, setVisibleCount] = useState(STEP)
 
   const visibleReplies = useMemo(
@@ -40,7 +43,7 @@ export default function CommentReplies({ replies, parentId }: Props) {
               className={styles.button}
               onClick={() => setVisibleCount((count) => count + STEP)}
             >
-              查看更多回复
+              {t('comment.expand')}
               {/* {remainingCount > 0 && `（剩余 ${remainingCount} 条）`} */}
             </button>
           ) : (
@@ -48,7 +51,7 @@ export default function CommentReplies({ replies, parentId }: Props) {
               className={styles.button}
               onClick={() => setVisibleCount(STEP)}
             >
-              收起回复
+              {t('comment.collapse')}
             </button>
           )}
         </div>

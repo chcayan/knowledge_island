@@ -4,6 +4,7 @@ import { CommentInfo } from '@knowledge_island/schemas'
 import LexicalHtml from '../lexical-html/lexical-html'
 import styles from './comment-reply.module.scss'
 import ReplyAction from '../reply-action/reply-action'
+import { useTranslations } from 'next-intl'
 
 type ReplyItemProps = {
   comment: CommentInfo['replies'][number]
@@ -11,6 +12,8 @@ type ReplyItemProps = {
 }
 
 export default function CommentReply({ comment, parentId }: ReplyItemProps) {
+  const t = useTranslations('Post')
+
   return (
     <div className={styles['comment-reply']}>
       <img
@@ -24,7 +27,9 @@ export default function CommentReply({ comment, parentId }: ReplyItemProps) {
           <span className={styles['nickname']}>{comment.author.name}</span>
           {comment.replyUser && (
             <>
-              <span className={styles['reply-label']}>回复</span>
+              <span className={styles['reply-label']}>
+                {t('comment.replyText')}
+              </span>
               <span className={styles['reply-user']}>
                 {comment.replyUser.name}
               </span>

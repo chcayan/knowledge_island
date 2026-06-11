@@ -1,0 +1,41 @@
+$gap: 10px;
+
+.user-card {
+  width: 300px;
+
+  .avatar {
+    width: 300px;
+    height: 300px;
+  }
+
+  .info {
+    margin-top: $gap;
+    display: flex;
+    align-items: center;
+    gap: $gap;
+
+    .name {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .email {
+      color: var(--theme-font-light-color);
+    }
+  }
+
+  .count {
+    margin-top: $gap;
+    display: flex;
+    align-items: center;
+    gap: $gap;
+    color: var(--theme-font-light-color);
+    font-size: 15px;
+  }
+
+  .signature {
+    margin-top: $gap;
+    font-size: 15px;
+    color: var(--theme-font-light-color);
+  }
+}
