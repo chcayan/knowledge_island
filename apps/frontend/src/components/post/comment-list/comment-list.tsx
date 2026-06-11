@@ -3,6 +3,7 @@ import CommentItem from './comment-item'
 import { getTranslations } from 'next-intl/server'
 import { redirect } from 'next/navigation'
 import Pagination from '@/components/common/pagination/pagination'
+import { COMMENT_PAGE_SIZE } from '@/config/post-field'
 
 interface Props {
   searchParams?: {
@@ -15,11 +16,9 @@ export default async function CommentList({ searchParams, id }: Props) {
   const t = await getTranslations('Post')
 
   const page = Number(searchParams?.page ?? 1)
-  const pageSize = 2
+  const pageSize = COMMENT_PAGE_SIZE
 
   const { list, total } = await getCommentsAPI(id, page, pageSize)
-
-  console.log(list)
 
   if (total) {
     const totalPages = Math.ceil(total / pageSize)

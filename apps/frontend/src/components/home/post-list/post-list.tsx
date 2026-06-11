@@ -4,6 +4,7 @@ import PostCard from '../post-card/post-card'
 import Pagination from '../../common/pagination/pagination'
 import { redirect } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
+import { POST_PAGE_SIZE } from '@/config/post-field'
 
 interface Props {
   searchParams?: Promise<{
@@ -17,7 +18,7 @@ export default async function PostList({ searchParams }: Props) {
   const params = await searchParams
 
   const page = Number(params?.page ?? 1)
-  const pageSize = 20
+  const pageSize = POST_PAGE_SIZE
 
   const { list, total } = await getPostListAPI(page, pageSize)
 

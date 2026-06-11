@@ -4,9 +4,9 @@
 import { CommentInfo } from '@knowledge_island/schemas'
 import { formatDateByYear, getImgUrl } from '@/utils'
 import LexicalHtml from '../lexical-html/lexical-html'
-import CommentReply from '../comment-reply/comment-reply'
 import styles from './comment-item.module.scss'
 import ReplyAction from '../reply-action/reply-action'
+import CommentReplies from '../comment-replies/comment-replies'
 
 type CommentItemProps = {
   comment: CommentInfo
@@ -43,7 +43,7 @@ export default function CommentItem({ comment }: CommentItemProps) {
         </div>
       </div>
 
-      {comment.replies.length > 0 && (
+      {/* {comment.replies.length > 0 && (
         <div className={styles['replies']}>
           {comment.replies.map((reply) => (
             <CommentReply
@@ -53,6 +53,9 @@ export default function CommentItem({ comment }: CommentItemProps) {
             />
           ))}
         </div>
+      )} */}
+      {comment.replies.length > 0 && (
+        <CommentReplies replies={comment.replies} parentId={comment.id} />
       )}
     </div>
   )
