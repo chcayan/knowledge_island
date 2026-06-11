@@ -14,12 +14,12 @@ interface Props {
 export default async function CommentList({ searchParams, id }: Props) {
   const t = await getTranslations('Post')
 
-  const params = await searchParams
-  const page = Number(params?.page ?? 1)
-  console.log(params)
+  const page = Number(searchParams?.page ?? 1)
   const pageSize = 2
 
   const { list, total } = await getCommentsAPI(id, page, pageSize)
+
+  console.log(list)
 
   if (total) {
     const totalPages = Math.ceil(total / pageSize)

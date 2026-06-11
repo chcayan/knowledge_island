@@ -57,8 +57,6 @@ export const useUserStore = create<UserState>((set, get) => ({
           userInfo,
         })
       })
-      .catch(() => {
-        localStorage.removeItem(USER_ID)
-      })
+      .catch(() => {})
   },
 }))

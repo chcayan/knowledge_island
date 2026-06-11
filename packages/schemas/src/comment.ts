@@ -16,6 +16,7 @@ export const CommentSchema = z.object({
   authorId: z.uuid({ error: '用户 ID 不能为空' }),
   parentId: z.uuid().nullable(),
   replyCommentId: z.uuid().nullable(),
+  replyUserId: z.uuid().nullable(),
   content: z.string(),
   likeCount: z.number(),
   disCount: z.number(),

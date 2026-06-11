@@ -20,6 +20,7 @@ import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
 import Redis from 'ioredis'
 import { Comment, CommentStatus } from './entities/comment.entity'
 import { CommentReaction } from './entities/comment-reaction.entity'
+import { User } from '../user/entities/user.entity'
 
 @Injectable()
 export class PostService {
@@ -284,6 +285,7 @@ export class PostService {
         replyComment: {
           author: true,
         },
+        replyUser: true,
       },
       order: {
         createdAt: 'ASC',
@@ -347,10 +349,10 @@ export class PostService {
             name: reply.author.name,
             avatar: reply.author.avatar,
           },
-          replyUser: reply.replyComment
+          replyUser: reply.replyUser
             ? {
-                id: reply.replyComment.author.id,
-                name: reply.replyComment.author.name,
+                id: reply.replyUser.id,
+                name: reply.replyUser.name,
               }
             : null,
         })) ?? [],
@@ -370,6 +372,17 @@ export class PostService {
   async createComment(dto: CreateCommentDto, userId: string) {
     const html = json2html(dto.contentJSON as JSON)
 
+    const replyComment = dto.replyCommentId
+      ? await this.commentRepo.findOne({
+          where: {
+            id: dto.replyCommentId,
+          },
+          relations: {
+            author: true,
+          },
+        })
+      : null
+
     const comment = this.commentRepo.create({
       content: html,
       status: CommentStatus.PUBLISHED, // TODO: modify to REVIEWING
@@ -382,6 +395,9 @@ export class PostService {
       replyComment: {
         id: dto.replyCommentId,
       } as Comment,
+      replyUser: {
+        id: replyComment?.author.id ?? null,
+      } as User,
       author: {
         id: userId,
       },

@@ -35,6 +35,13 @@ export class Comment {
   @JoinColumn({ name: 'replyCommentId' })
   replyComment!: Comment | null
 
+  @ManyToOne(() => User, {
+    nullable: true,
+    onDelete: 'SET NULL',
+  })
+  @JoinColumn({ name: 'replyUserId' })
+  replyUser!: User | null
+
   @Column({ type: 'text' })
   content!: string
 

@@ -29,28 +29,23 @@ export async function fetchData(
 ) {
   let res
 
+  const fetchOptions = {
+    cache: options.cache,
+    next: {
+      revalidate: options.revalidate,
+    },
+    headers: {
+      Cookie: (await cookies()).toString(),
+    },
+  }
+
   if (isEmptyObject(params)) {
-    res = await fetch(`${BASE_URL + url}`, {
-      cache: options.cache,
-      next: {
-        revalidate: options.revalidate,
-      },
-      headers: {
-        Cookie: (await cookies()).toString(),
-      },
-    })
+    res = await fetch(`${BASE_URL + url}`, fetchOptions)
   } else {
     const _params = new URLSearchParams(
       Object.entries(params).map(([k, v]) => [k, String(v)])
     )
-    res = await fetch(`${BASE_URL + url}?${_params}`, {
-      next: {
-        revalidate: 60,
-      },
-      headers: {
-        Cookie: (await cookies()).toString(),
-      },
-    })
+    res = await fetch(`${BASE_URL + url}?${_params}`, fetchOptions)
   }
 
   if (!res.ok) {
