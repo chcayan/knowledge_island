@@ -24,8 +24,8 @@ export default function CommentReplies({ replies, parentId }: Props) {
     [replies, visibleCount]
   )
 
-  const hasMore = visibleCount < replies.length
-
+  const canExpand = visibleCount < replies.length
+  const canCollapse = visibleCount > STEP
   // const remainingCount = replies.length - visibleCount
 
   return (
@@ -38,7 +38,7 @@ export default function CommentReplies({ replies, parentId }: Props) {
 
       {replies.length > STEP && (
         <div className={styles.actions}>
-          {hasMore ? (
+          {canExpand && (
             <button
               className={styles.button}
               onClick={() => setVisibleCount((count) => count + STEP)}
@@ -46,7 +46,8 @@ export default function CommentReplies({ replies, parentId }: Props) {
               {t('comment.expand')}
               {/* {remainingCount > 0 && `（剩余 ${remainingCount} 条）`} */}
             </button>
-          ) : (
+          )}
+          {canCollapse && (
             <button
               className={styles.button}
               onClick={() => setVisibleCount(STEP)}
