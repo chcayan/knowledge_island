@@ -1,5 +1,5 @@
 import { BASE_URL, REQUEST_TIMEOUT } from '@/config/request'
-import { request } from '@/utils'
+import { fetchData, request } from '@/utils'
 import {
   LoginDto,
   LoginSchema,
@@ -35,6 +35,12 @@ export async function LogoutAPI() {
 export async function getUserInfoAPI(userId: string) {
   const res = await request.get(`/user/${userId}`)
   const data: UserPublic = res.data.data
+
+  return data
+}
+
+export async function getMeInfoAPI() {
+  const data: UserPublic = await fetchData('/user/me')
 
   return data
 }

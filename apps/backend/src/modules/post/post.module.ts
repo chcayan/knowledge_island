@@ -12,10 +12,18 @@ import { UserModule } from '../user/user.module'
 import { PostSyncTask } from './post.sync-task'
 import { Comment } from './entities/comment.entity'
 import { CommentReaction } from './entities/comment-reaction.entity'
+import { Collection } from './entities/collection.entity'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Post, Tag, Image, Comment, CommentReaction]),
+    TypeOrmModule.forFeature([
+      Post,
+      Tag,
+      Image,
+      Comment,
+      CommentReaction,
+      Collection,
+    ]),
     AuthModule,
     UserModule,
   ],

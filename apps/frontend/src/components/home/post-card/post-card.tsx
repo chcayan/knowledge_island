@@ -6,15 +6,12 @@ import styles from './post-card.module.scss'
 import { formatCount, formatDateByYear, getImgUrl } from '@/utils'
 import ViewCountIcon from '../../icon/view-count-icon'
 import CommentCountIcon from '../../icon/comment-count-icon'
-import CollectionCountIcon from '../../icon/collection-count-icon'
 import { useEffect, useRef, useState } from 'react'
 import 'katex/dist/katex.min.css'
 import { useRouter } from 'next/navigation'
 import { RoutePath } from '@/config/path'
 
 export default function PostCard({ post }: { post: PostInfo }) {
-  const [isCollected, setIsCollected] = useState(false)
-
   const contentRef = useRef<HTMLDivElement>(null)
   const [overflow, setOverflow] = useState(false)
 
@@ -43,11 +40,6 @@ export default function PostCard({ post }: { post: PostInfo }) {
     router.push(`${RoutePath.post}/${post.id}`)
 
     console.log('navigateToPostPage')
-  }
-
-  const modifyCollectStatus = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    setIsCollected((e) => !e)
   }
 
   return (
@@ -91,13 +83,6 @@ export default function PostCard({ post }: { post: PostInfo }) {
             <li>
               <CommentCountIcon />
               <p>{formatCount(post.commentCount)}</p>
-            </li>
-          </ul>
-        </div>
-        <div className={styles.right}>
-          <ul>
-            <li onClick={modifyCollectStatus}>
-              <CollectionCountIcon isCollected={isCollected} />
             </li>
           </ul>
         </div>

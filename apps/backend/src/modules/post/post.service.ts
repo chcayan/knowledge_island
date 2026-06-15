@@ -21,6 +21,7 @@ import Redis from 'ioredis'
 import { Comment, CommentStatus } from './entities/comment.entity'
 import { CommentReaction } from './entities/comment-reaction.entity'
 import { User } from '../user/entities/user.entity'
+import { Collection } from './entities/collection.entity'
 
 @Injectable()
 export class PostService {
@@ -35,6 +36,8 @@ export class PostService {
     private readonly commentRepo: Repository<Comment>,
     @InjectRepository(CommentReaction)
     private readonly commentReactionRepo: Repository<CommentReaction>,
+    @InjectRepository(Collection)
+    private readonly collectionRepo: Repository<Collection>,
     @Inject('REDIS_CLIENT')
     private readonly redis: Redis
   ) {}
@@ -173,22 +176,46 @@ export class PostService {
     }
   }
 
-  async getPostList(page: number, pageSize: number) {
-    // await new Promise((resolve) => setTimeout(resolve, 3000))
-
-    // throw new Error('api failed')
-    const [list, total] = await this.postRepo
+  async getPostList(page: number, pageSize: number, userId?: string) {
+    const qb = this.postRepo
       .createQueryBuilder('post')
       .leftJoin('post.author', 'author')
       .addSelect(['author.id', 'author.name', 'author.avatar'])
       .leftJoinAndSelect('post.tags', 'tags')
       .where('post.status = :status', {
-        status: PostStatus.REVIEWING, // TODO: modify to PUBLISHED
+        status: PostStatus.REVIEWING, // TODO: PUBLISHED
       })
       .orderBy('post.createdAt', 'DESC')
       .skip((page - 1) * pageSize)
       .take(pageSize)
-      .getManyAndCount()
+
+    if (userId) {
+      qb.leftJoin(
+        Collection,
+        'collection',
+        'collection.postId = post.id AND collection.userId = :userId',
+        { userId }
+      ).addSelect(
+        'CASE WHEN collection.id IS NULL THEN 0 ELSE 1 END',
+        'isCollected'
+      )
+    } else {
+      qb.addSelect('0', 'isCollected')
+    }
+
+    const [total, result] = await Promise.all([
+      qb.getCount(),
+      qb.getRawAndEntities(),
+    ])
+
+    const list = result.entities.map((post, index) => ({
+      ...post,
+      isCollected:
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        result.raw[index].isCollected === 1 ||
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        result.raw[index].isCollected === '1',
+    }))
 
     return {
       list,
@@ -196,8 +223,8 @@ export class PostService {
     }
   }
 
-  async getPost(id: string) {
-    const post = await this.postRepo
+  async getPost(id: string, userId?: string) {
+    const qb = this.postRepo
       .createQueryBuilder('post')
       .leftJoin('post.author', 'author')
       .addSelect(['author.id', 'author.name', 'author.avatar'])
@@ -208,7 +235,26 @@ export class PostService {
       .andWhere('post.id = :id', {
         id,
       })
-      .getOne()
+
+    if (userId) {
+      qb.leftJoin(
+        Collection,
+        'collection',
+        'collection.postId = post.id AND collection.userId = :userId',
+        {
+          userId,
+        }
+      ).addSelect(
+        'CASE WHEN collection.id IS NULL THEN 0 ELSE 1 END',
+        'isCollected'
+      )
+    } else {
+      qb.addSelect('0', 'isCollected')
+    }
+
+    const result = await qb.getRawAndEntities()
+
+    const post = result.entities[0]
 
     if (!post) {
       throw new NotFoundException({
@@ -217,11 +263,14 @@ export class PostService {
       })
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const isCollected = !!Number(result.raw[0]?.isCollected ?? 0)
+
     void this.updatePostViewCount(id).catch((err) => {
       this.logger.warn(`更新帖子 ${id} 浏览量失败`, err)
     })
 
-    return post
+    return { ...post, isCollected }
   }
 
   async getTagPostCount() {
@@ -524,6 +573,60 @@ export class PostService {
       }
 
       // currentUserVote = dto.type
+    }
+  }
+
+  async toggleCollection(postId: string, userId: string) {
+    const post = await this.postRepo.exists({
+      where: {
+        id: postId,
+      },
+    })
+
+    if (!post) {
+      throw new NotFoundException({
+        code: ERROR_CODE.POST_NOT_FOUND,
+        message: ERROR_MESSAGE[ERROR_CODE.POST_NOT_FOUND],
+      })
+    }
+
+    const exists = await this.collectionRepo.exists({
+      where: {
+        user: {
+          id: userId,
+        },
+        post: {
+          id: postId,
+        },
+      },
+    })
+
+    if (exists) {
+      await this.collectionRepo.delete({
+        user: {
+          id: userId,
+        },
+        post: {
+          id: postId,
+        },
+      })
+
+      return {
+        message: '取消收藏成功',
+      }
+    }
+
+    await this.collectionRepo.insert({
+      user: {
+        id: userId,
+      },
+      post: {
+        id: postId,
+      },
+    })
+
+    return {
+      message: '收藏成功',
     }
   }
 }

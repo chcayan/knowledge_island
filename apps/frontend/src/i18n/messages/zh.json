@@ -156,7 +156,9 @@
       "collapse": "收起回复"
     },
     "event": {
-      "success": "发送成功"
+      "success": "发送成功",
+      "collectSuccess": "收藏成功",
+      "cancelCollectSuccess": "取消收藏成功"
     }
   },
   "RequestError": {

@@ -10,6 +10,7 @@ import {
 import { Post } from '../../post/entities/post.entity'
 import { USER_NAME_MAX_LENGTH } from '@knowledge_island/schemas'
 import { Comment } from '../../post/entities/comment.entity'
+import { Collection } from '../../post/entities/collection.entity'
 
 export enum UserSex {
   UNKNOWN = 0,
@@ -87,4 +88,7 @@ export class User {
 
   @OneToMany(() => Comment, (comment) => comment.author)
   comments!: Comment[]
+
+  @OneToMany(() => Collection, (collection) => collection.user)
+  collection!: Collection[]
 }

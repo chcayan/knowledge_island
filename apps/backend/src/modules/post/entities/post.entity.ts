@@ -12,6 +12,7 @@ import {
 import { User } from '../../user/entities/user.entity'
 import { Tag } from './tag.entity'
 import { Comment } from './comment.entity'
+import { Collection } from './collection.entity'
 
 export enum PostType {
   WRITE = '0',
@@ -40,7 +41,7 @@ export class Post {
   viewCount!: number
 
   @Column({ default: 0 })
-  CollectionCount!: number
+  collectionCount!: number
 
   @Column({ default: 0 })
   commentCount!: number
@@ -78,4 +79,7 @@ export class Post {
 
   @OneToMany(() => Comment, (comment) => comment.post)
   comments!: Comment[]
+
+  @OneToMany(() => Collection, (collection) => collection.post)
+  collection!: Collection[]
 }

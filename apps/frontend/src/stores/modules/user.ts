@@ -57,6 +57,10 @@ export const useUserStore = create<UserState>((set, get) => ({
           userInfo,
         })
       })
-      .catch(() => {})
+      .catch((err) => {
+        if (err.status === 401) {
+          this.remove()
+        }
+      })
   },
 }))

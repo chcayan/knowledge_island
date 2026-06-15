@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  ParseUUIDPipe,
   Post,
   Query,
   UploadedFile,
@@ -91,6 +92,15 @@ export class PostController {
     return this.postService.getTagPostCount()
   }
 
+  @Post(':postId/collection')
+  @UseGuards(JwtGuard)
+  async toggleCollection(
+    @Param('postId', ParseUUIDPipe) postId: string,
+    @User() userId: string
+  ) {
+    return this.postService.toggleCollection(postId, userId)
+  }
+
   @Get('comments/:id')
   @UseGuards(OptionalJwtGuard)
   async getComments(
@@ -103,15 +113,18 @@ export class PostController {
   }
 
   @Get(':id')
-  async getPost(@Param('id') id: string) {
-    return this.postService.getPost(id)
+  @UseGuards(OptionalJwtGuard)
+  async getPost(@Param('id') id: string, @OptionalUser() userId: string) {
+    return this.postService.getPost(id, userId)
   }
 
   @Get()
+  @UseGuards(OptionalJwtGuard)
   async getPostList(
     @Query('page', ParseIntPipe) page: number,
-    @Query('pageSize', ParseIntPipe) pageSize: number
+    @Query('pageSize', ParseIntPipe) pageSize: number,
+    @OptionalUser() userId: string
   ) {
-    return this.postService.getPostList(page, pageSize)
+    return this.postService.getPostList(page, pageSize, userId)
   }
 }

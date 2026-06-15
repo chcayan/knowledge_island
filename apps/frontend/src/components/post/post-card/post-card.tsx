@@ -10,9 +10,31 @@ import CollectionCountIcon from '../../icon/collection-count-icon'
 import { useState } from 'react'
 import 'katex/dist/katex.min.css'
 import LexicalHtml from '../lexical-html/lexical-html'
+import { toggleCollectionAPI } from '@/api'
+import { useTranslations } from 'next-intl'
+import { Toast } from '@/utils/toast'
 
 export default function PostCard({ post }: { post: PostInfo }) {
-  const [isCollected, setIsCollected] = useState(false)
+  const [isCollected, setIsCollected] = useState(post.isCollected)
+
+  const t = useTranslations('Post')
+
+  const toggleCollection = async () => {
+    await toggleCollectionAPI(post.id).then(() => {
+      if (isCollected) {
+        Toast.show({
+          msg: t('event.cancelCollectSuccess'),
+          type: 'success',
+        })
+      } else {
+        Toast.show({
+          msg: t('event.collectSuccess'),
+          type: 'success',
+        })
+      }
+      setIsCollected((e) => !e)
+    })
+  }
 
   return (
     <div tabIndex={0} className={`${styles.post} tab-focus`}>
@@ -58,7 +80,7 @@ export default function PostCard({ post }: { post: PostInfo }) {
         </div>
         <div className={styles.right}>
           <ul>
-            <li onClick={() => setIsCollected((e) => !e)}>
+            <li onClick={toggleCollection}>
               <CollectionCountIcon isCollected={isCollected} />
             </li>
           </ul>

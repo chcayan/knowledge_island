@@ -55,7 +55,11 @@ export async function getPostListAPI(page: number, pageSize: number) {
 }
 
 export async function getPostAPI(id: string) {
-  const post: PostInfo = await fetchData(`/post/${id}`)
+  const post: PostInfo = await fetchData(`/post/${id}`, {
+    options: {
+      cache: 'no-store',
+    },
+  })
   return post
 }
 
@@ -112,4 +116,8 @@ export async function changeCommentReactionTypeAPI(
   dto: CreateCommentReactionDto
 ) {
   return request.post('/post/comment/reaction', dto)
+}
+
+export async function toggleCollectionAPI(postId: string) {
+  return request.post(`/post/${postId}/collection`)
 }

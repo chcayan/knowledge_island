@@ -22,6 +22,7 @@ import {
 } from '../../common/config/cookie.config'
 import type { AuthRequest } from '../../common/interface/auth-request.interface'
 import { JwtGuard } from '../../common/guard/jwt.guard'
+import { User } from '../../common/decorator/user.decorator'
 
 @Controller('user')
 export class UserController {
@@ -80,8 +81,16 @@ export class UserController {
   }
 
   @Post('register')
-  register(@Body(new ZodValidationPipe(RegisterSchema)) dto: RegisterDto) {
+  async register(
+    @Body(new ZodValidationPipe(RegisterSchema)) dto: RegisterDto
+  ) {
     return this.userService.register(dto)
+  }
+
+  @Get('me')
+  @UseGuards(JwtGuard)
+  async getMeInfo(@User() userId: string) {
+    return this.userService.findOne(userId)
   }
 
   @Get(':id')

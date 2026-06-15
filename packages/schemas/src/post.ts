@@ -26,7 +26,7 @@ export const PostSchema = z.object({
   }),
   contentHtml: z.string(),
   viewCount: z.number(),
-  CollectionCount: z.number(),
+  collectionCount: z.number(),
   commentCount: z.number(),
   createdAt: z.date(),
   updatedAt: z.date(),
@@ -62,6 +62,7 @@ export const PostInfoSchema = PostSchema.omit({
       createdAt: z.date(),
     })
   ),
+  isCollected: z.boolean(),
 })
 
 export const DraftInfoSchema = PostInfoSchema.omit({

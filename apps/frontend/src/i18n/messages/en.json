@@ -156,7 +156,9 @@
       "collapse": "Hide replies."
     },
     "event": {
-      "success": "Send successful"
+      "success": "Send successful",
+      "collectSuccess": "Collect successful",
+      "cancelCollectSuccess": "cancel collect successful"
     }
   },
   "RequestError": {

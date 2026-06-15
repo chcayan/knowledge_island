@@ -30,11 +30,17 @@ export class AuthController {
     private readonly jwtService: JwtService
   ) {}
 
+  private clearAuthCookie(res: Response) {
+    res.clearCookie(ACCESS_TOKEN_NAME)
+    res.clearCookie(REFRESH_TOKEN_NAME)
+  }
+
   @Post('refresh')
   async refreshToken(@Req() req: AuthRequest, @Res() res: Response) {
     const refreshToken = req.cookies.refresh_token
 
     if (!refreshToken) {
+      this.clearAuthCookie(res)
       return res.status(401).json({
         code: ERROR_CODE.NO_TOKEN,
         message: ERROR_MESSAGE[ERROR_CODE.NO_TOKEN],
@@ -49,6 +55,7 @@ export class AuthController {
       const storedToken = await this.authService.get(payload.id, payload.role)
 
       if (storedToken !== refreshToken) {
+        this.clearAuthCookie(res)
         return res.status(401).json({
           code: ERROR_CODE.TOKEN_MISMATCH,
           message: ERROR_MESSAGE[ERROR_CODE.TOKEN_MISMATCH],
@@ -86,6 +93,7 @@ export class AuthController {
         message: 'success',
       })
     } catch {
+      this.clearAuthCookie(res)
       return res.status(401).json({
         code: ERROR_CODE.TOKEN_EXPIRED,
         message: ERROR_MESSAGE[ERROR_CODE.TOKEN_EXPIRED],
