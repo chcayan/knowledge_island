@@ -7,7 +7,7 @@ import { locale } from '@/types/locale'
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import CardListSkeleton from '@/components/common/card-list-skeleton/card-list-skeleton'
-import UserControl from '@/components/home/user-control/user-control'
+import UserControl from '@/components/common/user-control/user-control'
 import TagPostCount from '@/components/home/tag-post-count/tag-post-count'
 
 export async function generateMetadata({

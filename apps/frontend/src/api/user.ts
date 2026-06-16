@@ -41,6 +41,5 @@ export async function getUserInfoAPI(userId: string) {
 
 export async function getMeInfoAPI() {
   const data: UserPublic = await fetchData('/user/me')
-
   return data
 }

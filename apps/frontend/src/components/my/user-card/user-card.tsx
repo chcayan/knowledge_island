@@ -2,8 +2,10 @@
 import { getMeInfoAPI } from '@/api'
 import styles from './user-card.module.scss'
 import { getImgUrl } from '@/utils'
+import { getTranslations } from 'next-intl/server'
 
 export default async function UserCard() {
+  const t = await getTranslations('Global.text')
   const userInfo = await getMeInfoAPI()
 
   return (
@@ -22,10 +24,10 @@ export default async function UserCard() {
           </div>
           <div className={styles.count}>
             <p>
-              粉丝&nbsp;<span>{userInfo.fanCount}</span>
+              {t('fans')}&nbsp;<span>{userInfo.fanCount}</span>
             </p>
             <p>
-              关注&nbsp;<span>{userInfo.followCount}</span>
+              {t('follows')}&nbsp;<span>{userInfo.followCount}</span>
             </p>
           </div>
           <p className={styles.signature}>{userInfo.signature}</p>

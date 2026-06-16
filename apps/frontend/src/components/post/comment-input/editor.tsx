@@ -155,14 +155,16 @@ export default forwardRef(function Editor(
                 className="tab-focus"
                 style={{
                   height: '30px',
-                  width: '70px',
+                  width: 'fit-content',
+                  padding: '0 5px',
+                  cursor: 'pointer',
                 }}
                 onClick={() => {
                   setName('')
                   emitter.emit('EVENT:COMMENT_REPLY_RESET')
                 }}
               >
-                取消回复
+                {t('comment.cancelReply')}
               </button>
             )}
             <LoadingButton

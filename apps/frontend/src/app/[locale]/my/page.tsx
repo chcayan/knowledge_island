@@ -3,13 +3,14 @@ import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import styles from './page.module.scss'
 import Search from '@/components/common/search/search'
-import UserControl from '@/components/home/user-control/user-control'
+import UserControl from '@/components/common/user-control/user-control'
 import BackButton from '@/components/common/back-button'
 import UserCard from '@/components/my/user-card/user-card'
 import { Suspense } from 'react'
-import PostList from '@/components/home/post-list/post-list'
 import CardListSkeleton from '@/components/common/card-list-skeleton/card-list-skeleton'
 import ToggleButton from '@/components/common/toggle-button-server/toggle-button-server'
+import { PostFilter } from '@knowledge_island/schemas'
+import PostList from '@/components/my/post-list/post-list'
 
 export async function generateMetadata({
   params,
@@ -34,12 +35,13 @@ export async function generateMetadata({
 export default async function MyPage(props: {
   searchParams?: Promise<{
     page?: string
-    filter?: 'published' | 'violation' | 'reviewing' | 'collection'
+    filter?: PostFilter
   }>
 }) {
+  const t = await getTranslations('My')
   const searchParams = await props.searchParams
   const page = Number(searchParams?.page ?? 1)
-  const filter = searchParams?.filter || 'published'
+  const filter = searchParams?.filter || PostFilter.PUBLISHED
 
   return (
     <>
@@ -63,21 +65,21 @@ export default async function MyPage(props: {
                 value={filter}
                 options={[
                   {
-                    label: '已发布',
-                    value: 'published',
+                    label: t('tab.published'),
+                    value: PostFilter.PUBLISHED,
                   },
                   {
-                    label: '收藏',
-                    value: 'collection',
+                    label: t('tab.collected'),
+                    value: PostFilter.COLLECTION,
                   },
                   {
-                    label: '待审核',
-                    value: 'reviewing',
+                    label: t('tab.reviewing'),
+                    value: PostFilter.REVIEWING,
                   },
 
                   {
-                    label: '违规',
-                    value: 'violation',
+                    label: t('tab.violated'),
+                    value: PostFilter.VIOLATION,
                   },
                 ]}
               />

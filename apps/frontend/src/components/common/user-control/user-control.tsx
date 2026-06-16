@@ -1,17 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
-'use client'
-
 import NotificationIcon from '@/components/icon/notification-icon'
 import styles from './user-control.module.scss'
-import { useUserStore } from '@/stores'
 import { getImgUrl } from '@/utils'
 import LoginIcon from '@/components/icon/login-icon'
-import { useRouter } from 'next/navigation'
+import { getMeInfoAPI } from '@/api'
+import Link from 'next/link'
 import { RoutePath } from '@/config/path'
 
-export default function UserControl() {
-  const userInfo = useUserStore((state) => state.userInfo)
-  const router = useRouter()
+export default async function UserControl() {
+  const userInfo = await getMeInfoAPI().catch(() => {})
 
   return (
     <div className={styles['user-control']}>
@@ -26,19 +23,16 @@ export default function UserControl() {
         <NotificationIcon />
       </button>
       <button tabIndex={0} className={`${styles.avatar} tab-focus`}>
-        {userInfo.id ? (
-          <img
-            src={getImgUrl(userInfo.avatar)}
-            alt={'user-avatar'}
-            onClick={() => router.push(RoutePath.my)}
-          />
+        {userInfo && userInfo.id ? (
+          <Link href={RoutePath.my}>
+            <img src={getImgUrl(userInfo.avatar)} alt={'user-avatar'} />
+          </Link>
         ) : (
-          <div
-            className={styles.login}
-            onClick={() => router.push(RoutePath.login)}
-          >
-            <LoginIcon />
-          </div>
+          <Link href={RoutePath.login}>
+            <div className={styles.login}>
+              <LoginIcon />
+            </div>
+          </Link>
         )}
       </button>
     </div>

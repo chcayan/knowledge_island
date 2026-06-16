@@ -13,6 +13,7 @@ import {
   CreateCommentDto,
   CreateCommentReactionDto,
   CreatePostDto,
+  PostFilter,
 } from '@knowledge_island/schemas'
 import fs from 'fs'
 import path from 'path'
@@ -176,8 +177,8 @@ export class PostService {
     }
   }
 
-  async getPostList(page: number, pageSize: number, userId?: string) {
-    const qb = this.postRepo
+  async getPostList(page: number, pageSize: number) {
+    const [list, total] = await this.postRepo
       .createQueryBuilder('post')
       .leftJoin('post.author', 'author')
       .addSelect(['author.id', 'author.name', 'author.avatar'])
@@ -188,34 +189,35 @@ export class PostService {
       .orderBy('post.createdAt', 'DESC')
       .skip((page - 1) * pageSize)
       .take(pageSize)
+      .getManyAndCount()
 
-    if (userId) {
-      qb.leftJoin(
-        Collection,
-        'collection',
-        'collection.postId = post.id AND collection.userId = :userId',
-        { userId }
-      ).addSelect(
-        'CASE WHEN collection.id IS NULL THEN 0 ELSE 1 END',
-        'isCollected'
-      )
-    } else {
-      qb.addSelect('0', 'isCollected')
-    }
+    // if (userId) {
+    //   qb.leftJoin(
+    //     Collection,
+    //     'collection',
+    //     'collection.postId = post.id AND collection.userId = :userId',
+    //     { userId }
+    //   ).addSelect(
+    //     'CASE WHEN collection.id IS NULL THEN 0 ELSE 1 END',
+    //     'isCollected'
+    //   )
+    // } else {
+    //   qb.addSelect('0', 'isCollected')
+    // }
 
-    const [total, result] = await Promise.all([
-      qb.getCount(),
-      qb.getRawAndEntities(),
-    ])
+    // const [total, result] = await Promise.all([
+    //   qb.getCount(),
+    //   qb.getRawAndEntities(),
+    // ])
 
-    const list = result.entities.map((post, index) => ({
-      ...post,
-      isCollected:
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        result.raw[index].isCollected === 1 ||
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        result.raw[index].isCollected === '1',
-    }))
+    // const list = result.entities.map((post, index) => ({
+    //   ...post,
+    //   isCollected:
+    //     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    //     result.raw[index].isCollected === 1 ||
+    //     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    //     result.raw[index].isCollected === '1',
+    // }))
 
     return {
       list,
@@ -271,6 +273,69 @@ export class PostService {
     })
 
     return { ...post, isCollected }
+  }
+
+  async getMePostList(
+    page: number,
+    pageSize: number,
+    userId: string,
+    filter: PostFilter
+  ) {
+    const qb = this.postRepo
+      .createQueryBuilder('post')
+      .leftJoin('post.author', 'author')
+      .addSelect(['author.id', 'author.name', 'author.avatar'])
+      .leftJoinAndSelect('post.tags', 'tags')
+
+    if (filter === PostFilter.COLLECTION) {
+      qb.innerJoin(
+        Collection,
+        'collection',
+        'collection.postId = post.id AND collection.userId = :userId',
+        { userId }
+      ).addSelect('collection.createdAt', 'collection_created_at')
+    } else {
+      const statusMap = {
+        [PostFilter.PUBLISHED]: PostStatus.PUBLISHED,
+        [PostFilter.VIOLATION]: PostStatus.VIOLATION,
+        [PostFilter.REVIEWING]: PostStatus.REVIEWING,
+      }
+
+      qb.where('author.id = :userId', { userId }).andWhere(
+        'post.status = :status',
+        {
+          status: statusMap[filter],
+        }
+      )
+    }
+
+    qb.orderBy(
+      filter === PostFilter.COLLECTION
+        ? 'collection.createdAt'
+        : 'post.createdAt',
+      'DESC'
+    )
+      .skip((page - 1) * pageSize)
+      .take(pageSize)
+
+    const [total, result] = await Promise.all([
+      qb.getCount(),
+      qb.getRawAndEntities(),
+    ])
+
+    const list = result.entities.map((post, index) => ({
+      ...post,
+      isCollected:
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        result.raw[index].isCollected === 1 ||
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        result.raw[index].isCollected === '1',
+    }))
+
+    return {
+      list,
+      total,
+    }
   }
 
   async getTagPostCount() {

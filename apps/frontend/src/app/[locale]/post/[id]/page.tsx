@@ -1,6 +1,6 @@
 import Search from '@/components/common/search/search'
 import styles from './post.module.scss'
-import UserControl from '@/components/home/user-control/user-control'
+import UserControl from '@/components/common/user-control/user-control'
 import { Suspense } from 'react'
 import CardSkeleton from '@/components/common/card-skeleton/card-skeleton'
 import BackButton from '@/components/common/back-button'

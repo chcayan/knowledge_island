@@ -149,6 +149,7 @@
       "title": "评论：",
       "emptyTip": "暂时没有评论",
       "reply": "回复",
+      "cancelReply": "取消回复",
       "emptyInputTip": "内容不能为空",
       "replyToUser": "回复{name}：",
       "replyText": "回复",
@@ -159,6 +160,22 @@
       "success": "发送成功",
       "collectSuccess": "收藏成功",
       "cancelCollectSuccess": "取消收藏成功"
+    }
+  },
+  "My": {
+    "tab": {
+      "published": "已发布",
+      "collected": "收藏",
+      "reviewing": "待审核",
+      "violated": "违规"
+    },
+    "tip": {
+      "emptyPublishedPost": "你还没有发布的帖子，",
+      "publish": "去发布",
+      "emptyCollectedPost": "你还没有收藏过帖子，",
+      "collect": "去收藏",
+      "emptyReviewingPost": "没有待审核的帖子",
+      "emptyViolatedPost": "没有违规的帖子"
     }
   },
   "RequestError": {
@@ -215,6 +232,10 @@
       "title": "确认操作",
       "confirmText": "确认",
       "cancelText": "取消"
+    },
+    "text": {
+      "fans": "粉丝",
+      "follows": "关注"
     }
   }
 }

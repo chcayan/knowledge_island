@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  ParseEnumPipe,
   ParseIntPipe,
   ParseUUIDPipe,
   Post,
@@ -21,6 +22,7 @@ import {
   type CreatePostDto,
   type CreateCommentDto,
   type CreateCommentReactionDto,
+  PostFilter,
 } from '@knowledge_island/schemas'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { uploadOptions } from '../../common/config/upload.config'
@@ -112,6 +114,17 @@ export class PostController {
     return this.postService.getComments(id, page, pageSize, userId)
   }
 
+  @Get('me')
+  @UseGuards(JwtGuard)
+  async getMePostList(
+    @Query('page', ParseIntPipe) page: number,
+    @Query('pageSize', ParseIntPipe) pageSize: number,
+    @Query('filter', new ParseEnumPipe(PostFilter)) filter: PostFilter,
+    @User() userId: string
+  ) {
+    return this.postService.getMePostList(page, pageSize, userId, filter)
+  }
+
   @Get(':id')
   @UseGuards(OptionalJwtGuard)
   async getPost(@Param('id') id: string, @OptionalUser() userId: string) {
@@ -119,12 +132,12 @@ export class PostController {
   }
 
   @Get()
-  @UseGuards(OptionalJwtGuard)
+  // @UseGuards(OptionalJwtGuard)
   async getPostList(
     @Query('page', ParseIntPipe) page: number,
-    @Query('pageSize', ParseIntPipe) pageSize: number,
-    @OptionalUser() userId: string
+    @Query('pageSize', ParseIntPipe) pageSize: number
+    // @OptionalUser() userId: string
   ) {
-    return this.postService.getPostList(page, pageSize, userId)
+    return this.postService.getPostList(page, pageSize)
   }
 }

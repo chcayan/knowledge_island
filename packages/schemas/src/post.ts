@@ -19,6 +19,12 @@ export enum PostEditableStatus {
   REVIEWING = '1',
 }
 
+export enum PostFilter {
+  PUBLISHED = 'PUBLISHED',
+  COLLECTION = 'COLLECTION',
+  REVIEWING = 'REVIEWING',
+  VIOLATION = 'VIOLATION',
+}
 export const PostSchema = z.object({
   id: z.uuid(),
   content: z.any().refine((val) => val !== null && val !== undefined, {

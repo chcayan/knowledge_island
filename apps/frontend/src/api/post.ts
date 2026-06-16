@@ -7,6 +7,7 @@ import {
   CreateCommentSchema,
   CreatePostSchema,
   DraftInfo,
+  PostFilter,
   PostInfo,
   type CreatePostDto,
 } from '@knowledge_island/schemas'
@@ -92,6 +93,36 @@ export async function getCommentsAPI(
   }
 }
 
+export async function getMePostListAPI(
+  page: number,
+  pageSize: number,
+  filter: PostFilter
+) {
+  const data = await fetchData('/post/me', {
+    params: {
+      page,
+      pageSize,
+      filter,
+    },
+    options: {
+      cache: 'no-store',
+    },
+  })
+
+  const {
+    list,
+    total,
+  }: {
+    list: PostInfo[]
+    total: number
+  } = data
+
+  return {
+    list,
+    total,
+  }
+}
+
 export async function getDraftAPI() {
   const res = await request.get('/post/draft')
   const { draft }: { draft: DraftInfo | null } = res.data.data
@@ -106,8 +137,7 @@ export type TagPostCountType = {
 }
 
 export async function getTagPostCountAPI() {
-  const res = await request.get('/post/tag-post-count')
-  const result: TagPostCountType[] = res.data.data
+  const result: TagPostCountType[] = await fetchData('/post/tag-post-count')
 
   return result
 }
