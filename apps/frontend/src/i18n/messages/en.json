@@ -113,6 +113,49 @@
           "confirmText": "logout"
         }
       }
+    },
+    "subModule": {
+      "general": {
+        "title": "General",
+        "subItem": {
+          "language": {
+            "title": "Language"
+          },
+          "theme": {
+            "title": "Theme",
+            "select": {
+              "system": "System",
+              "light": "Light",
+              "dark": "Dark"
+            }
+          }
+        }
+      },
+      "individual": {
+        "title": "Individual",
+        "subItem": {
+          "nickname": {
+            "title": "Nickname"
+          },
+          "signature": {
+            "title": "Signature"
+          },
+          "avatar": {
+            "title": "Avatar"
+          },
+          "status": {
+            "title": "Status",
+            "options": {
+              "logout": "Logout",
+              "login": "Login"
+            }
+          }
+        }
+      }
+    },
+    "error": {
+      "GIF_SIZE_LIMIT": "The gif size should not exceed {size}M.",
+      "MODIFY_AVATAR_FAILED": "Failed to modify avatar."
     }
   },
   "Login": {

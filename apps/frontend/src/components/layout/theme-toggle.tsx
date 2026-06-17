@@ -1,19 +1,31 @@
 'use client'
 
 import { useTheme } from '@wrksz/themes/client'
+import Select from '../common/select/select'
+import { useTranslations } from 'next-intl'
 
 export default function ThemeToggle() {
-  const { theme, setTheme, systemTheme } = useTheme()
-
-  const currentTheme = theme === 'system' ? systemTheme : theme
+  const t = useTranslations('Setting.subModule.general.subItem.theme')
+  const { theme, setTheme } = useTheme()
 
   return (
-    <div>
-      <p>当前主题：{currentTheme}</p>
-
-      <button onClick={() => setTheme('light')}>浅色</button>
-      <button onClick={() => setTheme('dark')}>深色</button>
-      <button onClick={() => setTheme('system')}>跟随系统</button>
-    </div>
+    <Select
+      value={theme}
+      options={[
+        {
+          label: t('select.system'),
+          value: 'system',
+        },
+        {
+          label: t('select.light'),
+          value: 'light',
+        },
+        {
+          label: t('select.dark'),
+          value: 'dark',
+        },
+      ]}
+      onChange={(value) => setTheme(value)}
+    />
   )
 }

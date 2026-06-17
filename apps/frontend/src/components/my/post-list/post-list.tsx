@@ -17,13 +17,32 @@ interface Props {
   }>
 }
 
+function checkFilterValid(filter: PostFilter | undefined) {
+  const filterArr = [
+    PostFilter.PUBLISHED,
+    PostFilter.COLLECTION,
+    PostFilter.REVIEWING,
+    PostFilter.VIOLATION,
+  ]
+
+  if (!filter) {
+    return PostFilter.PUBLISHED
+  }
+
+  if (filterArr.includes(filter)) {
+    return filter
+  } else {
+    redirect(RoutePath.my)
+  }
+}
+
 export default async function PostList({ searchParams }: Props) {
   const t = await getTranslations('My')
 
   const params = await searchParams
 
   const page = Number(params?.page ?? 1)
-  const filter = params?.filter || PostFilter.PUBLISHED
+  const filter = checkFilterValid(params?.filter) || PostFilter.PUBLISHED
   const pageSize = POST_PAGE_SIZE
 
   const { list, total } = await getMePostListAPI(page, pageSize, filter)
@@ -79,11 +98,11 @@ export default async function PostList({ searchParams }: Props) {
                     cursor: 'pointer',
                     textDecorationLine: 'underline',
                     fontWeight: 'bold',
+                    color: 'var(--theme-font-color)',
                   }}
                 >
                   {t('tip.publish')}
                 </span>
-                {'.'}
               </Link>
             )}
             {filter === PostFilter.COLLECTION && (
@@ -94,11 +113,11 @@ export default async function PostList({ searchParams }: Props) {
                     cursor: 'pointer',
                     textDecorationLine: 'underline',
                     fontWeight: 'bold',
+                    color: 'var(--theme-font-color)',
                   }}
                 >
                   {t('tip.collect')}
                 </span>
-                {'.'}
               </Link>
             )}
           </p>

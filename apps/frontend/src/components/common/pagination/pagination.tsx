@@ -8,9 +8,15 @@ interface Props {
   currentPage: number
   total: number
   pageSize: number
+  anchor?: string
 }
 
-export default function Pagination({ currentPage, total, pageSize }: Props) {
+export default function Pagination({
+  currentPage,
+  total,
+  pageSize,
+  anchor,
+}: Props) {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -29,7 +35,13 @@ export default function Pagination({ currentPage, total, pageSize }: Props) {
 
     const query = params.toString()
 
-    return query ? `${pathname}?${query}` : pathname
+    const path = query ? `${pathname}?${query}` : pathname
+
+    if (anchor) {
+      return path + `#${anchor}`
+    } else {
+      return path
+    }
   }
 
   const generatePages = () => {

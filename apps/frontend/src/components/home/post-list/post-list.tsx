@@ -62,6 +62,7 @@ export default async function PostList({ searchParams }: Props) {
                   cursor: 'pointer',
                   textDecorationLine: 'underline',
                   fontWeight: 'bold',
+                  color: 'var(--theme-font-color)',
                 }}
               >
                 {t('event.publish')}

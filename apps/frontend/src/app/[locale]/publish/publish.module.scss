@@ -74,7 +74,7 @@ $width: 628px;
       gap: $gap;
       padding: $gap * 1.5;
       border-radius: $gap;
-      background-color: var(--theme-secondary-color);
+      background-color: var(--theme-forth-color);
       margin-bottom: $gap * 1.5;
     }
 
@@ -101,7 +101,7 @@ $width: 628px;
         input {
           height: 40px;
           width: 100%;
-          background-color: var(--theme-third-color);
+          background-color: var(--theme-secondary-color);
           border-radius: $gap;
           padding-left: $gap;
           padding-right: 45px;

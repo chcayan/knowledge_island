@@ -12,10 +12,9 @@ export default async function TagPostCount() {
     <div className={styles['tag-rankings']}>
       <p className={styles.title}>{t('title')}</p>
       <ul>
-        {list.map((item, index) => (
+        {list.map((item) => (
           <li tabIndex={0} className="tab-focus" key={item.id}>
-            <p className={styles.rank}>{index + 1}</p>
-            <p className={styles.name}>{item.name}</p>
+            <p className={styles.name}># {item.name}</p>
             <p className={styles.count}>{item.postCount}</p>
           </li>
         ))}

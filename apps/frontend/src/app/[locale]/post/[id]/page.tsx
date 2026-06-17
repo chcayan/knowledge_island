@@ -9,6 +9,7 @@ import CommentList from '@/components/post/comment-list/comment-list'
 import { getTranslations } from 'next-intl/server'
 import PostCardWrapper from '@/components/post/post-card/post-card-wrapper'
 import CommentListSkeleton from '@/components/post/comment-skeleton/comment-list-skeleton'
+import { COMMENTS_ANCHOR } from '@/config/path'
 
 export default async function PostPage(props: {
   params: Promise<{ id: string }>
@@ -40,7 +41,14 @@ export default async function PostPage(props: {
             <CommentInput />
           </aside>
           <div className={styles.comment}>
-            <h3>{t('comment.title')}</h3>
+            <h3
+              id={COMMENTS_ANCHOR}
+              style={{
+                scrollMarginTop: '80px',
+              }}
+            >
+              {t('comment.title')}
+            </h3>
             <ul>
               <Suspense fallback={<CommentListSkeleton />}>
                 <CommentList searchParams={searchParams} id={params.id} />

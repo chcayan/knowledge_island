@@ -113,6 +113,49 @@
           "confirmText": "退出"
         }
       }
+    },
+    "subModule": {
+      "general": {
+        "title": "常规",
+        "subItem": {
+          "language": {
+            "title": "语言"
+          },
+          "theme": {
+            "title": "主题",
+            "select": {
+              "system": "跟随系统",
+              "light": "浅色",
+              "dark": "深色"
+            }
+          }
+        }
+      },
+      "individual": {
+        "title": "个人",
+        "subItem": {
+          "nickname": {
+            "title": "昵称"
+          },
+          "signature": {
+            "title": "简介"
+          },
+          "avatar": {
+            "title": "头像"
+          },
+          "status": {
+            "title": "登录状态",
+            "options": {
+              "logout": "退出登录",
+              "login": "登录"
+            }
+          }
+        }
+      }
+    },
+    "error": {
+      "GIF_SIZE_LIMIT": "gif 大小不超过 {size}M",
+      "MODIFY_AVATAR_FAILED": "修改头像失败"
     }
   },
   "Login": {

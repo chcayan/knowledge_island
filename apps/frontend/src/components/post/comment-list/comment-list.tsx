@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { redirect } from 'next/navigation'
 import Pagination from '@/components/common/pagination/pagination'
 import { COMMENT_PAGE_SIZE } from '@/config/post-field'
+import { COMMENTS_ANCHOR } from '@/config/path'
 
 interface Props {
   searchParams?: {
@@ -35,7 +36,12 @@ export default async function CommentList({ searchParams, id }: Props) {
           </li>
         ))}
         <div style={{ height: '20px' }}></div>
-        <Pagination currentPage={page} total={total} pageSize={pageSize} />
+        <Pagination
+          currentPage={page}
+          total={total}
+          pageSize={pageSize}
+          anchor={COMMENTS_ANCHOR}
+        />
       </>
     )
   } else {

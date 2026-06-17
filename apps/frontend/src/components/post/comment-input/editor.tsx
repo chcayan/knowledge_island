@@ -173,7 +173,7 @@ export default forwardRef(function Editor(
               disabled={false}
               style={{
                 marginRight: '5px',
-                background: 'var(--theme-third-color)',
+                background: 'var(--theme-primary-color)',
                 height: '30px',
                 width: '70px',
               }}

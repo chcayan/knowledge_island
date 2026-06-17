@@ -268,7 +268,7 @@ export default function PublishPage() {
               loading={draftLoading}
               onClick={handleDraft}
               style={{
-                backgroundColor: 'var(--theme-third-color)',
+                backgroundColor: 'var(--theme-forth-color)',
                 height: '40px',
               }}
               disabled={publishLoading || draftLoading}

@@ -5,7 +5,7 @@
   .shape-left {
     width: 40px;
     height: 40px;
-    background-color: var(--theme-third-color);
+    background-color: var(--theme-secondary-color);
     flex-shrink: 0;
     border-radius: 10px;
     position: absolute;
@@ -15,17 +15,18 @@
   .shape-right {
     width: 40px;
     height: 40px;
-    background-color: var(--theme-third-color);
+    background-color: var(--theme-secondary-color);
     flex-shrink: 0;
     border-radius: 10px;
     position: absolute;
+    // z-index: -1;
     right: -4px;
   }
 
   .wrapper {
     position: relative;
     // display: inline-flex;
-    background-color: var(--theme-third-color);
+    background-color: var(--theme-secondary-color);
     border-radius: 10px;
     height: 40px;
     flex-shrink: 0;

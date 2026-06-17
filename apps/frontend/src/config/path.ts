@@ -9,3 +9,5 @@ export const RoutePath = {
   post: '/post',
   user: '/user',
 }
+
+export const COMMENTS_ANCHOR = 'comments'
