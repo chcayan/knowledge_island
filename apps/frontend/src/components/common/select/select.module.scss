@@ -29,16 +29,20 @@
 }
 
 .dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
   position: absolute;
   top: calc(100% + 6px);
   left: 0;
   width: 100%;
   background: var(--theme-primary-color);
   border-radius: 10px;
-  overflow: hidden;
+  // overflow: hidden;
   z-index: 100;
   box-shadow: var(--theme-shadow-color);
-  padding: 4px 0;
+  // padding: 4px 0;
 }
 
 .option {
@@ -46,12 +50,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 14px;
+  padding: 8px 10px;
   background: transparent;
   border: none;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
 .active {
   font-weight: bold;
+}
+
+.highlight {
+  border-radius: 10px;
+  background: var(--theme-secondary-color);
 }

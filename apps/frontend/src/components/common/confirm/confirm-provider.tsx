@@ -50,6 +50,7 @@ export default function ConfirmProvider({ children }: { children: ReactNode }) {
           danger: options.danger,
           x: options.x,
           y: options.y,
+          anchor: options.anchor,
         })
       })
     },

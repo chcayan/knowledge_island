@@ -160,5 +160,7 @@ export class UserService {
     }
 
     await this.userRepo.update({ id: userId }, { avatar })
+
+    return { url: avatar }
   }
 }

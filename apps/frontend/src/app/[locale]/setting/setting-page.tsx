@@ -1,7 +1,12 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 
-import { LogoutAPI, modifyUserNameAPI } from '@/api'
+import {
+  LogoutAPI,
+  modifyUserAvatarAPI,
+  modifyUserNameAPI,
+  modifyUserSignatureAPI,
+} from '@/api'
 import { useConfirm } from '@/components/common/confirm/useConfirm'
 import LocaleToggle from '@/components/common/locale-toggle/locale-toggle'
 import ThemeToggle from '@/components/layout/theme-toggle'
@@ -36,6 +41,7 @@ export default function SettingPage() {
         description: t('individual.logout.confirm.description'),
         confirmText: t('individual.logout.confirm.confirmText'),
         danger: true,
+        anchor: e.currentTarget,
         x: e.clientX,
         y: e.clientY,
       })
@@ -56,13 +62,23 @@ export default function SettingPage() {
   }
 
   const fileInputRef = useRef<HTMLInputElement>(null)
-
+  const imageRef = useRef<HTMLImageElement>(null)
   const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
 
     if (file) {
       try {
-        // const res = await uploadImageAPI(file)
+        const res = await modifyUserAvatarAPI(file)
+        const url = res.data.data.url
+        const init = useUserStore.getState().init
+        await init()
+        if (imageRef.current) {
+          imageRef.current.src = getImgUrl(url)
+        }
+        Toast.show({
+          msg: t('event.modifySuccess'),
+          type: 'success',
+        })
       } catch (err) {
         if (err instanceof CustomError) {
           if (err.type === 'GIF_SIZE_LIMIT') {
@@ -84,6 +100,7 @@ export default function SettingPage() {
   }
 
   const [name, setName] = useState('')
+  const nameInputRef = useRef<HTMLInputElement>(null)
   const modifyUserName = async () => {
     if (name !== userInfo.name) {
       try {
@@ -100,6 +117,26 @@ export default function SettingPage() {
     }
 
     setName('')
+  }
+
+  const [signature, setSignature] = useState('')
+  const signatureInputRef = useRef<HTMLTextAreaElement>(null)
+  const modifyUserSignature = async () => {
+    if (signature !== userInfo.signature) {
+      try {
+        await modifyUserSignatureAPI(signature)
+        const init = useUserStore.getState().init
+        await init()
+        Toast.show({
+          msg: t('event.modifySuccess'),
+          type: 'success',
+        })
+      } finally {
+        setSignature('')
+      }
+    }
+
+    setSignature('')
   }
 
   return (
@@ -132,21 +169,27 @@ export default function SettingPage() {
               <div className={styles.cardContent}>
                 <p>{t('subModule.individual.subItem.nickname.title')}</p>
                 <input
+                  ref={nameInputRef}
                   style={{
                     width: '50%',
                     minWidth: '200px',
                     textAlign: 'end',
                     paddingRight: '10px',
                   }}
-                  // defaultValue={name}
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  type="text"
                   placeholder={userInfo.name}
                   minLength={1}
                   maxLength={USER_NAME_MAX_LENGTH}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  type="text"
                   onFocus={() => setName(userInfo.name)}
                   onBlur={modifyUserName}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      modifyUserName()
+                      nameInputRef.current?.blur()
+                    }
+                  }}
                 />
               </div>
             )}
@@ -154,10 +197,21 @@ export default function SettingPage() {
               <div className={`${styles.cardContent} ${styles.signature}`}>
                 <p>{t('subModule.individual.subItem.signature.title')}</p>
                 <textarea
+                  ref={signatureInputRef}
                   className={styles.textarea}
                   placeholder={userInfo.signature}
                   minLength={1}
                   maxLength={USER_SIGNATURE_MAX_LENGTH}
+                  value={signature}
+                  onChange={(e) => setSignature(e.target.value)}
+                  onFocus={() => setSignature(userInfo.signature)}
+                  onBlur={modifyUserSignature}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      modifyUserSignature()
+                      signatureInputRef.current?.blur()
+                    }
+                  }}
                 />
               </div>
             )}
@@ -165,9 +219,15 @@ export default function SettingPage() {
               <div className={`${styles.cardContent} ${styles.avatar}`}>
                 <p>{t('subModule.individual.subItem.avatar.title')}</p>
                 <img
+                  tabIndex={0}
+                  className="tab-focus"
+                  ref={imageRef}
                   src={getImgUrl(userInfo.avatar)}
                   alt="user-avatar-modify"
                   onClick={() => fileInputRef.current?.click()}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') fileInputRef.current?.click()
+                  }}
                 />
                 <input
                   type="file"
@@ -180,7 +240,11 @@ export default function SettingPage() {
             )}
             <div className={styles.cardContent}>
               <p>{t('subModule.individual.subItem.status.title')}</p>
-              <button className={styles.logoutBtn} onClick={handleLogin}>
+              <button
+                tabIndex={0}
+                className={`${styles.logoutBtn} tab-focus`}
+                onClick={handleLogin}
+              >
                 {userInfo.id
                   ? t('subModule.individual.subItem.status.options.logout')
                   : t('subModule.individual.subItem.status.options.login')}

@@ -22,19 +22,17 @@ export default async function UserControl() {
       >
         <NotificationIcon />
       </button>
-      <button tabIndex={0} className={`${styles.avatar} tab-focus`}>
-        {userInfo && userInfo.id ? (
-          <Link href={RoutePath.my}>
-            <img src={getImgUrl(userInfo.avatar)} alt={'user-avatar'} />
-          </Link>
-        ) : (
-          <Link href={RoutePath.login}>
-            <div className={styles.login}>
-              <LoginIcon />
-            </div>
-          </Link>
-        )}
-      </button>
+      {userInfo && userInfo.id ? (
+        <Link href={RoutePath.my} className={`${styles.avatar} tab-focus`}>
+          <img src={getImgUrl(userInfo.avatar)} alt={'user-avatar'} />
+        </Link>
+      ) : (
+        <Link href={RoutePath.login}>
+          <div className={styles.login}>
+            <LoginIcon />
+          </div>
+        </Link>
+      )}
     </div>
   )
 }
