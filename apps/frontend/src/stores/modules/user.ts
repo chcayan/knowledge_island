@@ -10,7 +10,7 @@ interface UserState {
   userId: string
   userInfo: UserPublic
 
-  init: () => void
+  init: () => Promise<void>
   setUserId: (userId: string) => void
   remove: () => void
 }

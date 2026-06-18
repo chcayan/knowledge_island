@@ -15,6 +15,7 @@ import { SeedModule } from './modules/seed/seed.module'
 import { RedisModule } from './modules/redis/redis.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { ScheduleModule } from '@nestjs/schedule'
+import { SharedModule } from './modules/shared/shared.module'
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { ScheduleModule } from '@nestjs/schedule'
     SeedModule,
     RedisModule,
     AuthModule,
+    SharedModule,
   ],
   controllers: [AppController],
   providers: [AppService],

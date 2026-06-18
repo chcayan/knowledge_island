@@ -156,6 +156,9 @@
     "error": {
       "GIF_SIZE_LIMIT": "The gif size should not exceed {size}M.",
       "MODIFY_AVATAR_FAILED": "Failed to modify avatar."
+    },
+    "event": {
+      "modifySuccess": "Modify successful"
     }
   },
   "Login": {

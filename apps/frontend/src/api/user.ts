@@ -1,5 +1,6 @@
 import { BASE_URL, REQUEST_TIMEOUT } from '@/config/request'
 import { fetchData, request } from '@/utils'
+import { compressImage } from '@/utils/compress'
 import {
   LoginDto,
   LoginSchema,
@@ -42,4 +43,20 @@ export async function getUserInfoAPI(userId: string) {
 export async function getMeInfoAPI() {
   const data: UserPublic = await fetchData('/user/me')
   return data
+}
+
+export async function modifyUserNameAPI(name: string) {
+  return request.post('/user/name', { name })
+}
+
+export async function modifyUserSignatureAPI(signature: string) {
+  return request.post('/user/signature', { signature })
+}
+
+export async function modifyUserAvatarAPI(avatar: File) {
+  const compressedFile = await compressImage(avatar)
+  const formData = new FormData()
+  formData.append('avatar', compressedFile || avatar)
+
+  return request.post('/user/avatar', formData)
 }

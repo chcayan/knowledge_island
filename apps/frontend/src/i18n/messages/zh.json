@@ -156,6 +156,9 @@
     "error": {
       "GIF_SIZE_LIMIT": "gif 大小不超过 {size}M",
       "MODIFY_AVATAR_FAILED": "修改头像失败"
+    },
+    "event": {
+      "modifySuccess": "修改成功"
     }
   },
   "Login": {

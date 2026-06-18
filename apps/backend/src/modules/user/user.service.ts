@@ -110,4 +110,55 @@ export class UserService {
 
     return hidePermFieldResult
   }
+
+  async modifyUserName(name: string, userId: string) {
+    const user = await this.userRepo.findOne({
+      where: {
+        id: userId,
+      },
+    })
+
+    if (!user) {
+      throw new NotFoundException({
+        code: ERROR_CODE.USER_NOT_FOUND,
+        message: ERROR_MESSAGE[ERROR_CODE.USER_NOT_FOUND],
+      })
+    }
+
+    await this.userRepo.update({ id: userId }, { name })
+  }
+
+  async modifyUserSignature(signature: string, userId: string) {
+    const user = await this.userRepo.findOne({
+      where: {
+        id: userId,
+      },
+    })
+
+    if (!user) {
+      throw new NotFoundException({
+        code: ERROR_CODE.USER_NOT_FOUND,
+        message: ERROR_MESSAGE[ERROR_CODE.USER_NOT_FOUND],
+      })
+    }
+
+    await this.userRepo.update({ id: userId }, { signature })
+  }
+
+  async modifyUserAvatar(avatar: string, userId: string) {
+    const user = await this.userRepo.findOne({
+      where: {
+        id: userId,
+      },
+    })
+
+    if (!user) {
+      throw new NotFoundException({
+        code: ERROR_CODE.USER_NOT_FOUND,
+        message: ERROR_MESSAGE[ERROR_CODE.USER_NOT_FOUND],
+      })
+    }
+
+    await this.userRepo.update({ id: userId }, { avatar })
+  }
 }

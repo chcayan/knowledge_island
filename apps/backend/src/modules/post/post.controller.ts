@@ -32,10 +32,14 @@ import { UserPermissionGuard } from '../../common/guard/permission.guard'
 import { UserPermission } from '../../common/decorator/permission.decorator'
 import { OptionalJwtGuard } from '../../common/guard/optional-jwt.guard'
 import { OptionalUser } from '../../common/decorator/optional-user.decorator'
+import { SharedService } from '../shared/shared.service'
 
 @Controller('post')
 export class PostController {
-  constructor(private readonly postService: PostService) {}
+  constructor(
+    private readonly postService: PostService,
+    private readonly sharedService: SharedService
+  ) {}
 
   @Post('create')
   @UseGuards(JwtGuard, UserPermissionGuard)
@@ -86,7 +90,7 @@ export class PostController {
   @UseGuards(JwtGuard)
   @UseInterceptors(FileInterceptor('image', uploadOptions))
   async uploadImage(@UploadedFile() file: Express.Multer.File) {
-    return this.postService.uploadImage(file)
+    return this.sharedService.uploadImage(file)
   }
 
   @Get('tag-post-count')

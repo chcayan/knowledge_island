@@ -3,11 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm'
 
 import { Tag } from './entities/tag.entity'
 import { Post, PostStatus } from './entities/post.entity'
-import { Image } from './entities/image.entity'
 
 import { In, IsNull, Repository } from 'typeorm'
 import { json2html } from '../../common/utils/json2html.utils'
-import { getFileMD5 } from '../../common/utils/md5.utils'
 import {
   CommentReactionType,
   CreateCommentDto,
@@ -15,8 +13,6 @@ import {
   CreatePostDto,
   PostFilter,
 } from '@knowledge_island/schemas'
-import fs from 'fs'
-import path from 'path'
 import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
 import Redis from 'ioredis'
 import { Comment, CommentStatus } from './entities/comment.entity'
@@ -31,8 +27,6 @@ export class PostService {
     private readonly postRepo: Repository<Post>,
     @InjectRepository(Tag)
     private readonly tagRepo: Repository<Tag>,
-    @InjectRepository(Image)
-    private readonly imageRepo: Repository<Image>,
     @InjectRepository(Comment)
     private readonly commentRepo: Repository<Comment>,
     @InjectRepository(CommentReaction)
@@ -129,51 +123,6 @@ export class PostService {
       await this.postRepo.save(exist)
     } else {
       await this.createPost(dto, userId)
-    }
-  }
-
-  async uploadImage(file: Express.Multer.File) {
-    const ext = path.extname(file.originalname).slice(1)
-
-    const md5 = await getFileMD5(file.path)
-
-    const existing = await this.imageRepo.findOne({
-      where: { md5 },
-    })
-
-    if (existing) {
-      await fs.promises.unlink(file.path)
-      return { url: existing.url }
-    }
-
-    const uploadDir = path.resolve(process.cwd(), 'public/uploads/images')
-    await fs.promises.mkdir(uploadDir, { recursive: true })
-
-    const finalPath = path.resolve(
-      process.cwd(),
-      `public/uploads/images/${md5}.${ext}`
-    )
-
-    await fs.promises.rename(file.path, finalPath)
-
-    try {
-      const image = this.imageRepo.create({
-        md5,
-        url: `/uploads/images/${md5}.${ext}`,
-        size: file.size,
-        mime: file.mimetype,
-      })
-
-      await this.imageRepo.save(image)
-      return { url: image.url }
-    } catch (e) {
-      const existing = await this.imageRepo.findOne({
-        where: { md5 },
-      })
-
-      if (existing) return existing
-
-      throw e
     }
   }
 

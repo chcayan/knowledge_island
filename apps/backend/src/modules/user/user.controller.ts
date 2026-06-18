@@ -6,7 +6,9 @@ import {
   Post,
   Req,
   Res,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common'
 import { UserService } from './user.service'
 import type { LoginDto, RegisterDto } from '@knowledge_island/schemas'
@@ -23,12 +25,16 @@ import {
 import type { AuthRequest } from '../../common/interface/auth-request.interface'
 import { JwtGuard } from '../../common/guard/jwt.guard'
 import { User } from '../../common/decorator/user.decorator'
+import { FileInterceptor } from '@nestjs/platform-express'
+import { uploadOptions } from '../../common/config/upload.config'
+import { SharedService } from '../shared/shared.service'
 
 @Controller('user')
 export class UserController {
   constructor(
     private readonly userService: UserService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private readonly sharedService: SharedService
   ) {}
 
   @Post('login')
@@ -85,6 +91,32 @@ export class UserController {
     @Body(new ZodValidationPipe(RegisterSchema)) dto: RegisterDto
   ) {
     return this.userService.register(dto)
+  }
+
+  @Post('name')
+  @UseGuards(JwtGuard)
+  async modifyUserName(@Body('name') name: string, @User() userId: string) {
+    return this.userService.modifyUserName(name, userId)
+  }
+
+  @Post('signature')
+  @UseGuards(JwtGuard)
+  async modifyUserSignature(
+    @Body('signature') signature: string,
+    @User() userId: string
+  ) {
+    return this.userService.modifyUserSignature(signature, userId)
+  }
+
+  @Post('avatar')
+  @UseGuards(JwtGuard)
+  @UseInterceptors(FileInterceptor('avatar', uploadOptions))
+  async modifyUserAvatar(
+    @UploadedFile() file: Express.Multer.File,
+    @User() userId: string
+  ) {
+    const { url } = await this.sharedService.uploadImage(file)
+    return this.userService.modifyUserAvatar(url, userId)
   }
 
   @Get('me')

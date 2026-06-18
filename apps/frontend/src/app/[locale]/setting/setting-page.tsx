@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 
-import { LogoutAPI } from '@/api'
+import { LogoutAPI, modifyUserNameAPI } from '@/api'
 import { useConfirm } from '@/components/common/confirm/useConfirm'
 import LocaleToggle from '@/components/common/locale-toggle/locale-toggle'
 import ThemeToggle from '@/components/layout/theme-toggle'
@@ -17,7 +17,7 @@ import {
   USER_SIGNATURE_MAX_LENGTH,
 } from '@knowledge_island/schemas'
 import { CustomError, getImgUrl } from '@/utils'
-import { ChangeEvent, useRef } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 import { GIF_SIZE_LIMIT } from '@/config/post-field'
 
 export default function SettingPage() {
@@ -83,6 +83,25 @@ export default function SettingPage() {
     }
   }
 
+  const [name, setName] = useState('')
+  const modifyUserName = async () => {
+    if (name !== userInfo.name) {
+      try {
+        await modifyUserNameAPI(name)
+        const init = useUserStore.getState().init
+        await init()
+        Toast.show({
+          msg: t('event.modifySuccess'),
+          type: 'success',
+        })
+      } finally {
+        setName('')
+      }
+    }
+
+    setName('')
+  }
+
   return (
     <>
       <div className={styles.container}>
@@ -119,10 +138,15 @@ export default function SettingPage() {
                     textAlign: 'end',
                     paddingRight: '10px',
                   }}
+                  // defaultValue={name}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   type="text"
                   placeholder={userInfo.name}
                   minLength={1}
                   maxLength={USER_NAME_MAX_LENGTH}
+                  onFocus={() => setName(userInfo.name)}
+                  onBlur={modifyUserName}
                 />
               </div>
             )}
