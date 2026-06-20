@@ -1,0 +1,26 @@
+[
+  {
+    "id": "348c54cb-6c61-11f1-a2ab-1c8341ca2bac",
+    "name": "admin",
+    "email": "admin@ki.com",
+    "password": "admin123",
+    "canReviewPost": true,
+    "canManageUserPermission": true
+  },
+  {
+    "id": "3b1e2b5d-6c61-11f1-a2ab-1c8341ca2bac",
+    "name": "reviewer",
+    "email": "reviewer@ki.com",
+    "password": "reviewer123",
+    "canReviewPost": false,
+    "canManageUserPermission": false
+  },
+  {
+    "id": "450e85c1-6c61-11f1-a2ab-1c8341ca2bac",
+    "name": "user",
+    "email": "user@ki.com",
+    "password": "user123",
+    "canReviewPost": false,
+    "canManageUserPermission": false
+  }
+]

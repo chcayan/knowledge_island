@@ -245,9 +245,9 @@ export class PostService {
       ).addSelect('collection.createdAt', 'collection_created_at')
     } else {
       const statusMap = {
-        [PostFilter.PUBLISHED]: PostStatus.PUBLISHED,
+        [PostFilter.PUBLISHED]: PostStatus.REVIEWING, // TODO: modify to PUBLISHED
         [PostFilter.VIOLATION]: PostStatus.VIOLATION,
-        [PostFilter.REVIEWING]: PostStatus.REVIEWING,
+        [PostFilter.REVIEWING]: PostStatus.PUBLISHED, // TODO: modify to REVIEWING
       }
 
       qb.where('author.id = :userId', { userId }).andWhere(
@@ -432,7 +432,11 @@ export class PostService {
     )
   }
 
-  async createComment(dto: CreateCommentDto, userId: string) {
+  async createComment(
+    dto: CreateCommentDto,
+    userId: string,
+    commentId?: string
+  ) {
     const html = json2html(dto.contentJSON as JSON)
 
     const replyComment = dto.replyCommentId
@@ -447,7 +451,9 @@ export class PostService {
       : null
 
     const comment = this.commentRepo.create({
+      ...(commentId ? { id: commentId } : {}),
       content: html,
+      contentJSON: dto.contentJSON as string,
       status: CommentStatus.PUBLISHED, // TODO: modify to REVIEWING
       post: {
         id: dto.postId,

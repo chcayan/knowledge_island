@@ -44,7 +44,8 @@
     "error": {
       "tip": "Something went wrong!",
       "action": "Try again",
-      "noPost": "No posts for now, "
+      "noPost": "No posts for now, ",
+      "noTag": "No tags for now"
     },
     "event": {
       "publish": "to publish"

@@ -67,7 +67,6 @@ export default async function PostList({ searchParams }: Props) {
               >
                 {t('event.publish')}
               </span>
-              {'.'}
             </Link>
           </p>
         </div>

@@ -45,6 +45,9 @@ export class Comment {
   @Column({ type: 'text' })
   content!: string
 
+  @Column({ type: 'json', select: false, nullable: true })
+  contentJSON!: string
+
   @Column({ default: 0 })
   likeCount!: number
 

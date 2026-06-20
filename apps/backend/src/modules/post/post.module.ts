@@ -23,5 +23,6 @@ import { UserModule } from '../user/user.module'
   ],
   controllers: [PostController],
   providers: [PostService, PostSyncTask],
+  exports: [PostService],
 })
 export class PostModule {}

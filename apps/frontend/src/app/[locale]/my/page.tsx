@@ -2,7 +2,7 @@ import { locale } from '@/types/locale'
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import styles from './page.module.scss'
-import Search from '@/components/common/search/search'
+// import Search from '@/components/common/search/search'
 import UserControl from '@/components/common/user-control/user-control'
 import BackButton from '@/components/common/back-button'
 import UserCard from '@/components/my/user-card/user-card'
@@ -11,6 +11,7 @@ import CardListSkeleton from '@/components/common/card-list-skeleton/card-list-s
 import ToggleButton from '@/components/common/toggle-button-server/toggle-button-server'
 import { PostFilter } from '@knowledge_island/schemas'
 import PostList from '@/components/my/post-list/post-list'
+import { getMeInfoAPI } from '@/api'
 
 export async function generateMetadata({
   params,
@@ -25,9 +26,11 @@ export async function generateMetadata({
     namespace: 'Metadata.my',
   })
 
+  const userInfo = await getMeInfoAPI().catch(() => {})
+
   return {
     title: t('title', {
-      name: 'cxk',
+      name: (userInfo && userInfo.name) || 'guest',
     }),
   }
 }
@@ -49,7 +52,7 @@ export default async function MyPage(props: {
         <header className={styles.head}>
           <div className={styles['head-left']}>
             <BackButton />
-            <Search />
+            {/* <Search /> */}
           </div>
           <div className={styles['user-control']}>
             <UserControl />

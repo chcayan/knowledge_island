@@ -44,7 +44,8 @@
     "error": {
       "tip": "出了点问题！",
       "action": "再试一次",
-      "noPost": "暂时没有帖子，"
+      "noPost": "暂时没有帖子，",
+      "noTag": "没有标签"
     },
     "event": {
       "publish": "去发布"

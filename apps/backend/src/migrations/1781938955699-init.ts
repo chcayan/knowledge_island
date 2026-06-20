@@ -1,17 +1,17 @@
 import { MigrationInterface, QueryRunner } from 'typeorm'
 
-export class Init1781016561133 implements MigrationInterface {
-  name = 'Init1781016561133'
+export class Init1781938955699 implements MigrationInterface {
+  name = 'Init1781938955699'
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `ALTER TABLE \`comment\` ADD \`dislike_count\` int NOT NULL DEFAULT '0'`
+      `ALTER TABLE \`comment\` ADD \`content_json\` json NOT NULL`
     )
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `ALTER TABLE \`comment\` DROP COLUMN \`dislike_count\``
+      `ALTER TABLE \`comment\` DROP COLUMN \`content_json\``
     )
   }
 }

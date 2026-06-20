@@ -1,0 +1,2578 @@
+[
+  {
+    "id": "895529b1-6c61-11f1-a2ab-1c8341ca2bac",
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "word是最常用的文档编辑工具之一，但有时在编辑文档时，我们会遇到一个常见问题，那就是不小心插入了空白页。这些空白页可能会破坏文档的布局，使其看起来不专业。那word怎么删除空白页呢？幸运的是，word提供了多种方法来删除这些多余的空白页。在本文中，我们将介绍3种删除word文档中空白页的方法，以帮助您更好地管理文档布局。",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "方法1：使用删除键",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 1
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "当我们用word写文章时，难免会不小心插入了空白页，那 word怎么删除空白页呢？我们可以直接使用删除键进行删除，具体步骤如下：",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "第一步：打开您的Word文档，定位到您想删除的空白页。",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "第二步：按下键盘上的删除键（",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "Delete",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "），直到空白页被删除。",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "src": "http://localhost:8080/uploads/images/default/posts/fdca57b779b9c27aeb79c98b236ddb49.png",
+                "type": "image",
+                "width": 100,
+                "altText": "Image",
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "方法2：使用查找替换功能",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 1
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "还有一种方法，使用查找替换功能删除空白页，这个方法适用于大型文档，其中空白页较多。具体步骤如下：",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "第一步：打开Word文档，使用快捷键",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "“Ctrl + H”",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "来打开“查找和替换”对话框。",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "第二步：在",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "“查找”",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "框中输入^m^p，这是word中表示段落标记的代码。在",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "“替换”",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "框中留空，点击",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "“全部替换”",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "按钮，word将删除所有空白页。",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "src": "http://localhost:8080/uploads/images/default/posts/3bec3c6b7c6c1632732f7bc3ee2be751.png",
+                "type": "image",
+                "width": 100,
+                "altText": "Image",
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "方法3：使用页面布局设置",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 1
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "使用页面布局设置也能删除word空白页，这个方法适用于需要调整整个文档的页面布局的情况。具体步骤如下：",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "第一步：在Word中，点击",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "“布局”",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "选项卡。在",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "“页面设置”",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "组中，点击",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "“分隔符”",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "下拉菜单。",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "src": "http://localhost:8080/uploads/images/default/posts/bab6c52269412ae463e928435717afc2.png",
+                "type": "image",
+                "width": 100,
+                "altText": "Image",
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "第二步：选择",
+                "type": "text",
+                "style": "font-size: 14px;color: rgb(51, 51, 51);",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "“下一页”",
+                "type": "text",
+                "style": "font-size: 14px;color: rgb(51, 51, 51);",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "，单击",
+                "type": "text",
+                "style": "font-size: 14px;color: rgb(51, 51, 51);",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "“确定”",
+                "type": "text",
+                "style": "font-size: 14px;color: rgb(51, 51, 51);",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "按钮。这个方法将会删除所有的空白页，因为它们都被定义为新的页面。",
+                "type": "text",
+                "style": "font-size: 14px;color: rgb(51, 51, 51);",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 14px;color: rgb(51, 51, 51);",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "start",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "src": "http://localhost:8080/uploads/images/default/posts/83e18921104056757f2f32d8078718d5.png",
+                "type": "image",
+                "width": 100,
+                "altText": "Image",
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 14px;color: rgb(51, 51, 51);",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          }
+        ],
+        "direction": null
+      }
+    },
+    "type": "0",
+    "status": "1",
+    "author_id": "348c54cb-6c61-11f1-a2ab-1c8341ca2bac",
+    "tags": ["word"],
+    "comments": []
+  },
+  {
+    "id": "8e37435f-6c61-11f1-a2ab-1c8341ca2bac",
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "番茄炒鸡蛋｜全网最详细做法攻略（零失败、超下饭） ",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 1
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 1
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "核心口诀：",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "蛋要嫩、茄要沙、汁要浓、盐要晚。",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 1
+          },
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "src": "http://localhost:8080/uploads/images/907e9d369c5a8793d287ef65fb3bf25e.webp",
+                "type": "image",
+                "width": 50.4,
+                "altText": "Image",
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "下面从",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "选料、切配、火候、调味、顺序、避坑",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "全拆解，新手一次成功。",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "一、食材配比（2 人份，黄金比例）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "鸡蛋：",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "3 个",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "（更嫩更香）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "番茄：",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "2 个中等（约 300g）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "（熟软多汁最好）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "小葱：1 根",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "调料：盐、白糖、食用油、白胡椒粉（可选）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "二、关键预处理（决定成败）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "1. 鸡蛋处理（超嫩秘诀）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "鸡蛋打入碗，加",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "小半勺盐",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": " ",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "+",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": " ",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "1 勺清水 / 牛奶",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "用筷子",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "充分打散",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "（打到起泡、无蛋清块）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "👉 加清水 = 更蓬松；加牛奶 = 更滑嫩。",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "2. 番茄处理（出沙关键）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "顶部划十字，",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "开水烫 10 秒",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "，轻松去皮（不去皮也可，但口感差）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "去蒂，切成",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "滚刀块 / 小块",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "（别切太碎，否则一炒就烂）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "喜欢汤汁多：切大一点；喜欢浓稠：切小一点。",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "三、最标准步骤（顺序不能乱）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "① 炒鸡蛋（嫩而不老）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "锅烧热→倒油（油比平时多一点）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "油温",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "6 成热（微微冒烟）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": " ",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "倒入蛋液",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "待底部凝固，",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "用筷子轻轻划散",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "炒到 **8 成熟（边缘金黄、中间微嫩）** 立刻盛出",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "👉 别炒全熟！后面还要回锅，全熟就老了。",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "② 炒番茄（出沙出汁）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "锅中留底油，放入番茄",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "中小火翻炒，",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "压一压",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "让它出汁变软",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "加",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "小半勺白糖",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "（中和酸味、提鲜）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "炒到",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "番茄软烂起沙、汤汁变红",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "（约 1–2 分钟）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "③ 合炒入味（灵魂一步）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "倒回鸡蛋",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "加",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "适量盐",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "（别早加，番茄出水太多）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "大火快速翻炒",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "10–20 秒",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "融合味道",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "撒白胡椒粉（可选）+ 葱花，出锅",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "四、3 种经典口味（按需选）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "1. 家常浓香（推荐）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "糖半勺 + 盐适量",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "番茄炒软，蛋嫩，汁浓拌饭",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "2. 酸甜开胃（孩子最爱）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "糖 1 勺 + 盐少许",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "更甜更柔和",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "3. 咸香下饭（下酒菜）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "糖少许 + 盐稍多",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "不甜，突出蛋香 + 番茄鲜",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "五、全网最全避坑指南（必看）",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "蛋变老",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "：火太大 / 炒太久 → 小火、8 成熟盛出",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 1
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "番茄出水太多",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "：盐放太早 → 最后放盐",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 1
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "不香不浓",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "：番茄没炒出沙 → 多炒 1 分钟压一压",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 1
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "腥",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "：蛋里没加盐 / 油温不够 → 蛋里先加盐，锅要热",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 1
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "酸得刺口",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "：没放糖 → 必加半勺糖",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 1
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "油太少",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "：蛋不蓬松 → 炒蛋油要稍多",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 1
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "六、最终成品标准",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "鸡蛋：",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "嫩、滑、蓬松",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "番茄：",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "软、沙、汁浓",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "味道：",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "咸鲜微甜、酸香不冲",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "left",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "汤汁：",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "mode": "normal",
+                "text": "裹住蛋和番茄，拌饭绝了",
+                "type": "text",
+                "style": "font-size: 16px;",
+                "detail": 0,
+                "format": 1,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "font-size: 16px;",
+            "textFormat": 0
+          }
+        ],
+        "direction": null
+      }
+    },
+    "type": "0",
+    "status": "1",
+    "author_id": "348c54cb-6c61-11f1-a2ab-1c8341ca2bac",
+    "tags": ["美食", "做饭"],
+    "comments": []
+  },
+  {
+    "id": "91c1ad62-6c61-11f1-a2ab-1c8341ca2bac",
+    "content": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "这个怎么写：",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          },
+          {
+            "type": "paragraph",
+            "format": "center",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "formula",
+                "latex": "\\lim_{x\\to 0}\\frac{\\ln(\\cos x)}{x^2}",
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          }
+        ],
+        "direction": null
+      }
+    },
+    "type": "1",
+    "status": "1",
+    "author_id": "348c54cb-6c61-11f1-a2ab-1c8341ca2bac",
+    "tags": ["高等数学"],
+    "comments": [
+      {
+        "id": "8d750fb8-6c73-11f1-a2ab-1c8341ca2bac",
+        "content": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "已知：",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "type": "formula",
+                    "latex": "\\cos x = 1-\\frac{x^2}{2}+o(x^2)",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "textStyle": "",
+                "textFormat": 0
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "又因为：",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "type": "formula",
+                    "latex": "\\ln(1+t)=t+o(t)\\quad (t\\to0)",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "textStyle": "",
+                "textFormat": 0
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "令：",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "type": "formula",
+                    "latex": "t=-\\frac{x^2}{2}+o(x)",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "textStyle": "",
+                "textFormat": 0
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "则：",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "type": "formula",
+                    "latex": "\\ln(\\cos x) = \\ln\\left(1-\\frac{x^2}{2}+o(x^2)\\right) = -\\frac{x^2}{2}+o(x^2)",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "textStyle": "",
+                "textFormat": 0
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "所以：",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "type": "formula",
+                    "latex": "\\frac{\\ln(\\cos x)}{x^2} = \\frac{-\\frac{x^2}{2}+o(x^2)}{x^2} = -\\frac12+o(1)",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "textStyle": "",
+                "textFormat": 0
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "因此：",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "type": "formula",
+                    "latex": "\\lim_{x\\to0}\\frac{\\ln(\\cos x)}{x^2} = -\\frac12",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "textStyle": "",
+                "textFormat": 0
+              }
+            ],
+            "direction": null
+          }
+        },
+        "status": "0",
+        "parent_id": null,
+        "reply_comment_id": null,
+        "reply_user_id": null,
+        "author_id": "3b1e2b5d-6c61-11f1-a2ab-1c8341ca2bac"
+      },
+      {
+        "id": "9aa517f2-6c73-11f1-a2ab-1c8341ca2bac",
+        "content": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "第三步是不是有点问题，应该是 ",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  },
+                  {
+                    "type": "formula",
+                    "latex": "t=-\\frac{x^2}{2}+o(x^2)",
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "textStyle": "",
+                "textFormat": 0
+              }
+            ],
+            "direction": null
+          }
+        },
+        "status": "0",
+        "parent_id": "8d750fb8-6c73-11f1-a2ab-1c8341ca2bac",
+        "reply_comment_id": null,
+        "reply_user_id": null,
+        "author_id": "450e85c1-6c61-11f1-a2ab-1c8341ca2bac"
+      },
+      {
+        "id": "a1c4b274-6c73-11f1-a2ab-1c8341ca2bac",
+        "content": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "感谢指正",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "textStyle": "",
+                "textFormat": 0
+              }
+            ],
+            "direction": null
+          }
+        },
+        "status": "0",
+        "parent_id": "8d750fb8-6c73-11f1-a2ab-1c8341ca2bac",
+        "reply_comment_id": "9aa517f2-6c73-11f1-a2ab-1c8341ca2bac",
+        "reply_user_id": "450e85c1-6c61-11f1-a2ab-1c8341ca2bac",
+        "author_id": "3b1e2b5d-6c61-11f1-a2ab-1c8341ca2bac"
+      }
+    ]
+  },
+  {
+    "id": "64d9a5b4-6c82-11f1-a2ab-1c8341ca2bac",
+    "content": {},
+    "type": "0",
+    "status": "1",
+    "author_id": "348c54cb-6c61-11f1-a2ab-1c8341ca2bac",
+    "tags": [],
+    "comments": []
+  },
+  {
+    "id": "69755238-6c82-11f1-a2ab-1c8341ca2bac",
+    "content": {},
+    "type": "0",
+    "status": "1",
+    "author_id": "348c54cb-6c61-11f1-a2ab-1c8341ca2bac",
+    "tags": [],
+    "comments": []
+  },
+  {
+    "id": "790a34d7-6c82-11f1-a2ab-1c8341ca2bac",
+    "content": {},
+    "type": "0",
+    "status": "1",
+    "author_id": "348c54cb-6c61-11f1-a2ab-1c8341ca2bac",
+    "tags": [],
+    "comments": []
+  },
+  {
+    "id": "7de7f3e9-6c82-11f1-a2ab-1c8341ca2bac",
+    "content": {},
+    "type": "0",
+    "status": "1",
+    "author_id": "348c54cb-6c61-11f1-a2ab-1c8341ca2bac",
+    "tags": [],
+    "comments": []
+  },
+  {
+    "id": "832703f6-6c82-11f1-a2ab-1c8341ca2bac",
+    "content": {},
+    "type": "0",
+    "status": "1",
+    "author_id": "348c54cb-6c61-11f1-a2ab-1c8341ca2bac",
+    "tags": [],
+    "comments": []
+  },
+  {
+    "id": "878c23a0-6c82-11f1-a2ab-1c8341ca2bac",
+    "content": {},
+    "type": "0",
+    "status": "1",
+    "author_id": "348c54cb-6c61-11f1-a2ab-1c8341ca2bac",
+    "tags": [],
+    "comments": []
+  },
+  {
+    "id": "902f062b-6c82-11f1-a2ab-1c8341ca2bac",
+    "content": {},
+    "type": "0",
+    "status": "1",
+    "author_id": "348c54cb-6c61-11f1-a2ab-1c8341ca2bac",
+    "tags": [],
+    "comments": []
+  },
+  {
+    "id": "95acd923-6c82-11f1-a2ab-1c8341ca2bac",
+    "content": {},
+    "type": "0",
+    "status": "1",
+    "author_id": "348c54cb-6c61-11f1-a2ab-1c8341ca2bac",
+    "tags": [],
+    "comments": []
+  }
+]
