@@ -24,6 +24,7 @@ import {
   type CreateCommentReactionDto,
   PostFilter,
   UserPostFilter,
+  SearchType,
 } from '@knowledge_island/schemas'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { uploadOptions } from '../../common/config/upload.config'
@@ -106,6 +107,16 @@ export class PostController {
     @User() userId: string
   ) {
     return this.postService.toggleCollection(postId, userId)
+  }
+
+  @Get('search')
+  async getSearchResult(
+    @Query('result') result: string,
+    @Query('type', new ParseEnumPipe(SearchType)) type: SearchType,
+    @Query('page', ParseIntPipe) page: number,
+    @Query('pageSize', ParseIntPipe) pageSize: number
+  ) {
+    return this.postService.getSearchResult(page, pageSize, result, type)
   }
 
   @Get('comments/:id')

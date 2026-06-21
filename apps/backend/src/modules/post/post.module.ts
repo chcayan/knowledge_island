@@ -13,10 +13,18 @@ import { CommentReaction } from './entities/comment-reaction.entity'
 import { Collection } from './entities/collection.entity'
 import { SharedModule } from '../shared/shared.module'
 import { UserModule } from '../user/user.module'
+import { User } from '../user/entities/user.entity'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Post, Tag, Comment, CommentReaction, Collection]),
+    TypeOrmModule.forFeature([
+      Post,
+      Tag,
+      Comment,
+      CommentReaction,
+      Collection,
+      User,
+    ]),
     AuthModule,
     UserModule,
     SharedModule,

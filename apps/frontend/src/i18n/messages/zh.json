@@ -173,6 +173,10 @@
       "modifySuccess": "修改成功"
     }
   },
+  "Notification": {
+    "title": "通知",
+    "tip": "无通知"
+  },
   "Login": {
     "title": {
       "login": "欢迎回来",

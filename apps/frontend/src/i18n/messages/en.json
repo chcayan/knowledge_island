@@ -173,6 +173,10 @@
       "modifySuccess": "Modify successful"
     }
   },
+  "Notification": {
+    "title": "Notification",
+    "tip": "No notification"
+  },
   "Login": {
     "title": {
       "login": "Welcome back",

@@ -31,6 +31,12 @@ export enum UserPostFilter {
   COLLECTION = 'COLLECTION',
 }
 
+export enum SearchType {
+  POST = 'POST',
+  TAG = 'TAG',
+  USER = 'USER',
+}
+
 export const PostSchema = z.object({
   id: z.uuid(),
   content: z.any().refine((val) => val !== null && val !== undefined, {

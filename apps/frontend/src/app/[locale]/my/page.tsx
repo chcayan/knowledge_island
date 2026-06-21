@@ -85,6 +85,8 @@ export default async function MyPage(props: {
                     value: PostFilter.VIOLATION,
                   },
                 ]}
+                searchParamName={'filter'}
+                searchParams={searchParams}
               />
             </div>
 

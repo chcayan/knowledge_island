@@ -42,8 +42,8 @@ export default async function PostList({ searchParams }: Props) {
   const params = await searchParams
 
   const page = Number(params?.page ?? 1)
-  const filter = checkFilterValid(params?.filter) || PostFilter.PUBLISHED
   const pageSize = POST_PAGE_SIZE
+  const filter = checkFilterValid(params?.filter) || PostFilter.PUBLISHED
 
   const { list, total } = await getMePostListAPI(page, pageSize, filter)
 

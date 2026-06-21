@@ -1,8 +1,8 @@
 'use client'
 
 import HomeIcon from '../icon/home-icon'
-import AiIcon from '../icon/ai-icon'
-import ChatIcon from '../icon/chat-icon'
+// import AiIcon from '../icon/ai-icon'
+// import ChatIcon from '../icon/chat-icon'
 import SettingIcon from '../icon/setting-icon'
 import PublishIcon from '../icon/publish-icon'
 import styles from './nav.module.scss'
@@ -16,8 +16,8 @@ type NavKey = 'home' | 'ai' | 'chat' | 'publish' | 'setting'
 const topLinks: { name: NavKey; href: string; icon: ComponentType }[] = [
   { name: 'home', href: '/', icon: HomeIcon },
   { name: 'publish', href: '/publish', icon: PublishIcon },
-  { name: 'ai', href: '/ai', icon: AiIcon },
-  { name: 'chat', href: '/chat', icon: ChatIcon },
+  // { name: 'ai', href: '/ai', icon: AiIcon },
+  // { name: 'chat', href: '/chat', icon: ChatIcon },
 ]
 
 const bottomLinks: { name: NavKey; href: string; icon: ComponentType }[] = [
@@ -38,9 +38,13 @@ export default function Nav() {
               key={link.name}
               href={link.href}
               scroll={false}
-              className={clsx(styles.link, {
-                'nav-active': pathname === link.href,
-              })}
+              className={clsx(
+                styles.link,
+                {
+                  'nav-active': pathname === link.href,
+                },
+                'tab-focus'
+              )}
             >
               <LinkIcon />
               <p>{t(`nav.${link.name}`)}</p>
@@ -56,9 +60,13 @@ export default function Nav() {
               key={link.name}
               href={link.href}
               scroll={false}
-              className={clsx(styles.link, {
-                'nav-active': pathname === link.href,
-              })}
+              className={clsx(
+                styles.link,
+                {
+                  'nav-active': pathname === link.href,
+                },
+                'tab-focus'
+              )}
             >
               <LinkIcon />
               <p>{t(`nav.${link.name}`)}</p>

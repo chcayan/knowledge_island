@@ -11,7 +11,7 @@ export default function BackButton({ path }: { path?: string }) {
     } else {
       if (
         document.referrer &&
-        document.referrer.includes(window.location.origin)
+        document.referrer.includes(window.location.origin) // TODO: ??(maybe exist trouble)
       ) {
         router.back()
       } else {

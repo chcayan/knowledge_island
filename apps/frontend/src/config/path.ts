@@ -8,6 +8,7 @@ export const RoutePath = {
   my: '/my',
   post: '/post',
   user: '/user',
+  search: '/search',
 }
 
 export const COMMENTS_ANCHOR = 'comments'

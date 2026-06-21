@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import clsx from 'clsx'
 import styles from './toggle-button.module.scss'
+import { buildHref } from '@/utils/path'
 
 type Option<T extends string> = {
   label: React.ReactNode
@@ -10,11 +11,15 @@ type Option<T extends string> = {
 type Props<T extends string> = {
   options: Option<T>[]
   value: T
+  searchParamName: string
+  searchParams: Record<string, string | string[] | undefined> | undefined
 }
 
 export default function ToggleButton<T extends string>({
   options,
   value,
+  searchParamName,
+  searchParams,
 }: Props<T>) {
   const activeIndex = options.findIndex((o) => o.value === value)
 
@@ -41,7 +46,12 @@ export default function ToggleButton<T extends string>({
             <Link
               replace
               key={option.value}
-              href={`?filter=${option.value}`}
+              // href={`?${searchParamName}=${option.value}`}
+              href={
+                buildHref(searchParams, searchParamName, option.value, [
+                  'page',
+                ]) || `?${searchParamName}=${option.value}`
+              }
               className={clsx(
                 styles.item,
                 value === option.value && styles.active

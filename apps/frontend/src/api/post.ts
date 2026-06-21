@@ -9,6 +9,7 @@ import {
   DraftInfo,
   PostFilter,
   PostInfo,
+  SearchType,
   UserPostFilter,
   type CreatePostDto,
 } from '@knowledge_island/schemas'
@@ -52,6 +53,26 @@ export async function getPostListAPI(page: number, pageSize: number) {
     list: PostInfo[]
     total: number
   } = data
+
+  return { list, total }
+}
+
+export async function getSearchResultAPI(
+  result: string,
+  type: SearchType,
+  page: number,
+  pageSize: number
+) {
+  const data = await fetchData('/post/search', {
+    params: {
+      result,
+      type,
+      page,
+      pageSize,
+    },
+  })
+
+  const { list, total } = data
 
   return { list, total }
 }

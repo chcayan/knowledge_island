@@ -12,6 +12,7 @@ import {
   CreateCommentReactionDto,
   CreatePostDto,
   PostFilter,
+  SearchType,
   UserPostFilter,
 } from '@knowledge_island/schemas'
 import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
@@ -34,6 +35,8 @@ export class PostService {
     private readonly commentReactionRepo: Repository<CommentReaction>,
     @InjectRepository(Collection)
     private readonly collectionRepo: Repository<Collection>,
+    @InjectRepository(User)
+    private readonly userRepo: Repository<User>,
     @Inject('REDIS_CLIENT')
     private readonly redis: Redis
   ) {}
@@ -140,34 +143,6 @@ export class PostService {
       .skip((page - 1) * pageSize)
       .take(pageSize)
       .getManyAndCount()
-
-    // if (userId) {
-    //   qb.leftJoin(
-    //     Collection,
-    //     'collection',
-    //     'collection.postId = post.id AND collection.userId = :userId',
-    //     { userId }
-    //   ).addSelect(
-    //     'CASE WHEN collection.id IS NULL THEN 0 ELSE 1 END',
-    //     'isCollected'
-    //   )
-    // } else {
-    //   qb.addSelect('0', 'isCollected')
-    // }
-
-    // const [total, result] = await Promise.all([
-    //   qb.getCount(),
-    //   qb.getRawAndEntities(),
-    // ])
-
-    // const list = result.entities.map((post, index) => ({
-    //   ...post,
-    //   isCollected:
-    //     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    //     result.raw[index].isCollected === 1 ||
-    //     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    //     result.raw[index].isCollected === '1',
-    // }))
 
     return {
       list,
@@ -709,6 +684,73 @@ export class PostService {
 
     return {
       message: '收藏成功',
+    }
+  }
+
+  async getSearchResult(
+    page: number,
+    pageSize: number,
+    result: string,
+    type: SearchType
+  ) {
+    if (type === SearchType.TAG) {
+      const [list, total] = await this.tagRepo
+        .createQueryBuilder('tag')
+        .select(['tag.name'])
+        .where('tag.name like :result', { result: `%${result}%` })
+        .skip((page - 1) * pageSize)
+        .take(pageSize)
+        .getManyAndCount()
+
+      return {
+        list,
+        total,
+      }
+    } else if (type === SearchType.USER) {
+      const [list, total] = await this.userRepo
+        .createQueryBuilder('user')
+        .select([
+          'user.id',
+          'user.name',
+          'user.email',
+          'user.avatar',
+          'user.followCount',
+          'user.fanCount',
+          'user.sex',
+          'user.signature',
+        ])
+        .where('user.name like :result', {
+          result: `%${result}%`,
+        })
+        .skip((page - 1) * pageSize)
+        .take(pageSize)
+        .getManyAndCount()
+
+      return {
+        list,
+        total,
+      }
+    } else {
+      const [list, total] = await this.postRepo
+        .createQueryBuilder('post')
+        .leftJoin('post.author', 'author')
+        .addSelect(['author.id', 'author.name', 'author.avatar'])
+        .leftJoinAndSelect('post.tags', 'tags')
+        .where('post.status = :status', {
+          status: PostStatus.REVIEWING, // TODO: PUBLISHED
+        })
+        .andWhere('post.contentHtml like :result', {
+          result: `%${result}%`,
+        })
+        .orderBy('post.createdAt', 'DESC')
+        .skip((page - 1) * pageSize)
+        .take(pageSize)
+        .getManyAndCount()
+
+      return {
+        list,
+        total,
+      }
     }
   }
 }
