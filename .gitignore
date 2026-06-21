@@ -33,3 +33,4 @@ apps/backend/public/uploads/images/*
 !apps/backend/public/uploads/images/default/
 !apps/backend/public/uploads/images/default/**
 apps/backend/temp
+apps/backend/src/migrations

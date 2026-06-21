@@ -10,6 +10,26 @@ import { getTranslations } from 'next-intl/server'
 import PostCardWrapper from '@/components/post/post-card/post-card-wrapper'
 import CommentListSkeleton from '@/components/post/comment-skeleton/comment-list-skeleton'
 import { COMMENTS_ANCHOR } from '@/config/path'
+import { Metadata } from 'next'
+import { locale } from '@/types/locale'
+
+export async function generateMetadata({
+  params,
+}: Readonly<{
+  params: Promise<{
+    locale: locale
+  }>
+}>): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({
+    locale,
+    namespace: 'Metadata.post',
+  })
+
+  return {
+    title: t('title'),
+  }
+}
 
 export default async function PostPage(props: {
   params: Promise<{ id: string }>

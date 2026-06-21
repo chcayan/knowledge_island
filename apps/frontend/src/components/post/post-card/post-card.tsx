@@ -13,13 +13,24 @@ import LexicalHtml from '../lexical-html/lexical-html'
 import { toggleCollectionAPI } from '@/api'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/utils/toast'
+import { useUserStore } from '@/stores'
 
 export default function PostCard({ post }: { post: PostInfo }) {
   const [isCollected, setIsCollected] = useState(post.isCollected)
 
   const t = useTranslations('Post')
 
+  const userId = useUserStore.getState().userId
+
   const toggleCollection = async () => {
+    if (!userId) {
+      Toast.show({
+        msg: t('event.unLogin'),
+        type: 'error',
+      })
+      return
+    }
+
     await toggleCollectionAPI(post.id).then(() => {
       if (isCollected) {
         Toast.show({
@@ -80,7 +91,7 @@ export default function PostCard({ post }: { post: PostInfo }) {
         </div>
         <div className={styles.right}>
           <ul>
-            <li onClick={toggleCollection}>
+            <li onClick={toggleCollection} style={{ cursor: 'pointer' }}>
               <CollectionCountIcon isCollected={isCollected} />
             </li>
           </ul>

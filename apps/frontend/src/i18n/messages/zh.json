@@ -27,6 +27,12 @@
     },
     "my": {
       "title": "{name}的个人空间"
+    },
+    "post": {
+      "title": "帖子详情"
+    },
+    "user": {
+      "title": "{name}的个人空间"
     }
   },
   "RootLayout": {
@@ -112,6 +118,9 @@
           "title": "退出登录",
           "description": "你确定要退出当前账号吗？",
           "confirmText": "退出"
+        },
+        "event": {
+          "success": "退出成功"
         }
       }
     },
@@ -156,7 +165,9 @@
     },
     "error": {
       "GIF_SIZE_LIMIT": "gif 大小不超过 {size}M",
-      "MODIFY_AVATAR_FAILED": "修改头像失败"
+      "MODIFY_AVATAR_FAILED": "修改头像失败",
+      "NAME_MIN_LENGTH_LIMIT": "用户名至少 1 个字",
+      "NAME_FORMAT_ERROR": "只能包含汉字/字母/数字/下划线"
     },
     "event": {
       "modifySuccess": "修改成功"
@@ -206,7 +217,8 @@
     "event": {
       "success": "发送成功",
       "collectSuccess": "收藏成功",
-      "cancelCollectSuccess": "取消收藏成功"
+      "cancelCollectSuccess": "取消收藏成功",
+      "unLogin": "未登录，请先登录"
     }
   },
   "My": {
@@ -259,7 +271,9 @@
   },
   "Global": {
     "error": {
-      "NOT_FOUND_TIP": "页面不存在"
+      "NOT_FOUND_PAGE_TIP": "页面不存在",
+      "NOT_FOUND_POST_TIP": "找不到该帖子",
+      "NOT_FOUND_USER_TIP": "未找到该用户"
     },
     "event": {
       "navigateToHome": "导航到首页"

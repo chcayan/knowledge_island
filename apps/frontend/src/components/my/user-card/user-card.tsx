@@ -1,12 +1,22 @@
 /* eslint-disable @next/next/no-img-element */
-import { getMeInfoAPI } from '@/api'
+import { getMeInfoAPI, getUserInfoServerAPI } from '@/api'
 import styles from './user-card.module.scss'
 import { getImgUrl } from '@/utils'
 import { getTranslations } from 'next-intl/server'
+import { notFound } from 'next/navigation'
 
-export default async function UserCard() {
+export default async function UserCard({ userId }: { userId?: string }) {
   const t = await getTranslations('Global.text')
-  const userInfo = await getMeInfoAPI()
+
+  let userInfo
+  if (userId) {
+    userInfo = await getUserInfoServerAPI(userId)
+    if (!userInfo) {
+      notFound()
+    }
+  } else {
+    userInfo = await getMeInfoAPI()
+  }
 
   return (
     <>

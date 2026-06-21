@@ -25,6 +25,12 @@ export enum PostFilter {
   REVIEWING = 'REVIEWING',
   VIOLATION = 'VIOLATION',
 }
+
+export enum UserPostFilter {
+  PUBLISHED = 'PUBLISHED',
+  COLLECTION = 'COLLECTION',
+}
+
 export const PostSchema = z.object({
   id: z.uuid(),
   content: z.any().refine((val) => val !== null && val !== undefined, {

@@ -111,7 +111,8 @@ export class UserService {
     return hidePermFieldResult
   }
 
-  async modifyUserName(name: string, userId: string) {
+  async modifyUserName(name: string | null, userId: string) {
+    if (!name) return
     const user = await this.userRepo.findOne({
       where: {
         id: userId,
@@ -128,7 +129,7 @@ export class UserService {
     await this.userRepo.update({ id: userId }, { name })
   }
 
-  async modifyUserSignature(signature: string, userId: string) {
+  async modifyUserSignature(signature: string | null, userId: string) {
     const user = await this.userRepo.findOne({
       where: {
         id: userId,
@@ -142,7 +143,7 @@ export class UserService {
       })
     }
 
-    await this.userRepo.update({ id: userId }, { signature })
+    await this.userRepo.update({ id: userId }, { signature: signature || '' })
   }
 
   async modifyUserAvatar(avatar: string, userId: string) {

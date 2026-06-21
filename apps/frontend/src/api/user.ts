@@ -40,6 +40,15 @@ export async function getUserInfoAPI(userId: string) {
   return data
 }
 
+export async function getUserInfoServerAPI(userId: string) {
+  try {
+    const data: UserPublic = await fetchData(`/user/${userId}`)
+    return data
+  } catch {
+    return null
+  }
+}
+
 export async function getMeInfoAPI() {
   const data: UserPublic = await fetchData('/user/me')
   return data

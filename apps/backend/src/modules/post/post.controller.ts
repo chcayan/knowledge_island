@@ -23,6 +23,7 @@ import {
   type CreateCommentDto,
   type CreateCommentReactionDto,
   PostFilter,
+  UserPostFilter,
 } from '@knowledge_island/schemas'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { uploadOptions } from '../../common/config/upload.config'
@@ -116,6 +117,16 @@ export class PostController {
     @OptionalUser() userId: string
   ) {
     return this.postService.getComments(id, page, pageSize, userId)
+  }
+
+  @Get('user/:id')
+  async getUserPostList(
+    @Param('id') userId: string,
+    @Query('page', ParseIntPipe) page: number,
+    @Query('pageSize', ParseIntPipe) pageSize: number,
+    @Query('filter', new ParseEnumPipe(UserPostFilter)) filter: UserPostFilter
+  ) {
+    return this.postService.getUserPostList(page, pageSize, userId, filter)
   }
 
   @Get('me')

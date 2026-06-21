@@ -27,6 +27,12 @@
     },
     "my": {
       "title": "{name}'s personal space"
+    },
+    "post": {
+      "title": "Post detail"
+    },
+    "user": {
+      "title": "{name}'s personal space"
     }
   },
   "RootLayout": {
@@ -112,6 +118,9 @@
           "title": "Logout",
           "description": "Are you sure you want to logout of the current account?",
           "confirmText": "logout"
+        },
+        "event": {
+          "success": "Logout successful"
         }
       }
     },
@@ -156,7 +165,9 @@
     },
     "error": {
       "GIF_SIZE_LIMIT": "The gif size should not exceed {size}M.",
-      "MODIFY_AVATAR_FAILED": "Failed to modify avatar."
+      "MODIFY_AVATAR_FAILED": "Failed to modify avatar.",
+      "NAME_MIN_LENGTH_LIMIT": "The username must be at least one word long",
+      "NAME_FORMAT_ERROR": "Can only contain Chinese characters/letters/numbers/underscores"
     },
     "event": {
       "modifySuccess": "Modify successful"
@@ -206,7 +217,8 @@
     "event": {
       "success": "Send successful",
       "collectSuccess": "Collect successful",
-      "cancelCollectSuccess": "cancel collect successful"
+      "cancelCollectSuccess": "cancel collect successful",
+      "unLogin": "Not login, please login first"
     }
   },
   "My": {
@@ -259,7 +271,9 @@
   },
   "Global": {
     "error": {
-      "NOT_FOUND_TIP": "Page not found."
+      "NOT_FOUND_PAGE_TIP": "Page not found.",
+      "NOT_FOUND_POST_TIP": "Post not found.",
+      "NOT_FOUND_USER_TIP": "User not found."
     },
     "event": {
       "navigateToHome": "Navigate to the homepage."

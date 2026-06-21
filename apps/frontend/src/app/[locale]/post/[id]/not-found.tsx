@@ -26,7 +26,7 @@ export default function NotFoundPage() {
         }}
       >
         <ErrorIcon width={200} height={200} />
-        <h1>{t('error.NOT_FOUND_PAGE_TIP')}</h1>
+        <h1>{t('error.NOT_FOUND_POST_TIP')}</h1>
         <button
           style={{
             textDecorationLine: 'underline',

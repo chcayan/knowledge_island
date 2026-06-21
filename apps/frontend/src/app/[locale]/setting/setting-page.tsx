@@ -51,7 +51,7 @@ export default function SettingPage() {
       await LogoutAPI()
 
       Toast.show({
-        msg: '退出成功',
+        msg: t('individual.logout.event.success'),
         type: 'success',
       })
       const remove = useUserStore.getState().remove
@@ -102,6 +102,23 @@ export default function SettingPage() {
   const [name, setName] = useState('')
   const nameInputRef = useRef<HTMLInputElement>(null)
   const modifyUserName = async () => {
+    if (name.trim() === '') {
+      Toast.show({
+        msg: t('error.NAME_MIN_LENGTH_LIMIT'),
+        type: 'error',
+      })
+      return
+    }
+
+    if (!/^[\u4e00-\u9fa5a-zA-Z0-9_]+$/.test(name)) {
+      Toast.show({
+        msg: t('error.NAME_FORMAT_ERROR'),
+        type: 'error',
+      })
+      setName('')
+      return
+    }
+
     if (name !== userInfo.name) {
       try {
         await modifyUserNameAPI(name)
@@ -199,12 +216,12 @@ export default function SettingPage() {
                 <textarea
                   ref={signatureInputRef}
                   className={styles.textarea}
-                  placeholder={userInfo.signature}
+                  placeholder={userInfo.signature || ''}
                   minLength={1}
                   maxLength={USER_SIGNATURE_MAX_LENGTH}
                   value={signature}
                   onChange={(e) => setSignature(e.target.value)}
-                  onFocus={() => setSignature(userInfo.signature)}
+                  onFocus={() => setSignature(userInfo.signature || '')}
                   onBlur={modifyUserSignature}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {

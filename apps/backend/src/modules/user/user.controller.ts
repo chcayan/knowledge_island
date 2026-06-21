@@ -11,8 +11,18 @@ import {
   UseInterceptors,
 } from '@nestjs/common'
 import { UserService } from './user.service'
-import type { LoginDto, RegisterDto } from '@knowledge_island/schemas'
-import { LoginSchema, RegisterSchema } from '@knowledge_island/schemas'
+import type {
+  LoginDto,
+  RegisterDto,
+  UpdateUserNameDto,
+  UpdateUserSignatureDto,
+} from '@knowledge_island/schemas'
+import {
+  LoginSchema,
+  RegisterSchema,
+  UpdateUserNameSchema,
+  UpdateUserSignatureSchema,
+} from '@knowledge_island/schemas'
 import { ZodValidationPipe } from '../../common/pipe/zod.pipe'
 import { AuthService } from '../auth/auth.service'
 import type { Response } from 'express'
@@ -95,17 +105,21 @@ export class UserController {
 
   @Post('name')
   @UseGuards(JwtGuard)
-  async modifyUserName(@Body('name') name: string, @User() userId: string) {
-    return this.userService.modifyUserName(name, userId)
+  async modifyUserName(
+    @Body(new ZodValidationPipe(UpdateUserNameSchema)) dto: UpdateUserNameDto,
+    @User() userId: string
+  ) {
+    return this.userService.modifyUserName(dto.name, userId)
   }
 
   @Post('signature')
   @UseGuards(JwtGuard)
   async modifyUserSignature(
-    @Body('signature') signature: string,
+    @Body(new ZodValidationPipe(UpdateUserSignatureSchema))
+    dto: UpdateUserSignatureDto,
     @User() userId: string
   ) {
-    return this.userService.modifyUserSignature(signature, userId)
+    return this.userService.modifyUserSignature(dto.signature, userId)
   }
 
   @Post('avatar')

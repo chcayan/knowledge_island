@@ -34,11 +34,12 @@ export const UserSchema = z.object({
   sex: z.enum(UserSex),
   signature: z
     .string()
-    .min(1, '简介至少 1 个字')
+    .min(0)
     .max(
       USER_SIGNATURE_MAX_LENGTH,
       `简介最多 ${USER_SIGNATURE_MAX_LENGTH} 个字`
-    ),
+    )
+    .nullable(),
   postBanUntil: z.date(),
   commentBanUntil: z.date(),
   loginBanUntil: z.date(),
@@ -67,11 +68,12 @@ export const UserPublicSchema = UserSchema.omit({
   updatedAt: true,
 })
 
-export const UpdateUserSchema = z.object({
-  name: UserSchema.shape.name.optional(),
-  avatar: UserSchema.shape.avatar.optional(),
-  sex: UserSchema.shape.sex.optional(),
-  signature: UserSchema.shape.signature.optional(),
+export const UpdateUserNameSchema = z.object({
+  name: UserSchema.shape.name,
+})
+
+export const UpdateUserSignatureSchema = z.object({
+  signature: UserSchema.shape.signature,
 })
 
 export type User = z.infer<typeof UserSchema>
@@ -79,4 +81,5 @@ export type UserPublic = z.infer<typeof UserPublicSchema>
 
 export type RegisterDto = z.infer<typeof RegisterSchema>
 export type LoginDto = z.infer<typeof LoginSchema>
-export type UpdateUserDto = z.infer<typeof UpdateUserSchema>
+export type UpdateUserNameDto = z.infer<typeof UpdateUserNameSchema>
+export type UpdateUserSignatureDto = z.infer<typeof UpdateUserSignatureSchema>

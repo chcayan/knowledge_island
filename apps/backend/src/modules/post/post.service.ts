@@ -12,6 +12,7 @@ import {
   CreateCommentReactionDto,
   CreatePostDto,
   PostFilter,
+  UserPostFilter,
 } from '@knowledge_island/schemas'
 import { ERROR_CODE, ERROR_MESSAGE } from '@knowledge_island/error'
 import Redis from 'ioredis'
@@ -260,6 +261,67 @@ export class PostService {
 
     qb.orderBy(
       filter === PostFilter.COLLECTION
+        ? 'collection.createdAt'
+        : 'post.createdAt',
+      'DESC'
+    )
+      .skip((page - 1) * pageSize)
+      .take(pageSize)
+
+    const [total, result] = await Promise.all([
+      qb.getCount(),
+      qb.getRawAndEntities(),
+    ])
+
+    const list = result.entities.map((post, index) => ({
+      ...post,
+      isCollected:
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        result.raw[index].isCollected === 1 ||
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        result.raw[index].isCollected === '1',
+    }))
+
+    return {
+      list,
+      total,
+    }
+  }
+
+  async getUserPostList(
+    page: number,
+    pageSize: number,
+    userId: string,
+    filter: UserPostFilter
+  ) {
+    const qb = this.postRepo
+      .createQueryBuilder('post')
+      .leftJoin('post.author', 'author')
+      .addSelect(['author.id', 'author.name', 'author.avatar'])
+      .leftJoinAndSelect('post.tags', 'tags')
+
+    if (filter === UserPostFilter.COLLECTION) {
+      qb.innerJoin(
+        Collection,
+        'collection',
+        'collection.postId = post.id AND collection.userId = :userId',
+        { userId }
+      ).addSelect('collection.createdAt', 'collection_created_at')
+    } else {
+      const statusMap = {
+        [PostFilter.PUBLISHED]: PostStatus.REVIEWING, // TODO: modify to PUBLISHED
+      }
+
+      qb.where('author.id = :userId', { userId }).andWhere(
+        'post.status = :status',
+        {
+          status: statusMap[filter],
+        }
+      )
+    }
+
+    qb.orderBy(
+      filter === UserPostFilter.COLLECTION
         ? 'collection.createdAt'
         : 'post.createdAt',
       'DESC'

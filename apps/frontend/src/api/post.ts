@@ -9,6 +9,7 @@ import {
   DraftInfo,
   PostFilter,
   PostInfo,
+  UserPostFilter,
   type CreatePostDto,
 } from '@knowledge_island/schemas'
 import { fetchData } from '@/utils'
@@ -56,12 +57,16 @@ export async function getPostListAPI(page: number, pageSize: number) {
 }
 
 export async function getPostAPI(id: string) {
-  const post: PostInfo = await fetchData(`/post/${id}`, {
-    options: {
-      cache: 'no-store',
-    },
-  })
-  return post
+  try {
+    const post: PostInfo = await fetchData(`/post/${id}`, {
+      options: {
+        cache: 'no-store',
+      },
+    })
+    return post
+  } catch {
+    return null
+  }
 }
 
 export async function getCommentsAPI(
@@ -99,6 +104,37 @@ export async function getMePostListAPI(
   filter: PostFilter
 ) {
   const data = await fetchData('/post/me', {
+    params: {
+      page,
+      pageSize,
+      filter,
+    },
+    options: {
+      cache: 'no-store',
+    },
+  })
+
+  const {
+    list,
+    total,
+  }: {
+    list: PostInfo[]
+    total: number
+  } = data
+
+  return {
+    list,
+    total,
+  }
+}
+
+export async function getUserPostListAPI(
+  userId: string,
+  page: number,
+  pageSize: number,
+  filter: UserPostFilter
+) {
+  const data = await fetchData(`/post/user/${userId}`, {
     params: {
       page,
       pageSize,

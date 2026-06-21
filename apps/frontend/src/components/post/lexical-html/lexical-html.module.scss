@@ -19,5 +19,11 @@ $gap: 10px;
       text-decoration-line: underline;
       color: rgb(33, 111, 219);
     }
+
+    b {
+      strong {
+        word-break: break-all;
+      }
+    }
   }
 }

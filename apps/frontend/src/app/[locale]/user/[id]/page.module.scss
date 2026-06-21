@@ -1,0 +1,114 @@
+$gap: 10px;
+$mobile-size: 375px;
+
+.user {
+  width: 100%;
+  position: relative;
+
+  .head {
+    position: sticky;
+    top: $gap * 2;
+    z-index: 1;
+    margin-bottom: $gap * 3;
+    box-shadow:
+      0 -20px 0 var(--theme-primary-color),
+      0 20px 0 var(--theme-primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $gap;
+
+    .head-left {
+      width: 300px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .user-control {
+      flex-shrink: 0;
+    }
+
+    @media (max-width: ($mobile-size * 2 - 22px)) {
+      .head-left {
+        width: 100%;
+      }
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      width: 100%;
+      position: absolute;
+      z-index: -1;
+      left: 0px;
+      height: 20px;
+      background-color: var(--theme-primary-color);
+    }
+
+    &::before {
+      top: 0;
+    }
+
+    &::after {
+      bottom: 0;
+    }
+  }
+
+  .main {
+    display: flex;
+
+    .user {
+      position: sticky;
+      top: 90px;
+      z-index: 1;
+      height: fit-content;
+    }
+
+    .aside {
+      width: 100%;
+      margin-left: $gap * 2;
+      max-width: 630px;
+
+      .toggle {
+        position: sticky;
+        top: 90px;
+        z-index: 1;
+        margin-bottom: $gap * 2;
+
+        &::before,
+        &::after {
+          content: '';
+          width: 100%;
+          position: absolute;
+          z-index: -1;
+          left: 0px;
+          height: 20px;
+          background-color: var(--theme-primary-color);
+        }
+
+        &::before {
+          top: -10px;
+        }
+
+        &::after {
+          bottom: -10px;
+        }
+      }
+    }
+
+    @media (max-width: ($mobile-size * 2 - 22px)) {
+      flex-direction: column;
+      gap: $gap;
+
+      .user {
+        position: initial;
+        z-index: initial;
+      }
+
+      .aside {
+        margin-top: $gap;
+        margin-left: 0;
+      }
+    }
+  }
+}

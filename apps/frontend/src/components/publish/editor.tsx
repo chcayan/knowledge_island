@@ -5,7 +5,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import { ContentEditable } from '@lexical/react/LexicalContentEditable'
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
 
-import { RichTextExtension } from '@lexical/rich-text'
+// import { RichTextExtension } from '@lexical/rich-text'
 import { HistoryExtension } from '@lexical/history'
 import { AutoFocusExtension, ClearEditorExtension } from '@lexical/extension'
 
@@ -55,6 +55,8 @@ import AutoUpdateLinkPlugin from '@/lexical/plugins/auto-update-link-plugin'
 import 'katex/dist/katex.min.css'
 import { useTranslations } from 'next-intl'
 import { POST_EDITOR_CONTENT } from '@/config/local-storage'
+import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
+import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary'
 
 const removeStylesExportDOM = (
   editor: LexicalEditor,
@@ -73,6 +75,7 @@ const removeStylesExportDOM = (
   return output
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const exportMap: DOMExportOutputMap = new Map<
   Klass<LexicalNode>,
   (editor: LexicalEditor, target: LexicalNode) => DOMExportOutput
@@ -98,6 +101,7 @@ const getExtraStyles = (element: HTMLElement): string => {
   return extraStyles
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const constructImportMap = (): DOMConversionMap => {
   const importMap: DOMConversionMap = {}
 
@@ -143,12 +147,12 @@ const constructImportMap = (): DOMConversionMap => {
 }
 
 const extension = defineExtension({
-  html: {
-    export: exportMap,
-    import: constructImportMap(),
-  },
+  // html: {
+  //   export: exportMap,
+  //   import: constructImportMap(),
+  // },
   dependencies: [
-    RichTextExtension,
+    // RichTextExtension,
     HistoryExtension,
     AutoFocusExtension,
     ClearEditorExtension,
@@ -229,16 +233,21 @@ export default forwardRef(function Editor(
       <div className={styles['editor-container']}>
         <ToolbarPlugin saveDraft={saveDraft} />
         <div className={styles['editor-inner']}>
-          <ContentEditable
-            tabIndex={0}
-            className={styles['editor-input']}
-            aria-placeholder={t('input.content')}
-            placeholder={
-              <div className={styles['editor-placeholder']}>
-                {t('input.content')}
-              </div>
+          <RichTextPlugin
+            contentEditable={
+              <ContentEditable
+                tabIndex={0}
+                className={styles['editor-input']}
+                aria-placeholder={t('input.content')}
+                placeholder={
+                  <div className={styles['editor-placeholder']}>
+                    {t('input.content')}
+                  </div>
+                }
+              />
             }
-          />
+            ErrorBoundary={LexicalErrorBoundary}
+          ></RichTextPlugin>
         </div>
         <AutoUpdateLinkPlugin />
         <ImagePlugin />
