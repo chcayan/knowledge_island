@@ -690,17 +690,22 @@ export class PostService {
   async getSearchResult(
     page: number,
     pageSize: number,
-    result: string,
+    keyword: string,
     type: SearchType
   ) {
     if (type === SearchType.TAG) {
-      const [list, total] = await this.tagRepo
+      const qb = this.tagRepo
         .createQueryBuilder('tag')
         .select(['tag.name'])
-        .where('tag.name like :result', { result: `%${result}%` })
+        .where('tag.name like :keyword', { keyword: `%${keyword}%` })
         .skip((page - 1) * pageSize)
         .take(pageSize)
-        .getManyAndCount()
+
+      const list = await qb
+        .loadRelationCountAndMap('tag.postCount', 'tag.posts')
+        .getMany()
+
+      const total = await qb.getCount()
 
       return {
         list,
@@ -719,8 +724,8 @@ export class PostService {
           'user.sex',
           'user.signature',
         ])
-        .where('user.name like :result', {
-          result: `%${result}%`,
+        .where('user.name like :keyword', {
+          keyword: `%${keyword}%`,
         })
         .skip((page - 1) * pageSize)
         .take(pageSize)
@@ -739,8 +744,8 @@ export class PostService {
         .where('post.status = :status', {
           status: PostStatus.REVIEWING, // TODO: PUBLISHED
         })
-        .andWhere('post.contentHtml like :result', {
-          result: `%${result}%`,
+        .andWhere('post.contentHtml like :keyword', {
+          keyword: `%${keyword}%`,
         })
         .orderBy('post.createdAt', 'DESC')
         .skip((page - 1) * pageSize)

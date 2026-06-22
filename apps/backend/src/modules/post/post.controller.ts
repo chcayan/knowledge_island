@@ -111,12 +111,12 @@ export class PostController {
 
   @Get('search')
   async getSearchResult(
-    @Query('result') result: string,
+    @Query('keyword') keyword: string,
     @Query('type', new ParseEnumPipe(SearchType)) type: SearchType,
     @Query('page', ParseIntPipe) page: number,
     @Query('pageSize', ParseIntPipe) pageSize: number
   ) {
-    return this.postService.getSearchResult(page, pageSize, result, type)
+    return this.postService.getSearchResult(page, pageSize, keyword, type)
   }
 
   @Get('comments/:id')

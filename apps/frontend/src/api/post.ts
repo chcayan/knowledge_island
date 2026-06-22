@@ -58,14 +58,14 @@ export async function getPostListAPI(page: number, pageSize: number) {
 }
 
 export async function getSearchResultAPI(
-  result: string,
+  keyword: string,
   type: SearchType,
   page: number,
   pageSize: number
 ) {
   const data = await fetchData('/post/search', {
     params: {
-      result,
+      keyword,
       type,
       page,
       pageSize,

@@ -12,22 +12,18 @@ export default async function UserControl() {
 
   return (
     <div className={styles['user-control']}>
-      <button
-        style={{
-          width: '32px',
-          height: '32px',
-        }}
-        tabIndex={0}
-        className="notification tab-focus"
+      <Link
+        className={`${styles.notification} tab-focus`}
+        href={RoutePath.notification}
       >
         <NotificationIcon />
-      </button>
+      </Link>
       {userInfo && userInfo.id ? (
         <Link href={RoutePath.my} className={`${styles.avatar} tab-focus`}>
           <img src={getImgUrl(userInfo.avatar)} alt={'user-avatar'} />
         </Link>
       ) : (
-        <Link href={RoutePath.login}>
+        <Link href={RoutePath.login} className="tab-focus">
           <div className={styles.login}>
             <LoginIcon />
           </div>

@@ -88,7 +88,7 @@ export default async function PostList({ searchParams, userId }: Props) {
           <p>
             {setTip()}
             {filter === UserPostFilter.PUBLISHED && (
-              <Link href={RoutePath.publish}>
+              <Link href={RoutePath.publish} className="tab-focus">
                 <span
                   style={{
                     fontSize: '16px',
@@ -103,7 +103,7 @@ export default async function PostList({ searchParams, userId }: Props) {
               </Link>
             )}
             {filter === UserPostFilter.COLLECTION && (
-              <Link href={'/'}>
+              <Link href={'/'} className="tab-focus">
                 <span
                   style={{
                     fontSize: '16px',

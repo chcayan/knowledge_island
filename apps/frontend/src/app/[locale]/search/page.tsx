@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import styles from './page.module.scss'
 import { redirect } from 'next/navigation'
 import { POST_PAGE_SIZE } from '@/config/post-field'
@@ -9,13 +10,45 @@ import BackButton from '@/components/common/back-button'
 import PostCard from '@/components/home/post-card/post-card'
 import Pagination from '@/components/common/pagination/pagination'
 import ToggleButton from '@/components/common/toggle-button-server/toggle-button-server'
+import EmptyPostIcon from '@/components/icon/empty-post-icon'
+import { getTranslations } from 'next-intl/server'
+import { getImgUrl } from '@/utils'
+import Link from 'next/link'
+import { RoutePath } from '@/config/path'
+import { locale } from '@/types/locale'
+import { Metadata } from 'next'
 
 interface Props {
   searchParams: Promise<{
-    result: string
+    keyword: string
     type?: SearchType
     page?: string
   }>
+}
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: Readonly<{
+  params: Promise<{
+    locale: locale
+  }>
+  searchParams: Promise<{
+    keyword: string
+  }>
+}>): Promise<Metadata> {
+  const { locale } = await params
+  const { keyword } = await searchParams
+  const t = await getTranslations({
+    locale,
+    namespace: 'Metadata.search',
+  })
+
+  return {
+    title: t('title', {
+      keyword,
+    }),
+  }
 }
 
 function checkFilterValid(type: SearchType | undefined) {
@@ -33,6 +66,7 @@ function checkFilterValid(type: SearchType | undefined) {
 }
 
 export default async function SearchPage({ searchParams }: Props) {
+  const t = await getTranslations('Search')
   const params = await searchParams
 
   const page = Number(params?.page ?? 1)
@@ -40,79 +74,11 @@ export default async function SearchPage({ searchParams }: Props) {
   const type = checkFilterValid(params.type) || SearchType.POST
 
   const { list, total } = await getSearchResultAPI(
-    params.result,
+    params.keyword,
     type,
     page,
     pageSize
   )
-
-  // if (total) {
-  //   const totalPages = Math.ceil(total / pageSize)
-
-  //   if (page > totalPages) {
-  //     redirect('/')
-  //   }
-
-  //   return (
-  //     <>
-  //       <div className={styles['post-list']}>
-  //         <ToggleButton
-  //           value={type}
-  //           options={[
-  //             {
-  //               label: 'post',
-  //               value: SearchType.POST,
-  //             },
-  //             {
-  //               label: 'tag',
-  //               value: SearchType.TAG,
-  //             },
-  //             {
-  //               label: 'user',
-  //               value: SearchType.USER,
-  //             },
-  //           ]}
-  //         />
-  //         {type === SearchType.POST &&
-  //           list.map((post: PostInfo) => (
-  //             <PostCard key={post.id} post={post} />
-  //           ))}
-  //       </div>
-  //       <Pagination currentPage={page} total={total} pageSize={pageSize} />
-  //     </>
-  //   )
-  // } else {
-  //   return (
-  //     <>没有结果</>
-  //     // <>
-  //     //   <div
-  //     //     style={{
-  //     //       display: 'flex',
-  //     //       flexDirection: 'column',
-  //     //       alignItems: 'center',
-  //     //     }}
-  //     //   >
-  //     //     <EmptyPostIcon />
-  //     //     <p>
-  //     //       {t('error.noPost')}
-  //     //       <Link href={RoutePath.publish}>
-  //     //         <span
-  //     //           style={{
-  //     //             fontSize: '16px',
-  //     //             cursor: 'pointer',
-  //     //             textDecorationLine: 'underline',
-  //     //             fontWeight: 'bold',
-  //     //             color: 'var(--theme-font-color)',
-  //     //           }}
-  //     //         >
-  //     //           {t('event.publish')}
-  //     //         </span>
-  //     //       </Link>
-  //     //     </p>
-  //     //   </div>
-  //     // </>
-  //   )
-  // }
 
   return (
     <div className={styles.search}>
@@ -132,15 +98,15 @@ export default async function SearchPage({ searchParams }: Props) {
               value={type}
               options={[
                 {
-                  label: 'post',
+                  label: t('tab.post'),
                   value: SearchType.POST,
                 },
                 {
-                  label: 'tag',
+                  label: t('tab.tag'),
                   value: SearchType.TAG,
                 },
                 {
-                  label: 'user',
+                  label: t('tab.user'),
                   value: SearchType.USER,
                 },
               ]}
@@ -154,13 +120,44 @@ export default async function SearchPage({ searchParams }: Props) {
               <PostCard key={`post-${post.id}`} post={post} />
             ))}
           {type === SearchType.TAG &&
-            list.map((tag: { name: string }) => (
-              <p key={`tag-${tag.name}`}>{tag.name}</p>
+            list.map((tag: { name: string; postCount: number }) => (
+              <div
+                tabIndex={0}
+                key={`tag-${tag.name}`}
+                className={`${styles.tag} tab-focus`}
+              >
+                <p># {tag.name}</p>
+                <p>{t('tip.tagCount', { count: tag.postCount })}</p>
+              </div>
             ))}
           {type === SearchType.USER &&
             list.map((user: UserPublic) => (
-              <p key={`user-${user.id}`}>{user.name}</p>
+              <Link
+                key={`user-${user.id}`}
+                className={`${styles.user} tab-focus`}
+                href={`${RoutePath.user}/${user.id}`}
+              >
+                <img src={getImgUrl(user.avatar)} alt="user-avatar" />
+                <div className={styles.info}>
+                  <p className={styles.name}>{user.name}</p>
+                  <div>
+                    <p>
+                      {t('tip.fan')} {user.fanCount}
+                    </p>
+                    <p>
+                      {t('tip.follow')} {user.followCount}
+                    </p>
+                  </div>
+                  <p className={styles.signature}>{user.signature}</p>
+                </div>
+              </Link>
             ))}
+          {total === 0 && (
+            <div className={styles.empty}>
+              <EmptyPostIcon />
+              <p>{t('tip.noResult')}</p>
+            </div>
+          )}
           <Pagination currentPage={page} total={total} pageSize={pageSize} />
         </div>
         <aside className={styles.aside}></aside>

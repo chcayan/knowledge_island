@@ -94,7 +94,7 @@ export default function Pagination({
         href={createPageURL(Math.max(currentPage - 1, 1))}
         className={`${styles.button} ${
           currentPage === 1 ? styles.disabled : ''
-        }`}
+        } tab-focus`}
       >
         ←
       </Link>
@@ -115,7 +115,7 @@ export default function Pagination({
             href={createPageURL(page)}
             className={`${styles.button} ${
               currentPage === page ? styles.active : ''
-            }`}
+            } tab-focus`}
           >
             {page}
           </Link>
@@ -127,7 +127,7 @@ export default function Pagination({
         href={createPageURL(Math.min(currentPage + 1, totalPages))}
         className={`${styles.button} ${
           currentPage === totalPages ? styles.disabled : ''
-        }`}
+        } tab-focus`}
       >
         →
       </Link>

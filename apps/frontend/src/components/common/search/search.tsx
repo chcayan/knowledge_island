@@ -21,7 +21,7 @@ export default function Search() {
       })
       return
     }
-    router.push(`${RoutePath.search}?result=${value}`)
+    router.push(`${RoutePath.search}?keyword=${value}`)
   }
 
   return (

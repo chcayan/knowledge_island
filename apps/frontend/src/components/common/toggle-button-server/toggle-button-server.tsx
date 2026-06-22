@@ -54,7 +54,8 @@ export default function ToggleButton<T extends string>({
               }
               className={clsx(
                 styles.item,
-                value === option.value && styles.active
+                value === option.value && styles.active,
+                'tab-focus'
               )}
             >
               {option.label}

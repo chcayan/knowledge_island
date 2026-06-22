@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:8080'
+export const BASE_URL = process.env.NEXT_PUBLIC_REQUEST_URL
 export const REQUEST_TIMEOUT = 10000
 
 export const BAD_REQUEST_CODE = '400001'

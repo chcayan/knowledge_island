@@ -33,6 +33,9 @@
     },
     "user": {
       "title": "{name}的个人空间"
+    },
+    "search": {
+      "title": "\"{keyword}\"的搜索结果"
     }
   },
   "RootLayout": {
@@ -239,6 +242,19 @@
       "collect": "去收藏",
       "emptyReviewingPost": "没有待审核的帖子",
       "emptyViolatedPost": "没有违规的帖子"
+    }
+  },
+  "Search": {
+    "tab": {
+      "post": "帖子",
+      "tag": "标签",
+      "user": "用户"
+    },
+    "tip": {
+      "noResult": "没有结果",
+      "tagCount": "{count} 条帖子",
+      "fan": "粉丝",
+      "follow": "关注"
     }
   },
   "RequestError": {

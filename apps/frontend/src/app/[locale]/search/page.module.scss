@@ -92,6 +92,63 @@ $mobile-size: 375px;
           bottom: -10px;
         }
       }
+
+      .empty {
+        height: calc(100vh - 250px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .tag {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 15px;
+        border-radius: 10px;
+        width: 100%;
+        height: 50px;
+        background: var(--theme-forth-color);
+        font-size: 15px;
+        margin-bottom: 20px;
+      }
+
+      .user {
+        display: flex;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        width: 100%;
+        background: var(--theme-forth-color);
+        font-size: 15px;
+        cursor: pointer;
+
+        .info {
+          div {
+            display: flex;
+            font-size: 14px;
+            margin-top: 5px;
+            gap: 10px;
+          }
+
+          .name {
+            font-weight: bold;
+          }
+
+          .signature {
+            font-size: 14px;
+            margin-top: 5px;
+          }
+        }
+
+        img {
+          width: 64px;
+          height: 64px;
+          flex-shrink: 0;
+          margin-right: 15px;
+        }
+      }
     }
 
     .aside {

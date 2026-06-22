@@ -79,6 +79,8 @@ export default async function UserPage(props: {
                     value: UserPostFilter.COLLECTION,
                   },
                 ]}
+                searchParamName={'filter'}
+                searchParams={searchParams}
               />
             </div>
 

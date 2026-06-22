@@ -33,6 +33,9 @@
     },
     "user": {
       "title": "{name}'s personal space"
+    },
+    "search": {
+      "title": "Search results for ' {keyword} '"
     }
   },
   "RootLayout": {
@@ -239,6 +242,19 @@
       "collect": "to collect",
       "emptyReviewingPost": "Empty reviewing posts.",
       "emptyViolatedPost": "Empty violated posts."
+    }
+  },
+  "Search": {
+    "tab": {
+      "post": "Post",
+      "tag": "Tag",
+      "user": "User"
+    },
+    "tip": {
+      "noResult": "No result.",
+      "tagCount": "{count} posts",
+      "fan": "fans",
+      "follow": "follows"
     }
   },
   "RequestError": {
