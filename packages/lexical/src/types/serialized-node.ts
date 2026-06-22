@@ -4,6 +4,7 @@ export type SerializedImageNode = {
   src: string
   altText: string
   width: number
+  aspectRatio: number
 }
 
 export type SerializedFormulaNode = {

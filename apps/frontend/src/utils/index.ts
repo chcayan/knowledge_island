@@ -1,6 +1,6 @@
 export * from './request'
 export * from './error'
-export * from './img-url'
+export * from './img'
 export * from './date'
 export * from './format'
 export * from './fetch'

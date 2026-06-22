@@ -36,7 +36,7 @@ import ToggleLink from '../icons/toggle-link'
 import { FormulaInputNode } from '../nodes/formula-input-node'
 import InsertLatex from '../icons/insert-latex'
 import { uploadImageAPI } from '@/api'
-import { CustomError } from '@/utils'
+import { CustomError, getImageDimensions } from '@/utils'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/utils/toast'
 import { BASE_URL } from '@/config/request'
@@ -69,13 +69,22 @@ export default function ToolbarPlugin({
 
   const handleImageUpload = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
-
     if (file) {
       try {
         const res = await uploadImageAPI(file)
+
+        let aspectRatio
+        const { width, height } = await getImageDimensions(file)
+        if (width > 0 && height > 0) {
+          aspectRatio = width / height
+        } else {
+          aspectRatio = 16 / 9
+        }
+
         editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
           src: BASE_URL + res.data.data.url,
           altText: file.name,
+          aspectRatio,
         })
       } catch (err) {
         if (err instanceof CustomError) {

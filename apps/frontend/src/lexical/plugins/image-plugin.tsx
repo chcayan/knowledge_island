@@ -12,6 +12,7 @@ import {
 } from 'lexical'
 import { uploadImageAPI } from '@/api'
 import { BASE_URL } from '@/config/request'
+import { getImageDimensions } from '@/utils'
 
 export default function ImagePlugin() {
   const [editor] = useLexicalComposerContext()
@@ -24,7 +25,12 @@ export default function ImagePlugin() {
     const removeInsertCommand = editor.registerCommand(
       INSERT_IMAGE_COMMAND,
       (payload) => {
-        const imageNode = $createImageNode(payload.src, payload.altText)
+        const imageNode = $createImageNode(
+          payload.src,
+          payload.altText,
+          50,
+          payload.aspectRatio
+        )
         $insertNodes([imageNode])
         return true
       },
@@ -48,9 +54,18 @@ export default function ImagePlugin() {
             if (file) {
               ;(async () => {
                 const res = await uploadImageAPI(file)
+
+                let aspectRatio
+                const { width, height } = await getImageDimensions(file)
+                if (width > 0 && height > 0) {
+                  aspectRatio = width / height
+                } else {
+                  aspectRatio = 16 / 9
+                }
                 editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
                   src: BASE_URL + res.data.data.url,
                   altText: 'Image',
+                  aspectRatio,
                 })
               })()
             }
@@ -83,9 +98,18 @@ export default function ImagePlugin() {
       for (const file of imageFiles) {
         const res = await uploadImageAPI(file)
 
+        let aspectRatio
+        const { width, height } = await getImageDimensions(file)
+        if (width > 0 && height > 0) {
+          aspectRatio = width / height
+        } else {
+          aspectRatio = 16 / 9
+        }
+
         editor.dispatchCommand(INSERT_IMAGE_COMMAND, {
           src: BASE_URL + res.data.data.url,
           altText: 'Image',
+          aspectRatio,
         })
       }
     }

@@ -9,6 +9,8 @@
     "precommit": "lint-staged",
     "prepare": "husky",
     "build:package": "pnpm -F utils build && pnpm -F schemas build && pnpm -F lexical build && pnpm -F error build",
+    "build:frontend": "pnpm -F frontend build",
+    "start": "pnpm -F frontend start",
     "dev": "pnpm -F frontend dev"
   },
   "keywords": [],

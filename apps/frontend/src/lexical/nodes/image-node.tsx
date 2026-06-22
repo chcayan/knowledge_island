@@ -7,20 +7,28 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
   __src: string
   __altText: string
   __width: number
+  __aspectRatio: number
 
   static getType() {
     return 'image'
   }
 
   static clone(node: ImageNode) {
-    return new ImageNode(node.__src, node.__altText, node.__width, node.__key)
+    return new ImageNode(
+      node.__src,
+      node.__altText,
+      node.__width,
+      node.__aspectRatio,
+      node.__key
+    )
   }
 
   static importJSON(serializedNode: SerializedImageNode) {
     return new ImageNode(
       serializedNode.src,
       serializedNode.altText,
-      serializedNode.width
+      serializedNode.width,
+      serializedNode.aspectRatio
     )
   }
 
@@ -28,12 +36,14 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
     src: string = '',
     altText: string = 'image',
     width: number = 50,
+    aspectRatio: number = 16 / 9,
     key?: string
   ) {
     super(key)
     this.__src = src
     this.__altText = altText
     this.__width = width
+    this.__aspectRatio = aspectRatio
   }
 
   exportJSON() {
@@ -43,6 +53,7 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
       src: this.__src,
       altText: this.__altText,
       width: this.__width,
+      aspectRatio: this.__aspectRatio,
     }
   }
 
@@ -82,9 +93,10 @@ export class ImageNode extends DecoratorNode<JSX.Element> {
 export function $createImageNode(
   src: string,
   altText: string,
-  width: number = 50
+  width: number = 50,
+  aspectRatio: number = 16 / 9
 ) {
-  return new ImageNode(src, altText, width)
+  return new ImageNode(src, altText, width, aspectRatio)
 }
 
 export function $isImageNode(node: LexicalNode) {

@@ -2,7 +2,7 @@ import Search from '@/components/common/search/search'
 import styles from './page.module.scss'
 import PostList from '@/components/home/post-list/post-list'
 import { Suspense } from 'react'
-import ScrollRestoration from '@/components/layout/scroll-restoration'
+// import ScrollRestoration from '@/components/layout/scroll-restoration'
 import { locale } from '@/types/locale'
 import { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
@@ -51,7 +51,7 @@ export default async function Home(props: {
         </header>
         <main className={styles.main}>
           <div className={styles.post}>
-            <ScrollRestoration />
+            {/* <ScrollRestoration /> */}
             <Suspense key={page} fallback={<CardListSkeleton />}>
               <PostList searchParams={props.searchParams} />
             </Suspense>

@@ -9,14 +9,15 @@ export default function BackButton({ path }: { path?: string }) {
     if (path) {
       router.push(path)
     } else {
-      if (
-        document.referrer &&
-        document.referrer.includes(window.location.origin) // TODO: ??(maybe exist trouble)
-      ) {
-        router.back()
-      } else {
-        router.replace('/')
-      }
+      router.back()
+      // if (
+      //   document.referrer &&
+      //   document.referrer.includes(window.location.origin) // TODO: ??(maybe exist trouble)
+      // ) {
+      //   router.back()
+      // } else {
+      //   router.replace('/')
+      // }
     }
   }
   return (

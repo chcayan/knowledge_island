@@ -5,7 +5,6 @@ import { ThemeProvider } from '@wrksz/themes/next'
 import '@/scss/index.scss'
 import styles from './layout.module.scss'
 import Nav from '@/components/layout/nav'
-import { locale } from '@/types/locale'
 import LogoIcon from '@/components/icon/logo-icon'
 import EmitterNotification from '@/components/common/emitter-notification'
 import ConfirmProvider from '@/components/common/confirm/confirm-provider'
@@ -17,7 +16,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
   params: Promise<{
-    locale: locale
+    locale: string
   }>
 }>) {
   const { locale } = await params

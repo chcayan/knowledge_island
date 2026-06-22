@@ -5,20 +5,28 @@ export class ImageNode extends DecoratorNode<unknown> {
   __src: string
   __altText: string
   __width: number
+  __aspectRatio: number
 
   static getType() {
     return 'image'
   }
 
   static clone(node: ImageNode) {
-    return new ImageNode(node.__src, node.__altText, node.__width, node.__key)
+    return new ImageNode(
+      node.__src,
+      node.__altText,
+      node.__width,
+      node.__aspectRatio,
+      node.__key
+    )
   }
 
   static importJSON(serializedNode: SerializedImageNode) {
     return new ImageNode(
       serializedNode.src,
       serializedNode.altText,
-      serializedNode.width
+      serializedNode.width,
+      serializedNode.aspectRatio
     )
   }
 
@@ -26,12 +34,14 @@ export class ImageNode extends DecoratorNode<unknown> {
     src: string = '',
     altText: string = 'image',
     width: number = 50,
+    aspectRatio: number = 16 / 9,
     key?: string
   ) {
     super(key)
     this.__src = src
     this.__altText = altText
     this.__width = width
+    this.__aspectRatio = aspectRatio
   }
 
   exportJSON() {
@@ -41,6 +51,7 @@ export class ImageNode extends DecoratorNode<unknown> {
       src: this.__src,
       altText: this.__altText,
       width: this.__width,
+      aspectRatio: this.__aspectRatio,
     }
   }
 
@@ -49,6 +60,7 @@ export class ImageNode extends DecoratorNode<unknown> {
     dom.setAttribute('data-image', this.__src)
     dom.setAttribute('data-alt', this.__altText)
     dom.setAttribute('data-width', String(this.__width))
+    dom.setAttribute('data-aspectRatio', String(this.__aspectRatio))
     return dom
   }
 

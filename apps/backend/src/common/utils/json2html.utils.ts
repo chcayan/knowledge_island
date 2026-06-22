@@ -88,8 +88,10 @@ export function json2html(json: JSON) {
       const src = el.getAttribute('data-image') || ''
       const alt = el.getAttribute('data-alt') || 'image'
       const width = el.getAttribute('data-width') || '50'
+      const aspectRatio =
+        el.getAttribute('data-aspectRatio') || (16 / 9).toString()
 
-      el.outerHTML = `<img src="${src}" alt="${alt}" style="max-width:${width}%;border-radius:4px;" />`
+      el.outerHTML = `<img src="${src}" alt="${alt}" style="max-width:${width}%;border-radius:4px;aspect-ratio: ${aspectRatio}" />`
     })
 
     return DOMPurify.sanitize(doc.body.innerHTML, {
