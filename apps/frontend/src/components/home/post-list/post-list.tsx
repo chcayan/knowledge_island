@@ -39,7 +39,12 @@ export default async function PostList({ searchParams }: Props) {
             <PostCard key={post.id} post={post} />
           ))}
         </div>
-        <Pagination currentPage={page} total={total} pageSize={pageSize} />
+        <Pagination
+          currentPage={page}
+          total={total}
+          pageSize={pageSize}
+          replace={false}
+        />
       </>
     )
   } else {

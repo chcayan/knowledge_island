@@ -158,7 +158,12 @@ export default async function SearchPage({ searchParams }: Props) {
               <p>{t('tip.noResult')}</p>
             </div>
           )}
-          <Pagination currentPage={page} total={total} pageSize={pageSize} />
+          <Pagination
+            currentPage={page}
+            total={total}
+            pageSize={pageSize}
+            replace={false}
+          />
         </div>
         <aside className={styles.aside}></aside>
       </main>
