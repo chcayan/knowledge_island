@@ -147,7 +147,8 @@
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 1.3084
               }
             ],
             "direction": null,
@@ -337,7 +338,8 @@
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 1.9011
               }
             ],
             "direction": null,
@@ -479,7 +481,8 @@
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 2.7552
               }
             ],
             "direction": null,
@@ -553,7 +556,8 @@
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 1.0288
               }
             ],
             "direction": null,
@@ -669,7 +673,8 @@
                 "type": "image",
                 "width": 50.4,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 0.751
               }
             ],
             "direction": null,
@@ -3916,7 +3921,8 @@
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 2.002
               }
             ],
             "direction": null,
@@ -4733,7 +4739,8 @@
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 2.0346
               }
             ],
             "direction": null,
@@ -4868,7 +4875,8 @@
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 2.9036
               }
             ],
             "direction": null,
@@ -4924,7 +4932,8 @@
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 1.5843
               }
             ],
             "direction": null,
@@ -5164,7 +5173,8 @@
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 1.5824
               }
             ],
             "direction": null,
@@ -5250,7 +5260,8 @@
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 1.4279
               }
             ],
             "direction": null,
@@ -5337,7 +5348,8 @@
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 1.5
               }
             ],
             "direction": null,
@@ -5918,7 +5930,8 @@
                 "type": "image",
                 "width": 79.80000000000001,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 11.909
               }
             ],
             "direction": null,
@@ -5956,7 +5969,8 @@
                 "type": "image",
                 "width": 79.8,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 6.6842
               }
             ],
             "direction": null,
@@ -5994,7 +6008,8 @@
                 "type": "image",
                 "width": 80,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 6.0943
               }
             ],
             "direction": null,
@@ -6032,7 +6047,8 @@
                 "type": "image",
                 "width": 79.8,
                 "altText": "Image",
-                "version": 1
+                "version": 1,
+                "aspectRatio": 7.6571
               }
             ],
             "direction": null,

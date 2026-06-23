@@ -53,6 +53,8 @@ export class SeedService implements OnApplicationBootstrap {
             name: u.name,
             email: u.email,
             password: await bcrypt.hash(u.password, 10),
+            avatar: u.avatar,
+            signature: u.signature,
             canReviewPost: u.canReviewPost,
             canManageUserPermission: u.canManageUserPermission,
           })
@@ -62,26 +64,6 @@ export class SeedService implements OnApplicationBootstrap {
     if (entities.length) {
       await this.userRepo.save(entities)
     }
-
-    // const exist = await this.userRepo.findOne({
-    //   where: {
-    //     email: EMAIL,
-    //   },
-    // })
-
-    // if (exist) return
-
-    // const password = await bcrypt.hash('admin123', 10)
-
-    // const user = this.userRepo.create({
-    //   password,
-    //   name: 'admin',
-    //   email: EMAIL,
-    //   canReviewPost: true,
-    //   canManageUserPermission: true,
-    // })
-
-    // await this.userRepo.save(user)
   }
 
   async initPostSeed() {
@@ -100,27 +82,49 @@ export class SeedService implements OnApplicationBootstrap {
 
     const existIds = new Set(exists.map((p) => p.id))
 
-    const postEntities = await Promise.all(
-      posts
-        .filter((p) => !existIds.has(p.id))
-        .map(async (p) => {
-          const allTags = await this.postService.createTags(p.tags)
+    const postEntities: Post[] = []
 
-          const html = json2html(p.content)
+    for (const p of posts.filter((p) => !existIds.has(p.id))) {
+      const allTags = await this.postService.createTags(p.tags)
 
-          return this.postRepo.create({
-            id: p.id,
-            content: p.content as unknown as string,
-            contentHtml: html,
-            type: p.type,
-            status: p.status,
-            author: {
-              id: p.author_id,
-            },
-            tags: allTags,
-          })
+      const html = json2html(p.content)
+
+      postEntities.push(
+        this.postRepo.create({
+          id: p.id,
+          content: p.content as unknown as string,
+          contentHtml: html,
+          type: p.type,
+          status: p.status,
+          author: {
+            id: p.author_id,
+          },
+          tags: allTags,
         })
-    )
+      )
+    }
+
+    // const postEntities = await Promise.all(
+    //   posts
+    //     .filter((p) => !existIds.has(p.id))
+    //     .map(async (p) => {
+    //       const allTags = await this.postService.createTags(p.tags)
+
+    //       const html = json2html(p.content)
+
+    //       return this.postRepo.create({
+    //         id: p.id,
+    //         content: p.content as unknown as string,
+    //         contentHtml: html,
+    //         type: p.type,
+    //         status: p.status,
+    //         author: {
+    //           id: p.author_id,
+    //         },
+    //         tags: allTags,
+    //       })
+    //     })
+    // )
 
     if (postEntities.length) {
       await this.postRepo.save(postEntities)

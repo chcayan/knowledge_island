@@ -6,6 +6,8 @@ export type UserInfo = Array<{
   name: string
   email: string
   password: string
+  avatar: string
+  signature: string
   canReviewPost: boolean
   canManageUserPermission: boolean
 }>

@@ -1,9 +1,11 @@
 [
   {
     "id": "348c54cb-6c61-11f1-a2ab-1c8341ca2bac",
-    "name": "admin",
-    "email": "admin@ki.com",
-    "password": "admin123",
+    "name": "chcaya",
+    "email": "chcaya@ki.com",
+    "password": "chcaya",
+    "signature": "门前大桥下游过一群鸭，快来快来数一数，二四六七八，嘎嘎嘎嘎真呀真多鸭，数不清到底多少鸭。",
+    "avatar": "/uploads/images/default/avatar.webp",
     "canReviewPost": true,
     "canManageUserPermission": true
   },
@@ -12,6 +14,8 @@
     "name": "reviewer",
     "email": "reviewer@ki.com",
     "password": "reviewer123",
+    "signature": "",
+    "avatar": "/uploads/images/default/avatar_1.jpg",
     "canReviewPost": false,
     "canManageUserPermission": false
   },
@@ -20,6 +24,8 @@
     "name": "user",
     "email": "user@ki.com",
     "password": "user123",
+    "signature": "",
+    "avatar": "/uploads/images/default/avatar_2.jpeg",
     "canReviewPost": false,
     "canManageUserPermission": false
   }
