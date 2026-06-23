@@ -244,6 +244,12 @@
       "emptyViolatedPost": "Empty violated posts."
     }
   },
+  "User": {
+    "tip": {
+      "emptyPublishedPost": "The user has not published any posts.",
+      "emptyCollectedPost": "The user has not collected any posts."
+    }
+  },
   "Search": {
     "tab": {
       "post": "Post",

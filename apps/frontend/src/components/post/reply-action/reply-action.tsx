@@ -8,6 +8,8 @@ import { useTranslations } from 'next-intl'
 import emitter from '@/utils/event-emitter'
 import { CommentReactionType } from '@knowledge_island/schemas'
 import { changeCommentReactionTypeAPI } from '@/api'
+import { useUserStore } from '@/stores'
+import { Toast } from '@/utils/toast'
 
 export default function ReplyAction({
   commentId,
@@ -35,6 +37,16 @@ export default function ReplyAction({
   const [count, setCount] = useState(likeCount)
 
   const setLike = async () => {
+    const userId = useUserStore.getState().userId
+    console.log(userId)
+    if (!userId) {
+      Toast.show({
+        msg: t('event.unLogin'),
+        type: 'error',
+      })
+      return
+    }
+
     await changeCommentReactionTypeAPI({
       type: CommentReactionType.LIKE,
       commentId,
@@ -52,6 +64,16 @@ export default function ReplyAction({
   }
 
   const setDislike = async () => {
+    const userId = useUserStore.getState().userId
+    console.log(userId)
+    if (!userId) {
+      Toast.show({
+        msg: t('event.unLogin'),
+        type: 'error',
+      })
+      return
+    }
+
     await changeCommentReactionTypeAPI({
       type: CommentReactionType.DISLIKE,
       commentId,

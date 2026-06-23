@@ -7,12 +7,16 @@ import LexicalHtml from '../lexical-html/lexical-html'
 import styles from './comment-item.module.scss'
 import ReplyAction from '../reply-action/reply-action'
 import CommentReplies from '../comment-replies/comment-replies'
+import { useRouter } from 'next/navigation'
+import { RoutePath } from '@/config/path'
 
 type CommentItemProps = {
   comment: CommentInfo
 }
 
 export default function CommentItem({ comment }: CommentItemProps) {
+  const router = useRouter()
+
   return (
     <div className={styles['comment-item']}>
       <div className={styles['comment-main']}>
@@ -20,11 +24,19 @@ export default function CommentItem({ comment }: CommentItemProps) {
           src={getImgUrl(comment.author.avatar)}
           className={styles['avatar']}
           alt={comment.author.name}
+          onClick={() => router.push(`${RoutePath.user}/${comment.author.id}`)}
         />
 
         <div className={styles['content']}>
           <div className={styles['header']}>
-            <span className={styles['nickname']}>{comment.author.name}</span>
+            <span
+              onClick={() =>
+                router.push(`${RoutePath.user}/${comment.author.id}`)
+              }
+              className={styles['nickname']}
+            >
+              {comment.author.name}
+            </span>
 
             <span className={styles['time']}>
               {formatDateByYear(comment.createdAt)}

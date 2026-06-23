@@ -4481,7 +4481,7 @@
                 "mode": "normal",
                 "text": "为正交矩阵，求a, b, c, d",
                 "type": "text",
-                "style": "background-color: rgb(250, 250, 250);color: rgb(45, 46, 47);",
+                "style": "",
                 "detail": 0,
                 "format": 0,
                 "version": 1
@@ -4520,7 +4520,7 @@
                 "mode": "normal",
                 "text": "你是否厌倦了Windows系统在工作或游戏时突然弹出的“正在更新”提示？虽然微软推送更新是为了安全，但在实际体验中，频繁的强制重启、更新后的驱动不兼容、甚至突如其来的“蓝屏死机”，让无数用户头疼不已。 更让人无奈的是，Windows系统默认",
                 "type": "text",
-                "style": "font-size: 16px;color: rgb(51, 51, 51);",
+                "style": "",
                 "detail": 0,
                 "format": 0,
                 "version": 1
@@ -4568,7 +4568,7 @@
                 "mode": "normal",
                 "text": "市面上很多“禁用服务”的老方法，往往过几天就会失效。今天，我们为您整理了几种有效方案，从基础设置到进阶技巧。利用系统官方机制，教你如何合法地将更新 “暂停”改成",
                 "type": "text",
-                "style": "font-size: 16px;color: rgb(51, 51, 51);",
+                "style": "",
                 "detail": 0,
                 "format": 0,
                 "version": 1
@@ -4616,7 +4616,7 @@
                 "mode": "normal",
                 "text": "第一步：打开注册表编辑器",
                 "type": "text",
-                "style": "font-size: 16px;color: rgb(51, 51, 51);",
+                "style": "",
                 "detail": 0,
                 "format": 1,
                 "version": 1

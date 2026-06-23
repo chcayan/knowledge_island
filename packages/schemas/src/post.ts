@@ -70,6 +70,7 @@ export const CreatePostSchema = z.object({
 export const PostInfoSchema = PostSchema.omit({
   content: true,
   status: true,
+  authorId: true,
 }).extend({
   status: z.enum(PostStatus),
   author: AuthorSchema.shape.author,

@@ -8,7 +8,6 @@ import { UserPostFilter } from '@knowledge_island/schemas'
 import PostCard from '@/components/home/post-card/post-card'
 import { RoutePath } from '@/config/path'
 import EmptyPostIcon from '@/components/icon/empty-post-icon'
-import Link from 'next/link'
 
 interface Props {
   searchParams?: Promise<{
@@ -33,7 +32,7 @@ function checkFilterValid(filter: UserPostFilter | undefined) {
 }
 
 export default async function PostList({ searchParams, userId }: Props) {
-  const t = await getTranslations('My')
+  const t = await getTranslations('User')
 
   const params = await searchParams
 
@@ -85,39 +84,7 @@ export default async function PostList({ searchParams, userId }: Props) {
           }}
         >
           <EmptyPostIcon />
-          <p>
-            {setTip()}
-            {filter === UserPostFilter.PUBLISHED && (
-              <Link href={RoutePath.publish} className="tab-focus">
-                <span
-                  style={{
-                    fontSize: '16px',
-                    cursor: 'pointer',
-                    textDecorationLine: 'underline',
-                    fontWeight: 'bold',
-                    color: 'var(--theme-font-color)',
-                  }}
-                >
-                  {t('tip.publish')}
-                </span>
-              </Link>
-            )}
-            {filter === UserPostFilter.COLLECTION && (
-              <Link href={'/'} className="tab-focus">
-                <span
-                  style={{
-                    fontSize: '16px',
-                    cursor: 'pointer',
-                    textDecorationLine: 'underline',
-                    fontWeight: 'bold',
-                    color: 'var(--theme-font-color)',
-                  }}
-                >
-                  {t('tip.collect')}
-                </span>
-              </Link>
-            )}
-          </p>
+          <p>{setTip()}</p>
         </div>
       </>
     )

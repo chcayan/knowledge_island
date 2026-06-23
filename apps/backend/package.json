@@ -18,6 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
+    "create:db": "tsx scripts/create-db.ts",
     "migration:generate:dev": "cross-env NODE_ENV=development typeorm-ts-node-commonjs migration:generate src/migrations/init -d src/data-source.ts",
     "migration:run:dev": "cross-env NODE_ENV=development typeorm-ts-node-commonjs migration:run -d src/data-source.ts",
     "migration:revert:dev": "cross-env NODE_ENV=development typeorm-ts-node-commonjs migration:revert -d src/data-source.ts",

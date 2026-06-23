@@ -8,10 +8,13 @@
     "commit": "git-cz",
     "precommit": "lint-staged",
     "prepare": "husky",
-    "build:package": "pnpm -F utils build && pnpm -F schemas build && pnpm -F lexical build && pnpm -F error build",
+    "build:packages": "pnpm -F utils build && pnpm -F schemas build && pnpm -F lexical build && pnpm -F error build",
     "build:frontend": "pnpm -F frontend build",
-    "start": "pnpm -F frontend start",
-    "dev": "pnpm -F frontend dev"
+    "dev:frontend": "pnpm -F frontend dev",
+    "create:db": "pnpm -F backend create:db && pnpm -F backend migration:generate:dev && pnpm -F backend migration:run:dev",
+    "update:db": "pnpm -F backend migration:generate:dev && pnpm -F backend migration:run:dev",
+    "start:frontend": "pnpm -F frontend start",
+    "start:backend": "pnpm -F backend start:dev"
   },
   "keywords": [],
   "author": "",
@@ -63,6 +66,7 @@
     "lint-staged": "^16.4.0",
     "prettier": "^3.8.3",
     "tsup": "^8.5.1",
+    "tsx": "^4.22.4",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.58.2"
   }

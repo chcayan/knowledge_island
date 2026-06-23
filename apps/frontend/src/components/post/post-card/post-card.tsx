@@ -14,15 +14,18 @@ import { toggleCollectionAPI } from '@/api'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/utils/toast'
 import { useUserStore } from '@/stores'
+import { useRouter } from 'next/navigation'
+import { RoutePath } from '@/config/path'
 
 export default function PostCard({ post }: { post: PostInfo }) {
   const [isCollected, setIsCollected] = useState(post.isCollected)
 
+  const router = useRouter()
   const t = useTranslations('Post')
 
-  const userId = useUserStore.getState().userId
-
   const toggleCollection = async () => {
+    const userId = useUserStore.getState().userId
+    console.log(userId)
     if (!userId) {
       Toast.show({
         msg: t('event.unLogin'),
@@ -50,9 +53,19 @@ export default function PostCard({ post }: { post: PostInfo }) {
   return (
     <div tabIndex={0} className={`${styles.post} tab-focus`}>
       <header>
-        <img src={getImgUrl(post.author.avatar)} alt="avatar" />
+        <img
+          onClick={() => router.push(`${RoutePath.user}/${post.author.id}`)}
+          src={getImgUrl(post.author.avatar)}
+          alt="avatar"
+          style={{ cursor: 'pointer' }}
+        />
         <div className={styles.info}>
-          <p>{post.author.name}</p>
+          <p
+            onClick={() => router.push(`${RoutePath.user}/${post.author.id}`)}
+            style={{ cursor: 'pointer' }}
+          >
+            {post.author.name}
+          </p>
           <p>{formatDateByYear(post.createdAt)}</p>
         </div>
       </header>

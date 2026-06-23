@@ -32,6 +32,7 @@ export const useUserStore = create<UserState>((set, get) => ({
 
   remove() {
     set({
+      userId: '',
       userInfo: emptyUserInfo,
     })
     localStorage.removeItem(USER_ID)

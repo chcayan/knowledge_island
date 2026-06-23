@@ -244,6 +244,12 @@
       "emptyViolatedPost": "没有违规的帖子"
     }
   },
+  "User": {
+    "tip": {
+      "emptyPublishedPost": "该用户没有发布帖子",
+      "emptyCollectedPost": "该用户没有收藏帖子"
+    }
+  },
   "Search": {
     "tab": {
       "post": "帖子",
