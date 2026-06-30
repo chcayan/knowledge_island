@@ -20,6 +20,15 @@ const nextConfig: NextConfig = {
 
     return config
   },
+
+  async rewrites() {
+    return [
+      {
+        source: '/uploads/:path*',
+        destination: 'http://localhost:8080/uploads/:path*',
+      },
+    ]
+  },
 }
 
 const withNextIntl = createNextIntlPlugin()

@@ -14,7 +14,9 @@
     "create:db": "pnpm -F backend create:db && pnpm -F backend migration:generate:dev && pnpm -F backend migration:run:dev",
     "update:db": "pnpm -F backend migration:generate:dev && pnpm -F backend migration:run:dev",
     "start:frontend": "pnpm -F frontend start",
-    "start:backend": "pnpm -F backend start:dev"
+    "start:backend": "pnpm -F backend start:dev",
+    "upload:backend": "pnpm -F backend build && bash ./scripts/upload-backend.sh",
+    "upload:frontend": "pnpm build:frontend && bash ./scripts/upload-frontend.sh"
   },
   "keywords": [],
   "author": "",
@@ -45,6 +47,7 @@
     "@lexical/selection": "^0.45.0",
     "@lexical/utils": "^0.45.0",
     "isomorphic-dompurify": "^3.12.0",
+    "jsdom": "^29.1.1",
     "katex": "^0.16.45",
     "lexical": "^0.45.0",
     "zod": "^4.3.6"
@@ -53,6 +56,7 @@
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
     "@eslint/js": "^9.39.4",
+    "@types/jsdom": "^28.0.3",
     "@types/node": "^25.6.0",
     "commitizen": "^4.3.1",
     "cz-git": "^1.12.0",

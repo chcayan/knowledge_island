@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { PostInfo } from '@knowledge_island/schemas'
 import styles from './post-card.module.scss'
-import { formatCount, formatDateByYear, getImgUrl } from '@/utils'
+import { formatCount, formatDateByYear } from '@/utils'
 import ViewCountIcon from '../../icon/view-count-icon'
 import CommentCountIcon from '../../icon/comment-count-icon'
 import CollectionCountIcon from '../../icon/collection-count-icon'
@@ -55,7 +55,7 @@ export default function PostCard({ post }: { post: PostInfo }) {
       <header>
         <img
           onClick={() => router.push(`${RoutePath.user}/${post.author.id}`)}
-          src={getImgUrl(post.author.avatar)}
+          src={post.author.avatar}
           alt="avatar"
           style={{ cursor: 'pointer' }}
         />

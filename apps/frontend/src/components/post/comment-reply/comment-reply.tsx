@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { formatDateByYear, getImgUrl } from '@/utils'
+import { formatDateByYear } from '@/utils'
 import { CommentInfo } from '@knowledge_island/schemas'
 import LexicalHtml from '../lexical-html/lexical-html'
 import styles from './comment-reply.module.scss'
@@ -17,7 +17,7 @@ export default function CommentReply({ comment, parentId }: ReplyItemProps) {
   return (
     <div className={styles['comment-reply']}>
       <img
-        src={getImgUrl(comment.author.avatar)}
+        src={comment.author.avatar}
         className={styles['avatar']}
         alt={comment.author.name}
       />

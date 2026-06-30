@@ -12,7 +12,6 @@ import Pagination from '@/components/common/pagination/pagination'
 import ToggleButton from '@/components/common/toggle-button-server/toggle-button-server'
 import EmptyPostIcon from '@/components/icon/empty-post-icon'
 import { getTranslations } from 'next-intl/server'
-import { getImgUrl } from '@/utils'
 import Link from 'next/link'
 import { RoutePath } from '@/config/path'
 import { locale } from '@/types/locale'
@@ -137,7 +136,7 @@ export default async function SearchPage({ searchParams }: Props) {
                 className={`${styles.user} tab-focus`}
                 href={`${RoutePath.user}/${user.id}`}
               >
-                <img src={getImgUrl(user.avatar)} alt="user-avatar" />
+                <img src={user.avatar} alt="user-avatar" />
                 <div className={styles.info}>
                   <p className={styles.name}>{user.name}</p>
                   <div>

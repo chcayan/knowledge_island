@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import NotificationIcon from '@/components/icon/notification-icon'
 import styles from './user-control.module.scss'
-import { getImgUrl } from '@/utils'
 import LoginIcon from '@/components/icon/login-icon'
 import { getMeInfoAPI } from '@/api'
 import Link from 'next/link'
@@ -20,7 +19,7 @@ export default async function UserControl() {
       </Link>
       {userInfo && userInfo.id ? (
         <Link href={RoutePath.my} className={`${styles.avatar} tab-focus`}>
-          <img src={getImgUrl(userInfo.avatar)} alt={'user-avatar'} />
+          <img src={userInfo.avatar} alt={'user-avatar'} />
         </Link>
       ) : (
         <Link href={RoutePath.login} className="tab-focus">

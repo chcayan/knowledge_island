@@ -151,6 +151,11 @@ export class PostController {
     return this.postService.getMePostList(page, pageSize, userId, filter)
   }
 
+  @Get('all')
+  async getAllPosts() {
+    return this.postService.getAllPosts()
+  }
+
   @Get(':id')
   @UseGuards(OptionalJwtGuard)
   async getPost(@Param('id') id: string, @OptionalUser() userId: string) {

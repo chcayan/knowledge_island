@@ -12,22 +12,36 @@ import CommentListSkeleton from '@/components/post/comment-skeleton/comment-list
 import { COMMENTS_ANCHOR } from '@/config/path'
 import { Metadata } from 'next'
 import { locale } from '@/types/locale'
+import { getPostAPI } from '@/api'
+import { getFirstText, htmlToDescription } from '@/utils'
 
 export async function generateMetadata({
   params,
 }: Readonly<{
   params: Promise<{
     locale: locale
+    id: string
   }>
 }>): Promise<Metadata> {
-  const { locale } = await params
+  const { locale, id } = await params
   const t = await getTranslations({
     locale,
     namespace: 'Metadata.post',
   })
 
+  const post = await getPostAPI(id).catch(() => {})
+
+  const title = (post && getFirstText(post.contentHtml)) || ''
+
+  const description =
+    (post && htmlToDescription(post.contentHtml)) || 'this is a post'
+
+  const keywords = (post && post.tags.map((tag) => tag.name)) || []
+
   return {
-    title: t('title'),
+    title: title || t('title'),
+    description,
+    keywords,
   }
 }
 

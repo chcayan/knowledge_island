@@ -21,7 +21,7 @@ import {
   USER_NAME_MAX_LENGTH,
   USER_SIGNATURE_MAX_LENGTH,
 } from '@knowledge_island/schemas'
-import { CustomError, getImgUrl } from '@/utils'
+import { CustomError } from '@/utils'
 import { ChangeEvent, useRef, useState } from 'react'
 import { GIF_SIZE_LIMIT } from '@/config/post-field'
 
@@ -73,7 +73,7 @@ export default function SettingPage() {
         const init = useUserStore.getState().init
         await init()
         if (imageRef.current) {
-          imageRef.current.src = getImgUrl(url)
+          imageRef.current.src = url
         }
         Toast.show({
           msg: t('event.modifySuccess'),
@@ -239,7 +239,7 @@ export default function SettingPage() {
                   tabIndex={0}
                   className="tab-focus"
                   ref={imageRef}
-                  src={getImgUrl(userInfo.avatar)}
+                  src={userInfo.avatar}
                   alt="user-avatar-modify"
                   onClick={() => fileInputRef.current?.click()}
                   onKeyDown={(e) => {

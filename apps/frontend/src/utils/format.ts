@@ -13,3 +13,26 @@ export function formatCount(num: number): string {
 function removeTrailingZero(num: number): string {
   return Number(num.toFixed(1)).toString()
 }
+
+export function htmlToDescription(html: string) {
+  return html
+    .replace(/<[^>]+>/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 150)
+}
+
+export function getFirstText(html: string): string {
+  const matches = html.match(/<p\b[^>]*>([\s\S]*?)<\/p>/gi) ?? []
+
+  for (const p of matches) {
+    const text = p
+      .replace(/<[^>]+>/g, '')
+      .replace(/&nbsp;/g, ' ')
+      .trim()
+
+    if (text) return text
+  }
+
+  return ''
+}

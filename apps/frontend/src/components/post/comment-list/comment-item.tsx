@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { CommentInfo } from '@knowledge_island/schemas'
-import { formatDateByYear, getImgUrl } from '@/utils'
+import { formatDateByYear } from '@/utils'
 import LexicalHtml from '../lexical-html/lexical-html'
 import styles from './comment-item.module.scss'
 import ReplyAction from '../reply-action/reply-action'
@@ -21,7 +21,7 @@ export default function CommentItem({ comment }: CommentItemProps) {
     <div className={styles['comment-item']}>
       <div className={styles['comment-main']}>
         <img
-          src={getImgUrl(comment.author.avatar)}
+          src={comment.author.avatar}
           className={styles['avatar']}
           alt={comment.author.name}
           onClick={() => router.push(`${RoutePath.user}/${comment.author.id}`)}

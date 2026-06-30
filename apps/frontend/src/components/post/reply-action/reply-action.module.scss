@@ -22,6 +22,13 @@
     cursor: pointer;
     font-size: 12px;
 
+    span {
+      &:hover {
+        opacity: initial;
+        text-decoration: initial;
+      }
+    }
+
     &:hover {
       opacity: 0.8;
       text-decoration: underline;

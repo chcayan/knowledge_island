@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { getMeInfoAPI, getUserInfoServerAPI } from '@/api'
 import styles from './user-card.module.scss'
-import { getImgUrl } from '@/utils'
 import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 
@@ -23,7 +22,7 @@ export default async function UserCard({ userId }: { userId?: string }) {
       <div className={styles['user-card']}>
         {userInfo.avatar && (
           <img
-            src={getImgUrl(userInfo.avatar)}
+            src={userInfo.avatar}
             alt={'user-avatar'}
             className={styles.avatar}
           />

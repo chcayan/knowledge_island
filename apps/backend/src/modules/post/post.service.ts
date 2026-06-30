@@ -758,4 +758,19 @@ export class PostService {
       }
     }
   }
+
+  async getAllPosts() {
+    const posts = await this.postRepo
+      .createQueryBuilder('post')
+      .select(['post.id', 'post.updatedAt'])
+      .where('post.status = :status', {
+        status: PostStatus.REVIEWING, // TODO: PUBLISHED
+      })
+      .orderBy('post.createdAt', 'DESC')
+      .getMany()
+
+    return {
+      list: posts,
+    }
+  }
 }

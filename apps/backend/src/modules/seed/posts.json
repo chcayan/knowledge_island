@@ -143,7 +143,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/fdca57b779b9c27aeb79c98b236ddb49.png",
+                "src": "/uploads/images/default/posts/fdca57b779b9c27aeb79c98b236ddb49.png",
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
@@ -334,7 +334,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/3bec3c6b7c6c1632732f7bc3ee2be751.png",
+                "src": "/uploads/images/default/posts/3bec3c6b7c6c1632732f7bc3ee2be751.png",
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
@@ -477,7 +477,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/bab6c52269412ae463e928435717afc2.png",
+                "src": "/uploads/images/default/posts/bab6c52269412ae463e928435717afc2.png",
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
@@ -552,7 +552,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/83e18921104056757f2f32d8078718d5.png",
+                "src": "/uploads/images/default/posts/83e18921104056757f2f32d8078718d5.png",
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
@@ -669,7 +669,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/907e9d369c5a8793d287ef65fb3bf25e.webp",
+                "src": "/uploads/images/default/posts/907e9d369c5a8793d287ef65fb3bf25e.webp",
                 "type": "image",
                 "width": 50.4,
                 "altText": "Image",
@@ -3917,7 +3917,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/101d21b055b6c97988dedbf991ecd4a0.png",
+                "src": "/uploads/images/default/posts/101d21b055b6c97988dedbf991ecd4a0.png",
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
@@ -4735,7 +4735,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/a230e55680a6565bffd2aef3380fd298.webp",
+                "src": "/uploads/images/default/posts/a230e55680a6565bffd2aef3380fd298.webp",
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
@@ -4871,7 +4871,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/ddeb3ecd6c1c8ee950a626c13a5eaba9.png",
+                "src": "/uploads/images/default/posts/ddeb3ecd6c1c8ee950a626c13a5eaba9.png",
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
@@ -4928,7 +4928,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/f627d89493acc9fde7b9bffbd56f3466.webp",
+                "src": "/uploads/images/default/posts/f627d89493acc9fde7b9bffbd56f3466.webp",
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
@@ -5169,7 +5169,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/a9809dbb54992b7544920176dc7a9621.webp",
+                "src": "/uploads/images/default/posts/a9809dbb54992b7544920176dc7a9621.webp",
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
@@ -5256,7 +5256,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/f20c61d4b0b783ad3500df999d3fb697.webp",
+                "src": "/uploads/images/default/posts/f20c61d4b0b783ad3500df999d3fb697.webp",
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
@@ -5344,7 +5344,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/cd04d6ce490ebc3d96e71e0f4e5237bf.webp",
+                "src": "/uploads/images/default/posts/cd04d6ce490ebc3d96e71e0f4e5237bf.webp",
                 "type": "image",
                 "width": 100,
                 "altText": "Image",
@@ -5926,7 +5926,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/1e119bb9a354f5acc63a16dd3e3c4a4f.png",
+                "src": "/uploads/images/default/posts/1e119bb9a354f5acc63a16dd3e3c4a4f.png",
                 "type": "image",
                 "width": 79.80000000000001,
                 "altText": "Image",
@@ -5965,7 +5965,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/ad475ea49e30727caf713d5d42cf36e9.png",
+                "src": "/uploads/images/default/posts/ad475ea49e30727caf713d5d42cf36e9.png",
                 "type": "image",
                 "width": 79.8,
                 "altText": "Image",
@@ -6004,7 +6004,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/eb083f7229cd0c1cb400747bd31e184e.png",
+                "src": "/uploads/images/default/posts/eb083f7229cd0c1cb400747bd31e184e.png",
                 "type": "image",
                 "width": 80,
                 "altText": "Image",
@@ -6043,7 +6043,7 @@
             "version": 1,
             "children": [
               {
-                "src": "http://localhost:8080/uploads/images/default/posts/88063290a249035f536f7562d5368bbf.png",
+                "src": "/uploads/images/default/posts/88063290a249035f536f7562d5368bbf.png",
                 "type": "image",
                 "width": 79.8,
                 "altText": "Image",

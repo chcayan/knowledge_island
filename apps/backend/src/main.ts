@@ -33,6 +33,9 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   })
+
+  app.setGlobalPrefix('api')
+
   await app.listen(process.env.PORT ?? 8080)
 
   Logger.log('当前环境：' + process.env.NODE_ENV)

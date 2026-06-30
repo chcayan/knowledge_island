@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { PostInfo } from '@knowledge_island/schemas'
 import styles from './post-card.module.scss'
-import { formatCount, formatDateByYear, getImgUrl } from '@/utils'
+import { formatCount, formatDateByYear } from '@/utils'
 import ViewCountIcon from '../../icon/view-count-icon'
 import CommentCountIcon from '../../icon/comment-count-icon'
 import { useEffect, useRef, useState } from 'react'
@@ -47,7 +47,7 @@ export default function PostCard({ post }: { post: PostInfo }) {
       <header onClick={navigateToPostPage}>
         <img
           onClick={navigateToUserPage}
-          src={getImgUrl(post.author.avatar)}
+          src={post.author.avatar}
           alt="avatar"
           style={{ cursor: 'pointer' }}
         />
